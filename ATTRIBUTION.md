@@ -1,6 +1,6 @@
 # Attribution
 
-本项目为非商用开源练习工具。
+本项目为非商用开源练习工具
 
 ## Dota 2 素材
 
@@ -10,4 +10,4 @@
   - 页面：https://dota2.fandom.com/wiki/Invoker/Sounds
   - 音频清单：`assets/audio/invoker/manifest.json`
 
-Dota 2、Invoker、相关角色和素材的版权归 Valve 所有。
+Dota 2、Invoker、相关角色和素材的版权归 Valve 所有

@@ -1,127 +1,115 @@
 # Invoker Emulator
 
-An offline desktop practice tool for **Invoker / Carl** in Dota 2. The project is designed for players who want to practice orb management, invoke sequences, spell combinations, combo execution, and keyboard/mouse muscle memory without joining a match.
+[English](README_us.md)
 
-This is not a 3D game. It is a focused training tool that emulates the core Invoker mechanics.
+一个用于练习 Dota 2 中 **Invoker / Carl** 的离线桌面训练工具
 
-## Features
+本项目面向希望在不进入实际对局的情况下，练习球元素管理、技能 Invoke 顺序、技能组合、连招执行以及键盘和鼠标肌肉记忆的玩家
 
-- Three orb system with Dota 2 queue behavior
-- Invoke and dual spell slots (D/F)
-- All 10 invoked spells
-- Global optimal combo planner with orb inheritance
-- Preload combo mode: keep two invoked spells and release them in order
-- Standard QWER/DF and legacy Dota 1 keybindings
-- Quickcast and normal mouse confirm cast modes
-- Four-item bar: Refresher Orb, Scythe of Vyse, Meteor Hammer, Boots of Travel
-- Customizable item hotkeys
-- Infinite mana toggle
-- Mute toggle
-- Built-in combo library
-- User-defined combo builder with automatically generated optimal key sequence
-- Hero level, orb level, and dummy HP/MP settings
-- Official Dota 2 data-driven spell values
-- Bilingual UI: Chinese (default) and English
-- Persistent configuration storage
+## 功能特性
 
-## Tech Stack
+- 三球元素系统，模拟 Dota 2 的球元素队列行为
+- Invoke 机制与双技能槽位（D/F）
+- 支持全部 10 个 Invoke 技能
+- 支持考虑元素球继承状态的全局最优连招规划
+- 连招预载模式：预先准备两个 Invoke 技能，并按照指定顺序释放
+- 支持标准 QWER/DF 键位以及传统 Dota 1 键位
+- 支持 Quickcast 快速施法和普通鼠标确认施法模式
+- 四个物品栏位：
+  - Refresher Orb
+  - Scythe of Vyse
+  - Meteor Hammer
+  - Boots of Travel
+- 支持自定义物品快捷键
+- 无限魔法值开关
+- 静音开关
+- 内置连招库
+- 支持用户自定义连招，并自动生成对应的最优按键序列
+- 支持设置英雄等级、元素球等级以及训练假人的生命值/魔法值
+- 技能数值基于官方 Dota 2 数据
+- 双语 UI：中文（默认）和英文
+- 配置持久化保存
 
-| Layer | Technology |
-|---|---|
-| Desktop shell | Tauri 2 + Rust |
-| Frontend | React + TypeScript + Vite |
-| Core engine | Pure TypeScript state machine |
-| UI framework | React |
-| State | React hooks |
-| Testing | Vitest |
-| Audio | HTML Audio API with Dota 2 game assets |
-| Packaging | Single Windows executable |
+## 技术栈
 
-## Requirements
+| 层级         | 技术方案                         |
+| ------------ | -------------------------------- |
+| 桌面应用框架 | Tauri 2 + Rust                   |
+| 前端         | React + TypeScript + Vite        |
+| 核心引擎     | 纯 TypeScript 状态机             |
+| UI 框架      | React                            |
+| 状态管理     | React Hooks                      |
+| 测试         | Vitest                           |
+| 音频         | HTML Audio API + Dota 2 游戏资源 |
+| 打包方式     | 单个 Windows 可执行文件          |
+
+## 环境要求
 
 - Node.js 18+
 - npm
-- Rust toolchain (only for building from source)
-- Windows 10/11 (WebView2 Runtime is normally preinstalled)
+- Rust toolchain（仅在从源码构建时需要）
+- Windows 10/11（通常已预装 WebView2 Runtime）
 
-## Development
+## 开发
+
+安装依赖并启动开发环境：
 
 ```bash
 npm install
 npm run tauri -- dev
 ```
 
-Run tests:
+运行测试：
 
 ```bash
 npm test
 ```
 
-## Build
+## 构建
+
+执行以下命令：
 
 ```bash
 npm run tauri -- build --no-bundle
 ```
 
-The executable is generated at:
+生成的可执行文件位于：
 
 ```text
 src-tauri/target/release/invoker-emulator.exe
 ```
 
-All frontend assets, images, and audio files are embedded into the executable. No additional installation is required.
+所有前端资源、图片和音频文件都会被嵌入到可执行文件中，无需额外安装或部署其他资源
 
-### Portable executable
-
-For a portable single-file build:
-
-```bash
-npm run tauri -- build --no-bundle
-```
-
-Copy the executable from `src-tauri/target/release/` and distribute it directly.
-
-## Release Checklist
-
-1. Run `npm test`
-2. Run `npm run build`
-3. Run `npm run tauri -- build --no-bundle`
-4. Verify the executable starts without errors
-5. Test on clean Windows machines
-6. Upload the executable to GitHub Releases
-7. Optionally add a checksum file:
-   ```bash
-   sha256sum invoker-emulator.exe > invoker-emulator.exe.sha256
-   ```
-8. Write release notes describing new features and known limitations
-
-## Directory Structure
+## 目录结构
 
 ```text
 src/
-  engine/          Pure TypeScript Invoker logic
-  components/      React components
-  i18n.tsx         UI translations
-  App.tsx          Application root
-assets/            Images and audio files
-data/              Official Dota 2 datafeed JSON
-src-tauri/         Tauri/Rust desktop shell
-scripts/           Development scripts
-research/          Reference material used during development
+  engine/          纯 TypeScript 实现的 Invoker 核心逻辑
+  components/      React 组件
+  i18n.tsx         UI 国际化翻译
+  App.tsx          应用程序入口
+  assets/          图片和音频资源
+  data/            官方 Dota 2 数据源 JSON
+src-tauri/         Tauri / Rust 桌面应用层
+scripts/           开发脚本
+research/          开发过程中使用的参考资料
 ```
 
-> `docs/` exists locally for development notes but is intentionally not tracked in Git.
+## 资源许可
 
-## Asset Licensing
+所有与游戏相关的图片、音效和物品图标均来源于 Valve 所拥有的 Dota 2 游戏资源
 
-All game-related images, sound effects, and item icons are derived from Dota 2 assets owned by Valve. This project is a non-commercial open-source practice tool and declares its sources in:
+本项目是一个非商业性质的开源练习工具，相关资源来源声明位于：
 
 ```text
 ATTRIBUTION.md
 ```
 
-Do not redistribute the bundled assets for commercial purposes without reviewing Valve's content policies.
+在未查阅并确认 Valve 相关内容政策的情况下，不得将项目中打包的游戏资源用于商业用途或进行商业性再分发
 
-## License
+## 许可证
 
-The project code is licensed under the MIT License. The bundled Dota 2 assets remain the property of Valve.
+本项目的代码采用 MIT License
+
+项目中包含的 Dota 2 游戏资源仍归 Valve 所有
