@@ -19,6 +19,7 @@ const STRINGS: Record<string, { zh: string; en: string }> = {
   "app.settings": { zh: "设置", en: "Settings" },
   "app.free": { zh: "自由练习", en: "Free Practice" },
   "app.language": { zh: "EN", en: "中文" },
+  "app.randomMode": { zh: "随机技能", en: "Random Skill" },
   "hud.invoke": { zh: "元素祈唤", en: "Invoke" },
   "hud.orbQueue": { zh: "当前元素球", en: "Active Orbs" },
   "hud.invoked": { zh: "已祈唤技能", en: "Invoked Spells" },
@@ -69,6 +70,10 @@ const STRINGS: Record<string, { zh: string; en: string }> = {
   "settings.comboPreloadRecommended": { zh: "预存两个技能后释放（推荐）", en: "Preload two spells, then release (Recommended)" },
   "settings.quickcastModifier": { zh: "快速施法功能键", en: "Quickcast modifier" },
   "settings.quickcastHint": { zh: "按住功能键点击远行鞋或毁天灭地可跳过鼠标确认", en: "Hold the modifier and press travel boots or Cataclysm to skip mouse confirmation" },
+  "settings.cardRandom": { zh: "随机技能模式", en: "Random Skill Mode" },
+  "settings.randomInterval": { zh: "冒泡生成间隔", en: "Bubble spawn interval" },
+  "settings.randomDuration": { zh: "冒泡停留时间", en: "Bubble duration" },
+  "settings.randomMaxBubbles": { zh: "最大冒泡数量", en: "Max bubbles" },
     "settings.comboPreloadLegacy": { zh: "预存两个技能后按传统键释放（推荐）", en: "Preload two spells, then cast with legacy keys (Recommended)" },
   "settings.infiniteMana": { zh: "无限魔法", en: "Infinite mana" },
   "settings.heroLevel": { zh: "英雄等级", en: "Hero level" },
@@ -99,6 +104,12 @@ const STRINGS: Record<string, { zh: string; en: string }> = {
   "event.pendingItem": { zh: "请左键点击假人使用 {item}", en: "Left click the dummy to use {item}" },
   "event.travelDouble": { zh: "请左键点击假人，或双击 {key} 使用 {item}", en: "Left click the dummy, or double press {key} to use {item}" },
   "event.castCancelled": { zh: "已取消施法", en: "Cast cancelled" },
+  "random.hint": { zh: "随机技能出现后，切换并祈唤对应技能，按下技能键，再点击气泡确认", en: "When a random skill appears, invoke it, press its spell key, then click the bubble" },
+  "random.pendingHint": { zh: "待确认技能已就绪，点击气泡释放", en: "Pending spell ready, click the bubble to cast" },
+  "random.clickHint": { zh: "点击气泡确认释放", en: "Click the bubble to confirm" },
+  "random.success": { zh: "成功", en: "Success" },
+  "random.fail": { zh: "失败", en: "Fail" },
+  "random.validRate": { zh: "有效操作", en: "Valid actions" },
 };
 
 const I18nContext = createContext<I18nValue | null>(null);

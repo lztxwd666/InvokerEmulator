@@ -30,6 +30,22 @@
 - 技能数值基于官方 Dota 2 数据
 - 双语 UI：中文（默认）和英文
 - 配置持久化保存
+- 随机技能模式：多个随机位置气泡，支持普通施法与快速施法
+- 快速施法功能键：可配置 Alt / Ctrl / Shift
+
+## 界面预览
+
+### 主界面
+
+![主界面](screenshots/Main_Interface.png)
+
+### 随机技能模式
+
+![随机技能模式](screenshots/Random_skills.png)
+
+### 设置
+
+![设置](screenshots/Setting.png)
 
 ## 技术栈
 

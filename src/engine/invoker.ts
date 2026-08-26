@@ -28,6 +28,9 @@ export const DEFAULT_CONFIG: GameConfig = {
   castMode: "mouse",
   comboMode: "preload",
   quickcastModifier: "Alt",
+  randomBubbleInterval: 1.5,
+  randomBubbleDuration: 4,
+  randomMaxBubbles: 5,
   infiniteMana: false,
   muted: false,
   aghanimsScepter: false,
@@ -129,12 +132,12 @@ export function castElement(state: InvokerState, element: ElementKind, lang: Lan
 }
 
 /** 执行 Invoke：根据当前三球生成技能到 D 槽，已有技能则仅交换。 */
-export function invoke(state: InvokerState, lang: Lang = "zh"): ActionResult {
+export function invoke(state: InvokerState, lang: Lang = "zh", ignoreCooldown = false): ActionResult {
   const spell = spellFromOrbs(state.orbs);
   if (!spell || state.orbs.length !== 3) {
     return { state: clone(state), event: lang === "zh" ? "当前球数不足，无法祈唤" : "Not enough orbs to invoke" };
   }
-  if (state.invokeCooldown > 0) {
+  if (!ignoreCooldown && state.invokeCooldown > 0) {
     return { state: clone(state), event: lang === "zh" ? "元素祈唤冷却中" : "Invoke is on cooldown" };
   }
 
@@ -149,7 +152,7 @@ export function invoke(state: InvokerState, lang: Lang = "zh"): ActionResult {
   }
 
   next.invokedSlots = [spell, next.invokedSlots[0]];
-  next.invokeCooldown = invokeCooldown(next.orbLevels);
+  next.invokeCooldown = ignoreCooldown ? 0 : invokeCooldown(next.orbLevels);
 
   return {
     state: next,
@@ -158,14 +161,14 @@ export function invoke(state: InvokerState, lang: Lang = "zh"): ActionResult {
 }
 
 /** 释放已祈唤技能。数值按官方 datafeed 对 0 抗性假人结算。 */
-export function castSpell(state: InvokerState, spell: SpellId, lang: Lang = "zh"): ActionResult {
+export function castSpell(state: InvokerState, spell: SpellId, lang: Lang = "zh", ignoreCooldown = false): ActionResult {
   const meta = SPELL_BY_ID[spell];
   const next = clone(state);
 
   if (!next.invokedSlots.includes(spell)) {
     return { state: next, event: lang === "zh" ? "该技能尚未祈唤" : "Spell is not invoked" };
   }
-  if (next.spellCooldowns[spell] > 0) {
+  if (!ignoreCooldown && next.spellCooldowns[spell] > 0) {
     return { state: next, event: `${spellName(spell, lang)} ${lang === "zh" ? "冷却中" : "is on cooldown"}` };
   }
   if (next.mana < meta.manaCost) {
@@ -175,7 +178,9 @@ export function castSpell(state: InvokerState, spell: SpellId, lang: Lang = "zh"
   if (!next.infiniteMana) {
     next.mana -= meta.manaCost;
   }
-  next.spellCooldowns[spell] = meta.cooldown;
+  if (!ignoreCooldown) {
+    next.spellCooldowns[spell] = meta.cooldown;
+  }
 
   let damage = 0;
   let event = `${lang === "zh" ? "释放" : "Cast"} ${spellName(spell, lang)}`;

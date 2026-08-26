@@ -59,6 +59,9 @@ export interface GameConfig {
   castMode: CastMode;
   comboMode: ComboMode;
   quickcastModifier: "Alt" | "Ctrl" | "Shift";
+  randomBubbleInterval: number;
+  randomBubbleDuration: number;
+  randomMaxBubbles: number;
   infiniteMana: boolean;
   muted: boolean;
   aghanimsScepter: boolean;

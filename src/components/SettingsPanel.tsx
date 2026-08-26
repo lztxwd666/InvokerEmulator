@@ -155,18 +155,21 @@ export function SettingsPanel({ config, onApply, onClose }: SettingsPanelProps) 
               <option value="instant">{t("settings.comboInstant")}</option>
             </select>
           </label>
-          <label>
-            {t("settings.quickcastModifier")}
-            <select
-              value={draft.quickcastModifier}
-              onChange={(e) => setDraft({ ...draft, quickcastModifier: e.target.value as "Alt" | "Ctrl" | "Shift" })}
-            >
-              <option value="Alt">Alt</option>
-              <option value="Ctrl">Ctrl</option>
-              <option value="Shift">Shift</option>
-            </select>
+          <div className="quickcast-setting">
+            <span className="sub-title">{t("settings.quickcastModifier")}</span>
+            <div className="segmented-control">
+              {(["Alt", "Ctrl", "Shift"] as const).map((modifier) => (
+                <button
+                  key={modifier}
+                  className={draft.quickcastModifier === modifier ? "active" : ""}
+                  onClick={() => setDraft({ ...draft, quickcastModifier: modifier })}
+                >
+                  {modifier}
+                </button>
+              ))}
+            </div>
             <span className="hint">{t("settings.quickcastHint")}</span>
-          </label>
+          </div>
           <label className="check-row">
             <span>{t("settings.infiniteMana")}</span>
             <input
@@ -182,6 +185,46 @@ export function SettingsPanel({ config, onApply, onClose }: SettingsPanelProps) 
               checked={draft.muted}
               onChange={(e) => setDraft({ ...draft, muted: e.target.checked })}
             />
+          </label>
+        </div>
+
+        <div className="settings-card">
+          <h4 className="card-title title-random">{t("settings.cardRandom")}</h4>
+          <label>
+            <span>{t("settings.randomInterval")}</span>
+            <input
+              type="range"
+              min={0.3}
+              max={5}
+              step={0.1}
+              value={draft.randomBubbleInterval}
+              onChange={(e) => setDraft({ ...draft, randomBubbleInterval: Number(e.target.value) })}
+            />
+            <b>{draft.randomBubbleInterval.toFixed(1)}s</b>
+          </label>
+          <label>
+            <span>{t("settings.randomDuration")}</span>
+            <input
+              type="range"
+              min={0.5}
+              max={5}
+              step={0.1}
+              value={draft.randomBubbleDuration}
+              onChange={(e) => setDraft({ ...draft, randomBubbleDuration: Number(e.target.value) })}
+            />
+            <b>{draft.randomBubbleDuration.toFixed(1)}s</b>
+          </label>
+          <label>
+            <span>{t("settings.randomMaxBubbles")}</span>
+            <input
+              type="range"
+              min={1}
+              max={10}
+              step={1}
+              value={draft.randomMaxBubbles}
+              onChange={(e) => setDraft({ ...draft, randomMaxBubbles: Number(e.target.value) })}
+            />
+            <b>{draft.randomMaxBubbles}</b>
           </label>
         </div>
 

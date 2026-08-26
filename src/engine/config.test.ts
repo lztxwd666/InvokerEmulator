@@ -86,6 +86,14 @@ describe("normalizeConfig", () => {
     expect(config.aghanimsScepter).toBe(true);
   });
 
+  it("随机模式气泡时间参数会被限制在合理范围", () => {
+    const config = normalizeConfig({ randomBubbleInterval: 100, randomBubbleDuration: -1 });
+    expect(config.randomBubbleInterval).toBeLessThanOrEqual(10);
+    expect(config.randomBubbleDuration).toBeGreaterThanOrEqual(0.5);
+    expect(config.randomMaxBubbles).toBeGreaterThanOrEqual(1);
+    expect(config.randomMaxBubbles).toBeLessThanOrEqual(10);
+  });
+
   it("快速施法功能键默认为Alt并支持合法值", () => {
     expect(normalizeConfig(null).quickcastModifier).toBe("Alt");
     expect(normalizeConfig({ quickcastModifier: "Shift" }).quickcastModifier).toBe("Shift");

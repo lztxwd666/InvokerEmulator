@@ -20,6 +20,7 @@ import { useGlobalInput } from "./hooks/useGlobalInput";
 import { HUD } from "./components/HUD";
 import { ComboPanel } from "./components/ComboPanel";
 import { PracticeArea } from "./components/PracticeArea";
+import { RandomMode } from "./components/RandomMode";
 import { SettingsPanel } from "./components/SettingsPanel";
 import { playOrbSwitch, playSound, setMuted } from "./audio";
 import { formatTemplate, useI18n } from "./i18n";
@@ -49,6 +50,11 @@ export default function App() {
   const [plan, setPlan] = useState<PlanStep[]>([]);
   const [currentStep, setCurrentStep] = useState(0);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [randomMode, setRandomMode] = useState(false);
+  const [randomStats, setRandomStats] = useState({ keys: 0, attempts: 0, valid: 0 });
+  const [randomQuickCast, setRandomQuickCast] = useState<{ id: number; spell: SpellId } | null>(null);
+  const randomHoveredSpellRef = useRef<SpellId | null>(null);
+  const randomStartRef = useRef(0);
   const [pendingCast, setPendingCast] = useState<{ spell: SpellId; key: string } | null>(null);
   const [pendingItem, setPendingItem] = useState<{ item: ItemId; key: string } | null>(null);
   const lastTravelPressRef = useRef<{ item: ItemId; time: number } | null>(null);
@@ -143,7 +149,7 @@ export default function App() {
   };
 
   const performInvoke = (): boolean => {
-    const result = invoke(stateRef.current, lang);
+    const result = invoke(stateRef.current, lang, randomMode);
     commit(result.state);
     setPendingCast(null);
     setPendingItem(null);
@@ -163,7 +169,7 @@ export default function App() {
   };
 
   const castSpellAction = (spell: SpellId): boolean => {
-    const result = castSpell(stateRef.current, spell, lang);
+    const result = castSpell(stateRef.current, spell, lang, randomMode);
     commit(result.state);
     lastCataclysmPressRef.current = null;
     setEvent(result.event ?? "");
@@ -294,10 +300,26 @@ export default function App() {
       return;
     }
 
+    if (randomMode && config.castMode === "instant" && spell && randomHoveredSpellRef.current === spell) {
+      lastCataclysmPressRef.current = null;
+      setPendingCast(null);
+      setPendingItem(null);
+      const ok = castSpellAction(spell);
+      setRandomStats((prev) => ({
+        ...prev,
+        attempts: prev.attempts + 1,
+        valid: ok ? prev.valid + 1 : prev.valid,
+      }));
+      if (ok) {
+        setRandomQuickCast({ id: Date.now(), spell });
+      }
+      return;
+    }
+
     const canCataclysm = stateRef.current.aghanimsScepter && spell === "invoker_sun_strike" && config.castMode === "mouse";
 
     if (config.castMode === "mouse") {
-      if (spell === "invoker_ghost_walk" || spell === "invoker_ice_wall") {
+      if (!randomMode && (spell === "invoker_ghost_walk" || spell === "invoker_ice_wall")) {
         setPendingCast(null);
         setPendingItem(null);
         lastTravelPressRef.current = null;
@@ -484,6 +506,22 @@ export default function App() {
     }
 
     const spell = spellForKey(key);
+    if (randomMode && spell && randomHoveredSpellRef.current === spell) {
+      lastCataclysmPressRef.current = null;
+      setPendingCast(null);
+      setPendingItem(null);
+      const ok = castSpellAction(spell);
+      setRandomStats((prev) => ({
+        ...prev,
+        attempts: prev.attempts + 1,
+        valid: ok ? prev.valid + 1 : prev.valid,
+      }));
+      if (ok) {
+        setRandomQuickCast({ id: Date.now(), spell });
+      }
+      return true;
+    }
+
     if (spell === "invoker_sun_strike" && stateRef.current.aghanimsScepter) {
       lastCataclysmPressRef.current = null;
       setPendingCast(null);
@@ -506,6 +544,9 @@ export default function App() {
   useGlobalInput({
     enabled: !settingsOpen,
     onHotkey: (key, modifiers) => {
+      if (randomMode) {
+        setRandomStats((prev) => ({ ...prev, keys: prev.keys + 1 }));
+      }
       if (isQuickcastModifier(modifiers)) {
         return handleQuickcastKey(key);
       }
@@ -594,6 +635,45 @@ export default function App() {
     setEvent(lang === "zh" ? "设置已应用" : "Settings applied");
   };
 
+  const toggleRandomMode = () => {
+    if (!randomMode) {
+      randomStartRef.current = performance.now();
+      setRandomStats({ keys: 0, attempts: 0, valid: 0 });
+      setRandomQuickCast(null);
+      randomHoveredSpellRef.current = null;
+      const next = {
+        ...stateRef.current,
+        invokeCooldown: 0,
+        spellCooldowns: Object.fromEntries(
+          Object.keys(stateRef.current.spellCooldowns).map((key) => [key, 0]),
+        ) as InvokerState["spellCooldowns"],
+        cataclysmCooldown: 0,
+      };
+      commit(next);
+    }
+    setRandomMode(!randomMode);
+    setPendingCast(null);
+    setPendingItem(null);
+    lastTravelPressRef.current = null;
+    lastCataclysmPressRef.current = null;
+  };
+
+  const handleRandomConfirm = (spell: SpellId): boolean => {
+    if (!pendingCast || pendingCast.spell !== spell) {
+      setRandomStats((prev) => ({ ...prev, attempts: prev.attempts + 1 }));
+      return false;
+    }
+    const ok = castSpellAction(spell);
+    setPendingCast(null);
+    setPendingItem(null);
+    setRandomStats((prev) => ({
+      ...prev,
+      attempts: prev.attempts + 1,
+      valid: ok ? prev.valid + 1 : prev.valid,
+    }));
+    return ok;
+  };
+
   const resetPractice = () => {
     const fresh = createInitialState(config);
     commit(fresh);
@@ -607,12 +687,16 @@ export default function App() {
     setEvent(t("event.welcome"));
   };
 
+  const randomElapsedMinutes = randomStartRef.current ? (performance.now() - randomStartRef.current) / 60000 : 0;
+  const randomApm = randomElapsedMinutes > 0 ? Math.round(randomStats.keys / randomElapsedMinutes) : 0;
+
   return (
     <div className="app">
       <header className="app-header">
         <h1>{t("app.title")}</h1>
         <div className="header-actions">
           <button onClick={() => setLang(lang === "zh" ? "en" : "zh")}>{t("app.language")}</button>
+          <button className={randomMode ? "active" : ""} onClick={toggleRandomMode}>{t("app.randomMode")}</button>
           <button onClick={() => setSettingsOpen(true)}>{t("app.settings")}</button>
           <button onClick={resetPractice}>{t("app.reset")}</button>
           <button onClick={() => commit(resetDummy(stateRef.current))}>{t("app.dummyReset")}</button>
@@ -620,32 +704,52 @@ export default function App() {
       </header>
 
       <main className="main-layout">
-        <PracticeArea
-          state={state}
-          event={event}
-          mouseMode={config.castMode === "mouse"}
-          pending={pendingCast !== null || pendingItem !== null}
-          plan={plan}
-          currentStep={currentStep}
-          onLeftClick={() => {
-            confirmCast("left");
-            confirmItem("left");
-          }}
-          onRightClick={() => {
-            confirmCast("right");
-            confirmItem("right");
-          }}
-        />
-        <ComboPanel
-          combos={combos}
-          activeCombo={activeCombo}
-          previewOrbs={config.initialOrbs}
-          previewOptions={plannerOptions(config)}
-          onSelect={selectCombo}
-          onSaveCustomCombo={saveCustomCombo}
-          onRemoveCustomCombo={removeCustomCombo}
-          aghanimsScepter={config.aghanimsScepter}
-        />
+        {randomMode ? (
+          <RandomMode
+            pendingCast={pendingCast}
+            bubbleInterval={config.randomBubbleInterval}
+            bubbleDuration={config.randomBubbleDuration}
+            maxBubbles={config.randomMaxBubbles}
+            totalKeys={randomStats.keys}
+            totalAttempts={randomStats.attempts}
+            validAttempts={randomStats.valid}
+            apm={randomApm}
+            quickCastEvent={randomQuickCast}
+            onHoverChange={(spell) => {
+              randomHoveredSpellRef.current = spell;
+            }}
+            onConfirm={handleRandomConfirm}
+          />
+        ) : (
+          <>
+            <PracticeArea
+              state={state}
+              event={event}
+              mouseMode={config.castMode === "mouse"}
+              pending={pendingCast !== null || pendingItem !== null}
+              plan={plan}
+              currentStep={currentStep}
+              onLeftClick={() => {
+                confirmCast("left");
+                confirmItem("left");
+              }}
+              onRightClick={() => {
+                confirmCast("right");
+                confirmItem("right");
+              }}
+            />
+            <ComboPanel
+              combos={combos}
+              activeCombo={activeCombo}
+              previewOrbs={config.initialOrbs}
+              previewOptions={plannerOptions(config)}
+              onSelect={selectCombo}
+              onSaveCustomCombo={saveCustomCombo}
+              onRemoveCustomCombo={removeCustomCombo}
+              aghanimsScepter={config.aghanimsScepter}
+            />
+          </>
+        )}
       </main>
 
       <HUD

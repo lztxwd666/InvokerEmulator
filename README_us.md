@@ -22,6 +22,22 @@ An offline desktop practice tool for **Invoker / Carl** in Dota 2. The project i
 - Official Dota 2 data-driven spell values
 - Bilingual UI: Chinese (default) and English
 - Persistent configuration storage
+- Random skill mode: multiple random-position bubbles, supports normal and quickcast
+- Quickcast modifier: configurable Alt / Ctrl / Shift
+
+## Screenshots
+
+### Main Interface
+
+![Main Interface](screenshots/Main_Interface.png)
+
+### Random Skill Mode
+
+![Random Skill Mode](screenshots/Random_skills.png)
+
+### Settings
+
+![Settings](screenshots/Setting.png)
 
 ## Tech Stack
 
