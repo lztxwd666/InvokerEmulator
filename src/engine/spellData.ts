@@ -29,6 +29,19 @@ export const SPELL_BY_ID: Record<SpellId, SpellMeta> = Object.fromEntries(
   SPELLS.map((s) => [s.id, s]),
 ) as Record<SpellId, SpellMeta>;
 
+/** 阿哈利姆神杖强化后的天火：毁天灭地 */
+export const CATACLYSM_ID = "invoker_cataclysm" as const;
+export const CATACLYSM_META = {
+  id: CATACLYSM_ID,
+  name: "Cataclysm",
+  nameCn: "毁天灭地",
+  underlyingSpell: "invoker_sun_strike" as SpellId,
+  cooldown: 90,
+  manaCost: 175,
+  image: "invoker_sun_strike_cataclysm.png",
+  legacyKey: "T",
+};
+
 /** Dota 1 传统键位：祈唤技能的固定施法键。 */
 export const LEGACY_CAST_KEYS: Record<SpellId, string> = {
   invoker_cold_snap: "Y",
@@ -150,6 +163,7 @@ export const VALUES = {
 };
 
 export function valueAt(values: number[], level: number): number {
+  if (level <= 0) return 0;
   const idx = Math.max(0, Math.min(values.length - 1, level - 1));
   return values[idx];
 }
@@ -174,7 +188,8 @@ export function spellFromOrbs(orbs: ElementKind[]): SpellId | null {
 }
 
 /** 技能图标路径 */
-export function spellImage(spell: SpellId | "invoker_quas" | "invoker_wex" | "invoker_exort" | "invoker_invoke"): string {
+export function spellImage(spell: SpellId | "invoker_cataclysm" | "invoker_quas" | "invoker_wex" | "invoker_exort" | "invoker_invoke"): string {
+  if (spell === CATACLYSM_ID) return "images/abilities/invoker_sun_strike_cataclysm.png";
   return `images/abilities/${spell}.png`;
 }
 

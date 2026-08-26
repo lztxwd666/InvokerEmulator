@@ -11,8 +11,9 @@ An offline desktop practice tool for **Invoker / Carl** in Dota 2. The project i
 - Preload combo mode: keep two invoked spells and release them in order
 - Standard QWER/DF and legacy Dota 1 keybindings
 - Quickcast and normal mouse confirm cast modes
+- Aghanim's Scepter toggle: enables Cataclysm for Sun Strike with unique icon and cooldown
 - Four-item bar: Refresher Orb, Scythe of Vyse, Meteor Hammer, Boots of Travel
-- Customizable item hotkeys
+- Customizable item hotkeys (letters, numbers, symbols, and mouse side buttons)
 - Infinite mana toggle
 - Mute toggle
 - Built-in combo library

@@ -14,12 +14,19 @@ export type SpellId =
   | "invoker_forge_spirit"
   | "invoker_deafening_blast";
 
+/** 阿哈利姆神杖强化后的天火：毁天灭地 */
+export type CataclysmId = "invoker_cataclysm";
+
+/** 可执行的施法目标：普通技能或毁天灭地 */
+export type CastableId = SpellId | CataclysmId;
+
 /** 练习用物品标识 */
 export type ItemId = "refresher" | "sheepstick" | "meteor_hammer" | "travel_boots";
 
 /** 连招中的一步：施放技能或使用物品 */
 export type ComboAction =
   | { type: "spell"; spell: SpellId }
+  | { type: "cataclysm" }
   | { type: "item"; item: ItemId };
 
 /** 内置/自定义连招，只保存技能和物品顺序，按键顺序由 planner 计算 */
@@ -53,13 +60,14 @@ export interface GameConfig {
   comboMode: ComboMode;
   infiniteMana: boolean;
   muted: boolean;
+  aghanimsScepter: boolean;
 }
 
 /** 规划出的实际按键步骤 */
 export type PlanStep =
   | { type: "orb"; element: ElementKind; key: string }
   | { type: "invoke"; key: string; spell: SpellId }
-  | { type: "cast"; key: string; spell: SpellId }
+  | { type: "cast"; key: string; spell: CastableId }
   | { type: "item"; key: string; item: ItemId };
 
 /** 假人状态，0 抗性 */
@@ -86,6 +94,8 @@ export interface InvokerState {
   hp: number;
   maxHp: number;
   infiniteMana: boolean;
+  aghanimsScepter: boolean;
+  cataclysmCooldown: number;
   dummy: DummyState;
   lastEvent?: string;
 }

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { ElementKind, GameConfig, ItemId, KeybindMode, CastMode, ComboMode } from "../engine/types";
 import { computeAttributes, invokeCooldown } from "../engine/invoker";
+import { normalizeItemHotkey, sanitizeItemKeys } from "../engine/config";
 import { ITEMS, LEGACY_CAST_KEYS } from "../engine/spellData";
 import { useI18n } from "../i18n";
 
@@ -40,33 +41,18 @@ export function SettingsPanel({ config, onApply, onClose }: SettingsPanelProps) 
     draft.keybindMode === "legacy"
       ? ["Q", "W", "E", "R", ...Object.values(LEGACY_CAST_KEYS)]
       : ["Q", "W", "E", "R", "D", "F"];
-  const conflictItem = ITEMS.find((item) =>
-    reservedKeys.includes(draft.itemKeys[item.id].toUpperCase()),
+  const normalizedItemKey = (item: ItemId): string => normalizeItemHotkey(draft.itemKeys[item]);
+  const conflictItem = ITEMS.find((item) => reservedKeys.includes(normalizedItemKey(item.id)));
+  const duplicateItem = ITEMS.find((item) =>
+    normalizedItemKey(item.id) !== "" &&
+    ITEMS.findIndex((other) => other.id !== item.id && normalizedItemKey(other.id) === normalizedItemKey(item.id)) >= 0
   );
 
   const apply = () => {
     const heroLevel = Math.max(1, Math.min(30, Number(heroLevelText) || 1));
     const dummyMaxHp = Math.max(100, Number(dummyHpText) || 100);
     const dummyMaxMana = Math.max(0, Number(dummyManaText) || 0);
-    const itemKeys = { ...draft.itemKeys };
-    for (const item of ITEMS) {
-      const value = itemKeys[item.id].trim().slice(0, 1).toUpperCase();
-      const fallback =
-        item.id === "refresher"
-          ? "5"
-          : item.id === "sheepstick"
-            ? draft.keybindMode === "legacy"
-              ? "1"
-              : "Z"
-            : item.id === "meteor_hammer"
-              ? draft.keybindMode === "legacy"
-                ? "2"
-                : "X"
-              : draft.keybindMode === "legacy"
-                ? "3"
-                : "C";
-      itemKeys[item.id] = value && !reservedKeys.includes(value) ? value : fallback;
-    }
+    const itemKeys = sanitizeItemKeys(draft.itemKeys, draft.keybindMode);
     onApply({
       ...draft,
       heroLevel,
@@ -99,7 +85,7 @@ export function SettingsPanel({ config, onApply, onClose }: SettingsPanelProps) 
               <input
                 type="range"
                 min={0}
-                max={8}
+                max={draft.aghanimsScepter ? 8 : 7}
                 step={1}
                 value={draft.orbLevels[element]}
                 onChange={(e) => setOrbLevel(element, Number(e.target.value))}
@@ -129,18 +115,20 @@ export function SettingsPanel({ config, onApply, onClose }: SettingsPanelProps) 
           </label>
 
           <span className="sub-title">{t("settings.itemKeys")}</span>
+          <span className="hint">{t("settings.itemKeyHint")}</span>
           {ITEMS.map((item) => (
             <label key={item.id}>
               <span>{langItemName(item.id)}</span>
               <input
                 type="text"
-                maxLength={1}
+                maxLength={8}
                 value={draft.itemKeys[item.id]}
                 onChange={(e) => setItemKey(item.id, e.target.value.toUpperCase())}
               />
             </label>
           ))}
           {conflictItem && <span className="settings-warning">{t("settings.itemKeyConflict")}</span>}
+          {duplicateItem && <span className="settings-warning">{t("settings.itemKeyDuplicate")}</span>}
         </div>
 
         <div className="settings-card">

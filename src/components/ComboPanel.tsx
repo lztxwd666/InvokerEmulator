@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { Combo, ComboAction, ElementKind, PlanStep, SpellId } from "../engine/types";
-import { elementImage, itemImage, ITEMS, SPELL_BY_ID, SPELLS } from "../engine/spellData";
+import { CATACLYSM_ID, CATACLYSM_META, elementImage, itemImage, ITEMS, SPELL_BY_ID, SPELLS, spellImage } from "../engine/spellData";
 import { planCombo, type PlannerOptions } from "../engine/planner";
 import { useI18n } from "../i18n";
 
@@ -11,17 +11,21 @@ interface ComboPanelProps {
   previewOptions: PlannerOptions;
   onSelect: (combo: Combo) => void;
   onSaveCustomCombo: (combo: Combo) => void;
+  onRemoveCustomCombo: (id: string) => void;
+  aghanimsScepter: boolean;
 }
 
 function actionImage(action: ComboAction): string {
-  return action.type === "spell" ? `images/abilities/${action.spell}.png` : itemImage(action.item);
+  if (action.type === "cataclysm") return spellImage(CATACLYSM_ID);
+  if (action.type === "spell") return spellImage(action.spell);
+  return itemImage(action.item);
 }
 
 function stepImage(step: PlanStep): string {
   if (step.type === "orb") return elementImage(step.element);
   if (step.type === "invoke") return "images/abilities/invoker_invoke.png";
   if (step.type === "item") return itemImage(step.item);
-  return `images/abilities/${step.spell}.png`;
+  return spellImage(step.spell);
 }
 
 /** 连招面板：内置连招、图标化按键步骤、自定义技能组合。 */
@@ -32,6 +36,8 @@ export function ComboPanel({
   previewOptions,
   onSelect,
   onSaveCustomCombo,
+  onRemoveCustomCombo,
+  aghanimsScepter,
 }: ComboPanelProps) {
   const { t, spellName, lang } = useI18n();
   const [customName, setCustomName] = useState("");
@@ -42,18 +48,18 @@ export function ComboPanel({
     const trimmed = customName.trim();
     if (!trimmed || customActions.length === 0) return;
     const fallbackZh = customActions
-      .map((a) =>
-        a.type === "spell"
-          ? SPELL_BY_ID[a.spell].nameCn
-          : ITEMS.find((i) => i.id === a.item)?.nameZh ?? "",
-      )
+      .map((a) => {
+        if (a.type === "spell") return SPELL_BY_ID[a.spell].nameCn;
+        if (a.type === "cataclysm") return CATACLYSM_META.nameCn;
+        return ITEMS.find((i) => i.id === a.item)?.nameZh ?? "";
+      })
       .join(" ");
     const fallbackEn = customActions
-      .map((a) =>
-        a.type === "spell"
-          ? SPELL_BY_ID[a.spell].name
-          : ITEMS.find((i) => i.id === a.item)?.nameEn ?? "",
-      )
+      .map((a) => {
+        if (a.type === "spell") return SPELL_BY_ID[a.spell].name;
+        if (a.type === "cataclysm") return CATACLYSM_META.name;
+        return ITEMS.find((i) => i.id === a.item)?.nameEn ?? "";
+      })
       .join(" ");
     onSaveCustomCombo({
       id: `custom_${Date.now()}`,
@@ -71,18 +77,28 @@ export function ComboPanel({
 
       <div className="combo-list">
         {combos.map((combo) => (
-          <button
-            key={combo.id}
-            className={`combo-item ${activeCombo?.id === combo.id ? "active" : ""}`}
-            onClick={() => onSelect(combo)}
-          >
-            <span className="combo-name">{lang === "zh" ? combo.nameZh : combo.nameEn}</span>
-            <span className="combo-icons">
-              {combo.actions.map((action, index) => (
-                <img key={index} src={actionImage(action)} alt="" />
-              ))}
-            </span>
-          </button>
+          <div key={combo.id} className="combo-row">
+            <button
+              className={`combo-item ${activeCombo?.id === combo.id ? "active" : ""}`}
+              onClick={() => onSelect(combo)}
+            >
+              <span className="combo-name">{lang === "zh" ? combo.nameZh : combo.nameEn}</span>
+              <span className="combo-icons">
+                {combo.actions.map((action, index) => (
+                  <img key={index} src={actionImage(action)} alt="" />
+                ))}
+              </span>
+            </button>
+            {combo.id.startsWith("custom_") && (
+              <button
+                className="combo-remove"
+                title={t("combo.removeCombo")}
+                onClick={() => onRemoveCustomCombo(combo.id)}
+              >
+                ×
+              </button>
+            )}
+          </div>
         ))}
       </div>
 
@@ -100,6 +116,15 @@ export function ComboPanel({
               <img src={`images/abilities/${meta.id}.png`} alt={spellName(meta.id)} />
             </button>
           ))}
+          {aghanimsScepter && (
+            <button
+              className="picker-spell"
+              onClick={() => setCustomActions((prev) => [...prev, { type: "cataclysm" }])}
+              title={lang === "zh" ? CATACLYSM_META.nameCn : CATACLYSM_META.name}
+            >
+              <img src={spellImage(CATACLYSM_ID)} alt={lang === "zh" ? CATACLYSM_META.nameCn : CATACLYSM_META.name} />
+            </button>
+          )}
           {ITEMS.map((item) => (
             <button
               key={item.id}

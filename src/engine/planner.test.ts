@@ -80,3 +80,18 @@ describe("planCombo 连招模式", () => {
     expect(castKeys).toEqual(["X", "C", "D"]);
   });
 });
+
+
+describe("planCombo 毁天灭地", () => {
+  it("会先祈唤天火，再生成毁天灭地施法步骤", () => {
+    const plan = planCombo(
+      [{ type: "cataclysm" }],
+      [],
+      { keybindMode: "qwer", itemKeys: { refresher: "5", sheepstick: "Z", meteor_hammer: "X", travel_boots: "C" }, comboMode: "instant" },
+    );
+    const invokeSpells = plan.filter((s) => s.type === "invoke").map((s) => s.spell);
+    expect(invokeSpells).toEqual(["invoker_sun_strike"]);
+    const cataclysmCasts = plan.filter((s) => s.type === "cast" && s.spell === "invoker_cataclysm");
+    expect(cataclysmCasts.length).toBe(1);
+  });
+});

@@ -1,5 +1,5 @@
-import type { ComboAction, ComboMode, ElementKind, ItemId, KeybindMode, PlanStep, SpellId } from "./types";
-import { LEGACY_CAST_KEYS, SPELL_BY_ID } from "./spellData";
+import type { CastableId, ComboAction, ComboMode, ElementKind, ItemId, KeybindMode, PlanStep, SpellId } from "./types";
+import { CATACLYSM_ID, CATACLYSM_META, LEGACY_CAST_KEYS, SPELL_BY_ID } from "./spellData";
 
 interface Transition {
   source: ElementKind[];
@@ -78,6 +78,22 @@ function findTransition(source: ElementKind[], target: ElementKind[]): Transitio
   return { source, presses: [], target: source };
 }
 
+function actionUnderlyingSpell(action: ComboAction): SpellId | null {
+  if (action.type === "spell") return action.spell;
+  if (action.type === "cataclysm") return CATACLYSM_META.underlyingSpell;
+  return null;
+}
+
+function actionCastId(action: ComboAction): CastableId | null {
+  if (action.type === "spell") return action.spell;
+  if (action.type === "cataclysm") return CATACLYSM_ID;
+  return null;
+}
+
+function isSpellLikeAction(action: ComboAction): boolean {
+  return action.type === "spell" || action.type === "cataclysm";
+}
+
 /**
  * 全局最优规划：DP 遍历每个技能的目标排列，保证整段连招的元素按键总数最少。
  */
@@ -104,7 +120,9 @@ export function planCombo(
       continue;
     }
 
-    const meta = SPELL_BY_ID[action.spell];
+    const underlying = actionUnderlyingSpell(action);
+    if (!underlying) continue;
+    const meta = SPELL_BY_ID[underlying];
     const targets = arrangements(meta.combination);
     const current = layers[layers.length - 1];
     const nextLayer: LayerState[] = [];
@@ -142,7 +160,7 @@ export function planCombo(
   }
 
   const steps: PlanStep[] = [];
-  const preloaded: SpellId[] = [];
+  const preloaded: CastableId[] = [];
   const simulatedSlots: (SpellId | null)[] = [null, null];
   let initialPreloadDone = false;
   let refreshActive = false;
@@ -165,14 +183,16 @@ export function planCombo(
     simulatedSlots[0] = spell;
   };
 
-  const pushCast = (spell: SpellId, standardKey: "D" | "F" = "D") => {
-    const k = options.keybindMode === "legacy" ? LEGACY_CAST_KEYS[spell] : standardKey;
+  const pushCast = (spell: CastableId, standardKey: "D" | "F" = "D") => {
+    const k = options.keybindMode === "legacy"
+      ? spell === CATACLYSM_ID ? CATACLYSM_META.legacyKey : LEGACY_CAST_KEYS[spell as SpellId]
+      : standardKey;
     steps.push({ type: "cast", key: k, spell });
   };
 
   const findNextSpellIndex = (from: number): number => {
     for (let i = from + 1; i < actions.length; i += 1) {
-      if (actions[i].type === "spell") return i;
+      if (isSpellLikeAction(actions[i])) return i;
     }
     return -1;
   };
@@ -189,9 +209,10 @@ export function planCombo(
     }
     if (!hasRefresher) return true;
     const target = actions[targetIndex];
-    if (target.type !== "spell") return true;
+    if (!isSpellLikeAction(target)) return true;
+    const underlying = actionUnderlyingSpell(target);
     // 刷新球后的目标若还在 D/F 槽中，会直接释放，不需要预切
-    return simulatedSlots.indexOf(target.spell) < 0;
+    return !underlying || simulatedSlots.indexOf(underlying) < 0;
   };
 
   for (let i = 0; i < actions.length; i += 1) {
@@ -206,11 +227,15 @@ export function planCombo(
       continue;
     }
 
+    const castId = actionCastId(action);
+    const underlying = actionUnderlyingSpell(action);
+    if (!castId || !underlying) continue;
+
     // 刷新球后，已祈唤技能仍在 D/F 槽中，直接释放，不重新切球和祈唤
     if (refreshActive) {
-      const slotIndex = simulatedSlots.indexOf(action.spell);
+      const slotIndex = simulatedSlots.indexOf(underlying);
       if (slotIndex >= 0 && !refreshedSlots.has(slotIndex)) {
-        pushCast(action.spell, slotIndex === 0 ? "D" : "F");
+        pushCast(castId, slotIndex === 0 ? "D" : "F");
         refreshedSlots.add(slotIndex);
         if (refreshedSlots.size >= refreshedSlotCount) refreshActive = false;
         continue;
@@ -220,17 +245,17 @@ export function planCombo(
     if (preparedSpellIndex !== i) {
       pushOrbSteps(i);
     }
-    pushInvoke(action.spell);
+    pushInvoke(underlying);
     if (refreshActive) refreshActive = false;
 
     if (options.comboMode === "instant") {
-      pushCast(action.spell);
+      pushCast(castId);
       continue;
     }
 
     const nextSpellIndex = findNextSpellIndex(i);
     if (!initialPreloadDone && preloaded.length < 2) {
-      preloaded.push(action.spell);
+      preloaded.push(castId);
       if (preloaded.length === 1) continue;
 
       // 预存两个技能后，若下一个技能需要新祈唤，则预切它的球
@@ -246,7 +271,7 @@ export function planCombo(
     }
 
     // 后续技能：先立即释放当前技能，再预切下一个需要新祈唤的技能
-    pushCast(action.spell);
+    pushCast(castId);
     if (
       nextSpellIndex >= 0 &&
       preparedSpellIndex !== nextSpellIndex &&

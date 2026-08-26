@@ -3,6 +3,7 @@
 Sources:
 - Hero/ability images: Steam CDN (official Dota 2 web assets)
 - Sound files: Dota 2 Wiki via Fandom MediaWiki API
+- Note: additional UI sounds and cursor images are kept in the repository manually.
 
 IMPORTANT: These assets are Valve/Dota 2 copyrighted materials.
 Use them only for local learning/prototyping; do not redistribute blindly.
@@ -41,6 +42,14 @@ HERO_IMAGES = {
     "invoker.png": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/invoker.png",
     "invoker_icon.png": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/invoker.png",
     "invoker_wide.png": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/wide/invoker.png",
+}
+
+# 部分 Fandom 音效文件名与项目内实际使用名不一致，这里统一映射。
+SOUND_FILE_MAP = {
+    "Refresher Orb.mp3": "refresher.mp3",
+    "Scythe of Vyse.mp3": "sheepstick.mp3",
+    "Meteor Hammer.mp3": "meteor_hammer.mp3",
+    "Teleport.mp3": "travel_boots.mp3",
 }
 
 
@@ -121,7 +130,7 @@ def download_sounds() -> None:
                 print("missing", sound)
                 continue
             url = pages[0]["imageinfo"][0]["url"]
-            filename = _sanitize(sound)
+            filename = SOUND_FILE_MAP.get(sound, _sanitize(sound))
             path = AUDIO_DIR / filename
             if not path.exists():
                 path.write_bytes(fetch(url))

@@ -1,13 +1,13 @@
 import type { ElementKind, GameConfig, InvokerState, ItemId, SpellId } from "./types";
-import { INVOKE, ITEM_BY_ID, ITEMS, SPELL_BY_ID, VALUES, valueAt, spellFromOrbs } from "./spellData";
+import { CATACLYSM_META, INVOKE, ITEM_BY_ID, ITEMS, SPELL_BY_ID, VALUES, valueAt, spellFromOrbs } from "./spellData";
 
 /** 卡尔官方基础属性与成长。 */
 const BASE_STATS = {
   strength: 19,
-  strengthGain: 2.6,
+  strengthGain: 2.5,
   agility: 14,
-  agilityGain: 1.8,
-  intelligence: 19,
+  agilityGain: 2.0,
+  intelligence: 22,
   intelligenceGain: 4.0,
 };
 
@@ -29,6 +29,7 @@ export const DEFAULT_CONFIG: GameConfig = {
   comboMode: "preload",
   infiniteMana: false,
   muted: false,
+  aghanimsScepter: false,
 };
 
 /** 计算英雄属性。Quas/Wex/Exort 分别提供力量/敏捷/智力加成。 */
@@ -78,6 +79,8 @@ export function createInitialState(config: GameConfig = DEFAULT_CONFIG): Invoker
     hp: attr.maxHp,
     maxHp: attr.maxHp,
     infiniteMana: config.infiniteMana,
+    aghanimsScepter: config.aghanimsScepter,
+    cataclysmCooldown: 0,
     dummy: {
       hp: config.dummyMaxHp,
       maxHp: config.dummyMaxHp,
@@ -254,6 +257,7 @@ export function useItem(state: InvokerState, item: ItemId, lang: Lang = "zh"): A
       next.spellCooldowns[key] = 0;
     }
     next.invokeCooldown = 0;
+    next.cataclysmCooldown = 0;
     event += lang === "zh" ? "，技能冷却已重置" : ", cooldowns reset";
   } else if (item === "meteor_hammer") {
     const damage = 130 + 50 * 6;
@@ -269,6 +273,54 @@ export function useItem(state: InvokerState, item: ItemId, lang: Lang = "zh"): A
   return { state: next, event };
 }
 
+/** 切换阿哈利姆神杖的开启状态。神杖不是消耗型物品，而是开关。 */
+export function toggleAghanims(state: InvokerState, lang: Lang = "zh"): ActionResult {
+  const next = clone(state);
+  next.aghanimsScepter = !next.aghanimsScepter;
+  return {
+    state: next,
+    event: next.aghanimsScepter
+      ? lang === "zh" ? "阿哈利姆神杖已开启，天火强化为毁天灭地" : "Aghanim's Scepter enabled: Sun Strike enhanced to Cataclysm"
+      : lang === "zh" ? "阿哈利姆神杖已关闭" : "Aghanim's Scepter disabled",
+  };
+}
+
+/** 释放毁天灭地：阿哈利姆神杖强化后的天火，使用独立冷却。 */
+export function castCataclysm(state: InvokerState, lang: Lang = "zh"): ActionResult {
+  const next = clone(state);
+  const spell = "invoker_sun_strike" as SpellId;
+  const meta = CATACLYSM_META;
+
+  if (!next.aghanimsScepter) {
+    return { state: next, event: lang === "zh" ? "需要开启阿哈利姆神杖" : "Aghanim's Scepter is required" };
+  }
+  if (!next.invokedSlots.includes(spell)) {
+    return { state: next, event: lang === "zh" ? "该技能尚未祈唤" : "Spell is not invoked" };
+  }
+  if (next.cataclysmCooldown > 0) {
+    return { state: next, event: `${meta.nameCn} ${lang === "zh" ? "冷却中" : "is on cooldown"}` };
+  }
+  if (!next.infiniteMana && next.mana < meta.manaCost) {
+    return { state: next, event: lang === "zh" ? "魔法不足" : "Not enough mana" };
+  }
+
+  if (!next.infiniteMana) {
+    next.mana -= meta.manaCost;
+  }
+  next.cataclysmCooldown = meta.cooldown;
+
+  const base = valueAt(VALUES.sunStrike.damage, next.orbLevels.exort);
+  const damage = Math.round(base * 0.75 * 2);
+  next.dummy.hp = Math.max(0, next.dummy.hp - damage);
+  next.dummy.lastHit = `${meta.nameCn}: -${damage}`;
+
+  return {
+    state: next,
+    damage,
+    event: `${lang === "zh" ? "释放" : "Cast"} ${meta.nameCn}${lang === "zh" ? `，造成 ${damage} 伤害` : `, dealt ${damage} damage`}`,
+  };
+}
+
 /** 推进冷却。dt 单位为秒。 */
 export function tick(state: InvokerState, dt: number): InvokerState {
   const next = clone(state);
@@ -279,6 +331,7 @@ export function tick(state: InvokerState, dt: number): InvokerState {
   for (const key of Object.keys(next.itemCooldowns) as ItemId[]) {
     next.itemCooldowns[key] = Math.max(0, next.itemCooldowns[key] - dt);
   }
+  next.cataclysmCooldown = Math.max(0, next.cataclysmCooldown - dt);
   return next;
 }
 

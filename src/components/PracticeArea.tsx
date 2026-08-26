@@ -1,4 +1,5 @@
 import type { InvokerState, PlanStep } from "../engine/types";
+import { spellImage } from "../engine/spellData";
 import { useI18n } from "../i18n";
 
 interface PracticeAreaProps {
@@ -30,7 +31,7 @@ export function PracticeArea({
     }
     if (step.type === "invoke") return "images/abilities/invoker_invoke.png";
     if (step.type === "item") return `images/items/${step.item === "sheepstick" ? "sheepstick" : step.item === "meteor_hammer" ? "meteor_hammer" : step.item === "travel_boots" ? "travel_boots" : "refresher"}.png`;
-    return `images/abilities/${step.spell}.png`;
+    return spellImage(step.spell);
   };
 
   return (

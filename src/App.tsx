@@ -1,17 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import { invoke as tauriInvoke } from "@tauri-apps/api/core";
-import type { Combo, ElementKind, GameConfig, InvokerState, ItemId, PlanStep, SpellId } from "./engine/types";
+import type { CastableId, Combo, ComboAction, ElementKind, GameConfig, InvokerState, ItemId, PlanStep, SpellId } from "./engine/types";
 import {
+  castCataclysm,
   castElement,
   castSpell,
   createInitialState,
   invoke,
   resetDummy,
   tick,
+  toggleAghanims,
   useItem,
   DEFAULT_CONFIG,
 } from "./engine/invoker";
-import { DEFAULT_COMBOS, ITEM_BY_ID, LEGACY_CAST_KEYS, SPELL_BY_ID } from "./engine/spellData";
+import { CATACLYSM_ID, CATACLYSM_META, DEFAULT_COMBOS, ITEM_BY_ID, LEGACY_CAST_KEYS, SPELL_BY_ID } from "./engine/spellData";
+import { normalizeConfig } from "./engine/config";
 import { planCombo } from "./engine/planner";
 import { HUD } from "./components/HUD";
 import { ComboPanel } from "./components/ComboPanel";
@@ -23,55 +26,58 @@ import { formatTemplate, useI18n } from "./i18n";
 const STORAGE_KEY = "invoker_custom_combos";
 const CONFIG_KEY = "invoker_config";
 
-function normalizeConfig(parsed: Partial<GameConfig> | null): GameConfig {
-  if (!parsed || typeof parsed.heroLevel !== "number") return DEFAULT_CONFIG;
-  const merged = { ...DEFAULT_CONFIG, ...parsed, configVersion: DEFAULT_CONFIG.configVersion };
-  if (parsed.configVersion !== DEFAULT_CONFIG.configVersion) {
-    // 旧版配置缺少新增字段时，使用新版的推荐默认值
-    merged.castMode = DEFAULT_CONFIG.castMode;
-    merged.comboMode = DEFAULT_CONFIG.comboMode;
-    merged.itemKeys = DEFAULT_CONFIG.itemKeys;
-    merged.muted = DEFAULT_CONFIG.muted;
-    merged.initialOrbs = DEFAULT_CONFIG.initialOrbs;
-  }
-  if (merged.keybindMode === "legacy") {
-    // 传统键位下避免物品键与技能施法键冲突
-    const reserved = new Set(["Q", "W", "E", "R", ...Object.values(LEGACY_CAST_KEYS)]);
-    const fallbacks = { refresher: "5", sheepstick: "1", meteor_hammer: "2", travel_boots: "3" };
-    for (const item of Object.keys(merged.itemKeys) as (keyof typeof merged.itemKeys)[]) {
-      if (reserved.has(merged.itemKeys[item].toUpperCase())) {
-        merged.itemKeys[item] = fallbacks[item];
-      }
-    }
-  }
-  return merged;
-}
 
 async function loadPersistedConfig(): Promise<GameConfig> {
   try {
     if ("__TAURI_INTERNALS__" in window) {
       const raw = await tauriInvoke<string | null>("load_config");
-      if (raw) return normalizeConfig(JSON.parse(raw) as Partial<GameConfig>);
+      if (raw) return normalizeConfig(JSON.parse(raw));
     }
   } catch {
     // 文件读取失败时回退到 localStorage
   }
   try {
     const raw = localStorage.getItem(CONFIG_KEY);
-    if (raw) return normalizeConfig(JSON.parse(raw) as Partial<GameConfig>);
+    if (raw) return normalizeConfig(JSON.parse(raw));
   } catch {
     // localStorage 不可用时使用默认配置
   }
   return DEFAULT_CONFIG;
 }
 
+function isComboAction(value: unknown): value is ComboAction {
+  if (!value || typeof value !== "object") return false;
+  const action = value as Partial<ComboAction>;
+  if (action.type === "spell") {
+    return typeof action.spell === "string" && Object.prototype.hasOwnProperty.call(SPELL_BY_ID, action.spell);
+  }
+  if (action.type === "item") {
+    return typeof action.item === "string" && Object.prototype.hasOwnProperty.call(ITEM_BY_ID, action.item);
+  }
+  if (action.type === "cataclysm") return true;
+  return false;
+}
+
+function isCombo(value: unknown): value is Combo {
+  if (!value || typeof value !== "object") return false;
+  const combo = value as Partial<Combo>;
+  return (
+    typeof combo.id === "string" &&
+    typeof combo.nameZh === "string" &&
+    typeof combo.nameEn === "string" &&
+    Array.isArray(combo.actions) &&
+    combo.actions.every(isComboAction)
+  );
+}
+
 function loadCombos(): Combo[] {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
-      const parsed = JSON.parse(raw) as Combo[];
-      if (Array.isArray(parsed) && parsed.every((c) => Array.isArray(c.actions) && typeof c.nameZh === "string" && typeof c.nameEn === "string")) {
-        return parsed;
+      const parsed: unknown = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        const valid = parsed.filter(isCombo);
+        if (valid.length > 0) return valid;
       }
     }
   } catch {
@@ -83,7 +89,7 @@ function loadCombos(): Combo[] {
 type ExpectedStep =
   | { type: "orb"; element: ElementKind; key: string }
   | { type: "invoke"; key: string; spell: SpellId }
-  | { type: "cast"; key: string; spell: SpellId }
+  | { type: "cast"; key: string; spell: CastableId }
   | { type: "item"; key: string; item: ItemId };
 
 function plannerOptions(config: GameConfig) {
@@ -92,6 +98,13 @@ function plannerOptions(config: GameConfig) {
     itemKeys: config.itemKeys,
     comboMode: config.comboMode,
   };
+}
+
+function mouseButtonHotkey(button: number): string | null {
+  if (button === 1) return "MOUSE3";
+  if (button === 3) return "MOUSE4";
+  if (button === 4) return "MOUSE5";
+  return null;
 }
 
 export default function App() {
@@ -105,9 +118,12 @@ export default function App() {
   const [plan, setPlan] = useState<PlanStep[]>([]);
   const [currentStep, setCurrentStep] = useState(0);
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const [pendingCast, setPendingCast] = useState<{ spell: SpellId; key: string } | null>(null);
+  const [pendingCast, setPendingCast] = useState<{ spell: CastableId; key: string } | null>(null);
   const [pendingItem, setPendingItem] = useState<{ item: ItemId; key: string } | null>(null);
   const lastTravelPressRef = useRef<{ item: ItemId; time: number } | null>(null);
+  const lastCataclysmPressRef = useRef<{ spell: CastableId; time: number } | null>(null);
+  const settingsOpenRef = useRef(settingsOpen);
+  settingsOpenRef.current = settingsOpen;
 
   const stateRef = useRef(state);
   stateRef.current = state;
@@ -192,6 +208,7 @@ export default function App() {
     setPendingCast(null);
     setPendingItem(null);
     lastTravelPressRef.current = null;
+    lastCataclysmPressRef.current = null;
     setEvent(result.event ?? "");
     playOrbSwitch(element);
   };
@@ -202,6 +219,7 @@ export default function App() {
     setPendingCast(null);
     setPendingItem(null);
     lastTravelPressRef.current = null;
+    lastCataclysmPressRef.current = null;
     setEvent(result.event ?? "");
     const invokeSucceeded =
       result.event?.startsWith("祈唤") ||
@@ -218,6 +236,7 @@ export default function App() {
   const castSpellAction = (spell: SpellId): boolean => {
     const result = castSpell(stateRef.current, spell, lang);
     commit(result.state);
+    lastCataclysmPressRef.current = null;
     setEvent(result.event ?? "");
     const prefix = lang === "zh" ? "释放" : "Cast";
     if (result.event?.startsWith(prefix)) {
@@ -227,11 +246,46 @@ export default function App() {
     return false;
   };
 
+  const performCataclysm = (): boolean => {
+    const result = castCataclysm(stateRef.current, lang);
+    commit(result.state);
+    setPendingCast(null);
+    setPendingItem(null);
+    lastTravelPressRef.current = null;
+    lastCataclysmPressRef.current = null;
+    setEvent(result.event ?? "");
+    const prefix = lang === "zh" ? "释放" : "Cast";
+    if (result.event?.startsWith(prefix)) {
+      playSound("Sun_Strike_cast.mp3", 0.8);
+      return true;
+    }
+    return false;
+  };
+
+  const performToggleAghanims = () => {
+    const result = toggleAghanims(stateRef.current, lang);
+    const enabled = result.state.aghanimsScepter;
+    const orbLevels = enabled
+      ? result.state.orbLevels
+      : {
+          quas: Math.min(7, result.state.orbLevels.quas),
+          wex: Math.min(7, result.state.orbLevels.wex),
+          exort: Math.min(7, result.state.orbLevels.exort),
+        };
+    const nextState = { ...result.state, orbLevels };
+    commit(nextState);
+    setConfig((prev) => ({ ...prev, aghanimsScepter: enabled, orbLevels }));
+    lastCataclysmPressRef.current = null;
+    setEvent(result.event ?? "");
+  };
+
   const performItemAction = (item: ItemId): boolean => {
     const result = useItem(stateRef.current, item, lang);
     commit(result.state);
     setPendingCast(null);
     setPendingItem(null);
+    lastTravelPressRef.current = null;
+    lastCataclysmPressRef.current = null;
     setEvent(result.event ?? "");
     const prefix = lang === "zh" ? "使用" : "Use";
     if (result.event?.startsWith(prefix) || result.event?.includes(lang === "zh" ? "远行鞋" : "Boots of Travel")) {
@@ -268,6 +322,10 @@ export default function App() {
       lastTravelPressRef.current = { item, time: now };
     }
 
+    if (item !== "travel_boots") {
+      lastTravelPressRef.current = null;
+    }
+    lastCataclysmPressRef.current = null;
     setPendingCast(null);
     setPendingItem({ item, key });
     setEvent(
@@ -277,6 +335,11 @@ export default function App() {
       }),
     );
   };
+
+  const itemForKeyRef = useRef(itemForKey);
+  itemForKeyRef.current = itemForKey;
+  const handleItemKeyRef = useRef(handleItemKey);
+  handleItemKeyRef.current = handleItemKey;
 
   const spellForKey = (key: string): SpellId | null => {
     if (config.keybindMode === "legacy") {
@@ -294,6 +357,11 @@ export default function App() {
     return slot === 0 ? "D" : "F";
   };
 
+  const castableName = (id: CastableId): string => {
+    if (id === CATACLYSM_ID) return lang === "zh" ? CATACLYSM_META.nameCn : CATACLYSM_META.name;
+    return spellName(id as SpellId);
+  };
+
   /** 处理施法按键：instant 直接释放，mouse 模式按技能类型进入待确认状态。 */
   const handleCastKey = (key: string) => {
     const spell = spellForKey(key);
@@ -302,52 +370,97 @@ export default function App() {
       return;
     }
 
+    const useCataclysm = stateRef.current.aghanimsScepter && spell === "invoker_sun_strike";
+    const castId: CastableId = useCataclysm ? CATACLYSM_ID : spell;
+
     if (config.castMode === "mouse") {
       if (spell === "invoker_ghost_walk" || spell === "invoker_ice_wall") {
+        setPendingCast(null);
+        setPendingItem(null);
+        lastTravelPressRef.current = null;
         if (castSpellAction(spell)) {
-          if (!advancePlan({ type: "cast", key, spell })) reportWrongStep();
+          if (!advancePlan({ type: "cast", key, spell })) reportWrongStep({ type: "cast", key, spell });
         }
         return;
       }
+
+      if (useCataclysm) {
+        const now = performance.now();
+        const last = lastCataclysmPressRef.current;
+        if (last && last.spell === CATACLYSM_ID && now - last.time <= 400) {
+          lastCataclysmPressRef.current = null;
+          setPendingCast(null);
+          setPendingItem(null);
+          if (performCataclysm()) {
+            if (!advancePlan({ type: "cast", key, spell: CATACLYSM_ID })) reportWrongStep({ type: "cast", key, spell: CATACLYSM_ID });
+          }
+          return;
+        }
+        lastCataclysmPressRef.current = { spell: CATACLYSM_ID, time: now };
+      } else {
+        lastCataclysmPressRef.current = null;
+      }
+
       const needsRightClick = spell === "invoker_forge_spirit";
       setPendingItem(null);
       lastTravelPressRef.current = null;
-      setPendingCast({ spell, key });
+      setPendingCast({ spell: castId, key });
       setEvent(
-        formatTemplate(t(needsRightClick ? "event.pendingForge" : "event.pendingCast"), {
-          spell: spellName(spell),
-        }),
+        formatTemplate(
+          useCataclysm
+            ? t("event.pendingCataclysm")
+            : t(needsRightClick ? "event.pendingForge" : "event.pendingCast"),
+          { spell: castableName(castId) },
+        ),
       );
       return;
     }
 
+    if (useCataclysm) {
+      lastCataclysmPressRef.current = null;
+      if (performCataclysm()) {
+        if (!advancePlan({ type: "cast", key, spell: CATACLYSM_ID })) reportWrongStep({ type: "cast", key, spell: CATACLYSM_ID });
+      }
+      return;
+    }
+
     if (castSpellAction(spell)) {
-      if (!advancePlan({ type: "cast", key, spell })) reportWrongStep();
+      if (!advancePlan({ type: "cast", key, spell })) reportWrongStep({ type: "cast", key, spell });
     }
   };
 
   const confirmCast = (button: "left" | "right") => {
     if (!pendingCast) return;
     const { spell, key } = pendingCast;
-    if (spell === "invoker_forge_spirit") {
+    if (spell === CATACLYSM_ID) {
+      if (button !== "left") {
+        setPendingCast(null);
+        setPendingItem(null);
+        setEvent(t("event.castCancelled"));
+        return;
+      }
+      if (performCataclysm()) {
+        if (!advancePlan({ type: "cast", key, spell: CATACLYSM_ID })) reportWrongStep({ type: "cast", key, spell: CATACLYSM_ID });
+      }
+    } else if (spell === "invoker_forge_spirit") {
       if (button !== "right") {
         setPendingCast(null);
-    setPendingItem(null);
+        setPendingItem(null);
         setEvent(t("event.castCancelled"));
         return;
       }
       if (castSpellAction(spell)) {
-        if (!advancePlan({ type: "cast", key, spell })) reportWrongStep();
+        if (!advancePlan({ type: "cast", key, spell })) reportWrongStep({ type: "cast", key, spell });
       }
     } else {
       if (button !== "left") {
         setPendingCast(null);
-    setPendingItem(null);
+        setPendingItem(null);
         setEvent(t("event.castCancelled"));
         return;
       }
       if (castSpellAction(spell)) {
-        if (!advancePlan({ type: "cast", key, spell })) reportWrongStep();
+        if (!advancePlan({ type: "cast", key, spell })) reportWrongStep({ type: "cast", key, spell });
       }
     }
     setPendingCast(null);
@@ -396,23 +509,40 @@ export default function App() {
     return true;
   };
 
-  const reportWrongStep = () => {
-    if (planRef.current.length === 0) return;
-    setEvent(lang === "zh" ? "按键正确，但产生的技能与连招不符" : "Correct key, but the expected action was not produced");
+  const reportWrongStep = (expected?: ExpectedStep) => {
+    const steps = planRef.current;
+    if (steps.length === 0) return;
+    const current = steps[currentStepRef.current];
+    if (!current) return;
+    const sameType = current.type === expected?.type;
+    const sameKey = current.key === expected?.key;
+    if (sameType && sameKey) {
+      setEvent(
+        lang === "zh"
+          ? "按键正确，但产生的技能与连招不符"
+          : "Correct key, but the expected action was not produced",
+      );
+    } else {
+      setEvent(
+        lang === "zh"
+          ? "按键不符合当前步骤"
+          : "The pressed key does not match the current step",
+      );
+    }
   };
 
   const handleKeyDown = (key: string) => {
     if (key === "Q" || key === "W" || key === "E") {
       const element: ElementKind = key === "Q" ? "quas" : key === "W" ? "wex" : "exort";
       performElement(element);
-      if (!advancePlan({ type: "orb", element, key })) reportWrongStep();
+      if (!advancePlan({ type: "orb", element, key })) reportWrongStep({ type: "orb", element, key });
       return;
     }
     if (key === "R") {
       const ok = performInvoke();
       if (!ok) return;
       const actual = stateRef.current.invokedSlots[0];
-      if (actual && !advancePlan({ type: "invoke", key, spell: actual })) reportWrongStep();
+      if (actual && !advancePlan({ type: "invoke", key, spell: actual })) reportWrongStep({ type: "invoke", key, spell: actual });
       return;
     }
     if (Object.values(config.itemKeys).some((value) => value.toUpperCase() === key)) {
@@ -440,10 +570,22 @@ export default function App() {
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.repeat) return;
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      if (e.key === "Escape") {
+        if (settingsOpenRef.current) {
+          setSettingsOpen(false);
+        } else {
+          setPendingCast(null);
+          setPendingItem(null);
+          lastTravelPressRef.current = null;
+        }
+        return;
+      }
+      if (settingsOpenRef.current) return;
       const target = e.target as HTMLElement | null;
       if (target && ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName)) return;
-      const key = e.key.toUpperCase();
-      if (/^[A-Z0-9]$/.test(key)) {
+      const key = e.key.length === 1 ? e.key.toUpperCase() : "";
+      if (key) {
         e.preventDefault();
         handleKeyDownRef.current(key);
       }
@@ -452,10 +594,32 @@ export default function App() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
+  useEffect(() => {
+    const onMouseDown = (e: MouseEvent) => {
+      if (settingsOpenRef.current) return;
+      const target = e.target as HTMLElement | null;
+      if (target && ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName)) return;
+      const hotkey = mouseButtonHotkey(e.button);
+      if (!hotkey) return;
+      if (!itemForKeyRef.current(hotkey)) return;
+      e.preventDefault();
+      handleItemKeyRef.current(hotkey);
+    };
+    window.addEventListener("mousedown", onMouseDown);
+    return () => window.removeEventListener("mousedown", onMouseDown);
+  }, []);
+
   const selectCombo = (combo: Combo) => {
-    const fresh = createInitialState(config);
+    const needsAghs = combo.actions.some((action) => action.type === "cataclysm");
+    const effectiveConfig = needsAghs && !config.aghanimsScepter
+      ? { ...config, aghanimsScepter: true }
+      : config;
+    if (effectiveConfig !== config) {
+      setConfig(effectiveConfig);
+    }
+    const fresh = createInitialState(effectiveConfig);
     commit(fresh);
-    const computedPlan = planCombo(combo.actions, fresh.orbs, plannerOptions(config));
+    const computedPlan = planCombo(combo.actions, fresh.orbs, plannerOptions(effectiveConfig));
     planRef.current = computedPlan;
     currentStepRef.current = 0;
     setPendingCast(null);
@@ -463,12 +627,28 @@ export default function App() {
     setActiveCombo(combo);
     setPlan(computedPlan);
     setCurrentStep(0);
-    setEvent(lang === "zh" ? `开始连招：${combo.nameZh}` : `Combo started: ${combo.nameEn}`);
+    const aghsNotice = effectiveConfig !== config
+      ? lang === "zh" ? "，已自动开启阿哈利姆神杖" : ", Aghanim's Scepter enabled automatically"
+      : "";
+    setEvent(lang === "zh" ? `开始连招：${combo.nameZh}${aghsNotice}` : `Combo started: ${combo.nameEn}${aghsNotice}`);
   };
 
   const saveCustomCombo = (combo: Combo) => {
     setCombos((prev) => [...prev, combo]);
     selectCombo(combo);
+  };
+
+  const removeCustomCombo = (id: string) => {
+    setCombos((prev) => prev.filter((combo) => combo.id !== id));
+    if (activeCombo?.id === id) {
+      setActiveCombo(null);
+      planRef.current = [];
+      currentStepRef.current = 0;
+      setPlan([]);
+      setCurrentStep(0);
+      setPendingCast(null);
+      setPendingItem(null);
+    }
   };
 
   const applySettings = (nextConfig: GameConfig) => {
@@ -542,6 +722,8 @@ export default function App() {
           previewOptions={plannerOptions(config)}
           onSelect={selectCombo}
           onSaveCustomCombo={saveCustomCombo}
+          onRemoveCustomCombo={removeCustomCombo}
+          aghanimsScepter={config.aghanimsScepter}
         />
       </main>
 
@@ -551,16 +733,18 @@ export default function App() {
         itemKeys={config.itemKeys}
         pendingCast={pendingCast}
         pendingItem={pendingItem}
+        aghanimsScepter={config.aghanimsScepter}
+        onToggleAghanims={performToggleAghanims}
         onCastElement={(element) => {
           performElement(element);
           const key = element === "quas" ? "Q" : element === "wex" ? "W" : "E";
-          if (!advancePlan({ type: "orb", element, key })) reportWrongStep();
+          if (!advancePlan({ type: "orb", element, key })) reportWrongStep({ type: "orb", element, key });
         }}
         onInvoke={() => {
           const ok = performInvoke();
           if (!ok) return;
           const actual = stateRef.current.invokedSlots[0];
-          if (actual && !advancePlan({ type: "invoke", key: "R", spell: actual })) reportWrongStep();
+          if (actual && !advancePlan({ type: "invoke", key: "R", spell: actual })) reportWrongStep({ type: "invoke", key: "R", spell: actual });
         }}
         onCastSpell={(spell) => {
           const key = castKeyForSpell(spell);

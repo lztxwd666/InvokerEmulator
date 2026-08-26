@@ -1,13 +1,15 @@
-import type { ElementKind, InvokerState, ItemId, KeybindMode, SpellId } from "../engine/types";
-import { elementImage, ITEMS, LEGACY_CAST_KEYS } from "../engine/spellData";
+import type { CastableId, ElementKind, InvokerState, ItemId, KeybindMode, SpellId } from "../engine/types";
+import { CATACLYSM_ID, elementImage, ITEMS, LEGACY_CAST_KEYS } from "../engine/spellData";
 import { useI18n } from "../i18n";
 
 interface HUDProps {
   state: InvokerState;
   keybindMode: KeybindMode;
   itemKeys: Record<ItemId, string>;
-  pendingCast: { spell: SpellId; key: string } | null;
+  pendingCast: { spell: CastableId; key: string } | null;
   pendingItem: { item: ItemId; key: string } | null;
+  aghanimsScepter: boolean;
+  onToggleAghanims: () => void;
   onCastElement: (element: ElementKind) => void;
   onInvoke: () => void;
   onCastSpell: (spell: SpellId) => void;
@@ -23,6 +25,8 @@ export function HUD({
   itemKeys,
   pendingCast,
   pendingItem,
+  aghanimsScepter,
+  onToggleAghanims,
   onCastElement,
   onInvoke,
   onCastSpell,
@@ -106,7 +110,7 @@ export function HUD({
             return (
               <button
                 key={slotIndex}
-                className={`ability-button spell-slot ${pendingCast?.spell === spellId ? "pending" : ""}`}
+                className={`ability-button spell-slot ${pendingCast?.spell === spellId || (pendingCast?.spell === CATACLYSM_ID && spellId === "invoker_sun_strike") ? "pending" : ""}`}
                 onClick={() => spellId && onCastSpell(spellId)}
                 title={spellId ? `${spellName(spellId)} [${key}]` : key}
               >
@@ -140,6 +144,17 @@ export function HUD({
                 )}
               </button>
             ))}
+            <button
+              className={`item-button aghs-toggle ${aghanimsScepter ? "active" : ""}`}
+              onClick={onToggleAghanims}
+              title={lang === "zh" ? "阿哈利姆神杖（开关）" : "Aghanim's Scepter (toggle)"}
+            >
+              <img src="images/items/ultimate_scepter.png" alt={lang === "zh" ? "阿哈利姆神杖" : "Aghanim's Scepter"} />
+              <span className="key-badge">Aghs</span>
+              {state.cataclysmCooldown > 0 && (
+                <span className="cooldown-overlay">{state.cataclysmCooldown.toFixed(1)}</span>
+              )}
+            </button>
           </div>
         </div>
       </div>
