@@ -1,0 +1,139 @@
+{{Tabs Hero|custom1=Ability Draft|custom2=Dragon's Blood}}
+
+==Attacks==
+===Invoker's Attacks===
+* <ab>Witch Doctor preattack.mp3</ab> '''Pre attack''' sound plays during the attack animation.
+
+* <ab>Witch Doctor projectile launch.mp3</ab> '''Projectile launch''' sound plays as the attack projectile is released.
+
+* <ab>Witch Doctor projectile impact.mp3</ab> '''Projectile impact''' sound plays as the attack projectile successfully hits the target (50% vol).
+
+===Forge Spirit's Attacks===
+* '''Projectile launch''' sound plays as the attack projectile is released.
+** <ab>Radiant ranged projectile launch1.mp3</ab> Projectile launch 1
+** <ab>Radiant ranged projectile launch2.mp3</ab> Projectile launch 2
+** <ab>Radiant ranged projectile launch3.mp3</ab> Projectile launch 3
+** <ab>Radiant ranged projectile launch4.mp3</ab> Projectile launch 4
+
+* '''Projectile impact''' sound plays as the attack projectile successfully hits the target
+** <ab>Radiant ranged projectile impact1.mp3</ab> Projectile impact 1
+** <ab>Radiant ranged projectile impact2.mp3</ab> Projectile impact 2
+** <ab>Radiant ranged projectile impact3.mp3</ab> Projectile impact 3
+** <ab>Radiant ranged projectile impact4.mp3</ab> Projectile impact 4
+
+==Movement==
+===Invoker's Movement===
+* Play on each step while moving (40% vol).
+** <ab>Shared footstep hero general1.mp3</ab> Footstep 1
+** <ab>Shared footstep hero general2.mp3</ab> Footstep 2
+** <ab>Shared footstep hero general3.mp3</ab> Footstep 3
+** <ab>Shared footstep hero general4.mp3</ab> Footstep 4
+** <ab>Shared footstep hero general5.mp3</ab> Footstep 5
+** <ab>Shared footstep hero general6.mp3</ab> Footstep 6
+** <ab>Shared footstep hero general7.mp3</ab> Footstep 7
+
+* <ab>Spectre idle loop.mp3</ab> Loop sound plays permanently on Invoker, gets louder while moving (10% vol).
+
+===Forge Spirit's Movement===
+* Forge Spirits do not use any movement sounds.
+
+==Abilities==
+===Invoker's Abilities===
+====Quas====
+* Quas does not use any sound effects.
+
+====Wex====
+* Wex does not use any sound effects.
+
+====Exort====
+* Exort does not use any sound effects.
+
+====Invoke====
+* <ab>Invoke.mp3</ab> Cast sound plays on Invoker upon cast.
+
+===Invoked Abilities===
+
+====Cold Snap====
+* <ab>Time Walk.mp3</ab> Cast sound plays on Invoker upon cast (50% vol).
+* <ab>Cold Snap target.mp3</ab> Target sound plays on the target upon cast.
+* <ab>Lich projectile launch.mp3</ab> Trigger sound plays whenever Cold Snap is triggered by damage (50% vol).
+* <ab>Cold Snap.mp3</ab> Full sound example.
+
+====Ghost Walk====
+* <ab>Ghost Walk.mp3</ab> Cast sound plays on Invoker upon cast.
+
+====Ice Wall====
+* <ab>Cold Feet cast.mp3</ab> Cast sound plays on Invoker upon cast at a lower pitch (60% vol).
+* Target sounds play on each enemy unit on each damage tick (30%-50% vol).
+** <ab>Ice Wall target1.mp3</ab> Target 1
+** <ab>Ice Wall target2.mp3</ab> Target 2
+** <ab>Ice Wall target3.mp3</ab> Target 3
+** <ab>Ice Wall target4.mp3</ab> Target 4
+** <ab>Ice Wall target5.mp3</ab> Target 5
+** <ab>Ice Wall target6.mp3</ab> Target 6
+* <ab>Ice Wall.mp3</ab> Sound example.
+
+====E.M.P.====
+* <ab>E.M.P. cast.mp3</ab> Cast sound plays on Invoker upon cast.
+* <ab>E.M.P. target.mp3</ab> Target sound plays at the targeted area upon cast during the effect delay.
+* <ab>E.M.P. effect.mp3</ab> Effect sound plays at the targeted area after the effect delay.
+* <ab>E.M.P..mp3</ab> Full sound example.
+
+====Tornado====
+* <ab>Tornado cast.mp3</ab> Cast sound plays on Invoker upon cast.
+* <ab>Tornado travel.mp3</ab> Travel sound plays on the tornado upon cast and lasts as long as the tornado does.
+* Target sounds play on each hit unit upon getting hit (80% vol).
+** <ab>Tornado target1.mp3</ab> Target 1
+** <ab>Tornado target2.mp3</ab> Target 2
+** <ab>Tornado target3.mp3</ab> Target 3
+** <ab>Tornado target4.mp3</ab> Target 4
+** <ab>Tornado target5.mp3</ab> Target 5
+* Landing sounds play whenever a hit unit lands from the cyclone (25%-35% vol).
+** <ab>Death body impact light1.mp3</ab> Land 1
+** <ab>Death body impact light2.mp3</ab> Land 2
+** <ab>Death body impact light3.mp3</ab> Land 3
+** <ab>Death body impact light4.mp3</ab> Land 4
+* <ab>Tornado.mp3</ab> Full sound example.
+
+''[[Dark Artistry]]''
+* <ab>Dark Artistry Cape Tornado cast.mp3</ab> Replaces the default cast sound.
+* <ab>Dark Artistry Cape Tornado.mp3</ab> Full sound example.
+
+====Alacrity====
+* <ab>Alacrity.mp3</ab> Target sound plays on Invoker upon cast.
+
+====Sun Strike====
+* <ab>Sun Strike cast.mp3</ab> Cast sound plays at the targeted location upon cast during the effect delay.
+* <ab>Sun Strike effect.mp3</ab> Effect sound plays at the targeted location after the effect delay.
+* <ab>Sun Strike.mp3</ab> Full sound example.
+
+''[[Magus Apex]]''
+* <ab>Magus Apex Sun Strike cast.mp3</ab> Replaces the default cast sound.
+* <ab>Magus Apex Sun Strike effect.mp3</ab> Replaces the default effect sound.
+* <ab>Magus Apex Sun Strike.mp3</ab> Full sound example.
+
+====Forge Spirit====
+* <ab>Shadow Word cast damage.mp3</ab> Cast sound plays on Invoker upon cast at a lower pitch.
+* <ab>Forge Spirit.mp3</ab> Sound example.
+
+====Chaos Meteor====
+* <ab>Chaos Meteor cast.mp3</ab> Cast sound plays on Invoker upon cast.
+* <ab>Chaos Meteor loop.mp3</ab> Loop sound plays on the meteor upon cast and lasts as long as the meteor does.
+* <ab>Chaos Meteor target.mp3</ab> Impact sound plays on the meteor upon landing at the targeted point.
+* <ab>Avalanche.mp3</ab> End sound played whenever the meteor stopped rolling and crumbled (50% vol). This sound is currently unused by the spell.
+* <ab>Lina projectile impact.mp3</ab> Tick sound plays on each hit enemy unit whenever they take the small burn damage (50% vol).
+* <ab>Chaos Meteor.mp3</ab> Full sound example.
+* <ab>Chaos Meteor alt.mp3</ab> Full sound example with the old crumble sound.
+
+====Deafening Blast====
+* <ab>Deafening Blast.mp3</ab> Cast sound plays on Invoker upon cast.
+
+''[[Dark Artistry]]''
+* <ab>Dark Artistry Cape Deafening Blast.mp3</ab> Replaces the default cast sound.
+
+===Forge Spirit's Abilities===
+====Melting Strike====
+* Melting Strike does not use any sound effects.
+
+{{GameSoundsNav}}
+[[ru:Invoker/Звуки]]

@@ -1,0 +1,426 @@
+{
+  "Witch Doctor preattack.mp3": {
+    "file": "Witch_Doctor_preattack.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/8/85/Witch_Doctor_preattack.mp3/revision/latest?cb=20141207134845",
+    "downloaded": true,
+    "size": 6272
+  },
+  "Witch Doctor projectile launch.mp3": {
+    "file": "Witch_Doctor_projectile_launch.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/9/91/Witch_Doctor_projectile_launch.mp3/revision/latest?cb=20141207134851",
+    "downloaded": true,
+    "size": 15488
+  },
+  "Witch Doctor projectile impact.mp3": {
+    "file": "Witch_Doctor_projectile_impact.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/2/29/Witch_Doctor_projectile_impact.mp3/revision/latest?cb=20141204002115",
+    "downloaded": true,
+    "size": 6272
+  },
+  "Radiant ranged projectile launch1.mp3": {
+    "file": "Radiant_ranged_projectile_launch1.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/d/d1/Radiant_ranged_projectile_launch1.mp3/revision/latest?cb=20141124001956",
+    "downloaded": true,
+    "size": 9344
+  },
+  "Radiant ranged projectile launch2.mp3": {
+    "file": "Radiant_ranged_projectile_launch2.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/7/77/Radiant_ranged_projectile_launch2.mp3/revision/latest?cb=20141124002002",
+    "downloaded": true,
+    "size": 9344
+  },
+  "Radiant ranged projectile launch3.mp3": {
+    "file": "Radiant_ranged_projectile_launch3.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/e/e1/Radiant_ranged_projectile_launch3.mp3/revision/latest?cb=20141124002007",
+    "downloaded": true,
+    "size": 9344
+  },
+  "Radiant ranged projectile launch4.mp3": {
+    "file": "Radiant_ranged_projectile_launch4.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/9/96/Radiant_ranged_projectile_launch4.mp3/revision/latest?cb=20141124002012",
+    "downloaded": true,
+    "size": 9344
+  },
+  "Radiant ranged projectile impact1.mp3": {
+    "file": "Radiant_ranged_projectile_impact1.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/e/ea/Radiant_ranged_projectile_impact1.mp3/revision/latest?cb=20141124001936",
+    "downloaded": true,
+    "size": 9856
+  },
+  "Radiant ranged projectile impact2.mp3": {
+    "file": "Radiant_ranged_projectile_impact2.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/d/d2/Radiant_ranged_projectile_impact2.mp3/revision/latest?cb=20141124001941",
+    "downloaded": true,
+    "size": 9344
+  },
+  "Radiant ranged projectile impact3.mp3": {
+    "file": "Radiant_ranged_projectile_impact3.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/3/3a/Radiant_ranged_projectile_impact3.mp3/revision/latest?cb=20141124001946",
+    "downloaded": true,
+    "size": 10880
+  },
+  "Radiant ranged projectile impact4.mp3": {
+    "file": "Radiant_ranged_projectile_impact4.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/c/c2/Radiant_ranged_projectile_impact4.mp3/revision/latest?cb=20141124001951",
+    "downloaded": true,
+    "size": 9344
+  },
+  "Shared footstep hero general1.mp3": {
+    "file": "Shared_footstep_hero_general1.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/0/01/Shared_footstep_hero_general1.mp3/revision/latest?cb=20141123141726",
+    "downloaded": true,
+    "size": 6784
+  },
+  "Shared footstep hero general2.mp3": {
+    "file": "Shared_footstep_hero_general2.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/4/4c/Shared_footstep_hero_general2.mp3/revision/latest?cb=20141123141732",
+    "downloaded": true,
+    "size": 5760
+  },
+  "Shared footstep hero general3.mp3": {
+    "file": "Shared_footstep_hero_general3.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/b/be/Shared_footstep_hero_general3.mp3/revision/latest?cb=20141123141737",
+    "downloaded": true,
+    "size": 6272
+  },
+  "Shared footstep hero general4.mp3": {
+    "file": "Shared_footstep_hero_general4.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/f/fe/Shared_footstep_hero_general4.mp3/revision/latest?cb=20141123141742",
+    "downloaded": true,
+    "size": 5760
+  },
+  "Shared footstep hero general5.mp3": {
+    "file": "Shared_footstep_hero_general5.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/c/c8/Shared_footstep_hero_general5.mp3/revision/latest?cb=20141123141748",
+    "downloaded": true,
+    "size": 7296
+  },
+  "Shared footstep hero general6.mp3": {
+    "file": "Shared_footstep_hero_general6.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/1/1f/Shared_footstep_hero_general6.mp3/revision/latest?cb=20141123141753",
+    "downloaded": true,
+    "size": 5760
+  },
+  "Shared footstep hero general7.mp3": {
+    "file": "Shared_footstep_hero_general7.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/a/a2/Shared_footstep_hero_general7.mp3/revision/latest?cb=20141123141759",
+    "downloaded": true,
+    "size": 6231
+  },
+  "Spectre idle loop.mp3": {
+    "file": "Spectre_idle_loop.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/d/d8/Spectre_idle_loop.mp3/revision/latest?cb=20141205120722",
+    "downloaded": true,
+    "size": 37504
+  },
+  "Invoke.mp3": {
+    "file": "Invoke.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/c/c7/Invoke.mp3/revision/latest?cb=20141213180737",
+    "downloaded": true,
+    "size": 53376
+  },
+  "Time Walk.mp3": {
+    "file": "Time_Walk.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/6/6c/Time_Walk.mp3/revision/latest?cb=20141204165833",
+    "downloaded": true,
+    "size": 32384
+  },
+  "Cold Snap target.mp3": {
+    "file": "Cold_Snap_target.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/f/f6/Cold_Snap_target.mp3/revision/latest?cb=20141213180551",
+    "downloaded": true,
+    "size": 151680
+  },
+  "Lich projectile launch.mp3": {
+    "file": "Lich_projectile_launch.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/b/b9/Lich_projectile_launch.mp3/revision/latest?cb=20141210172438",
+    "downloaded": true,
+    "size": 20608
+  },
+  "Cold Snap.mp3": {
+    "file": "Cold_Snap.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/3/31/Cold_Snap.mp3/revision/latest?cb=20141213180558",
+    "downloaded": true,
+    "size": 153216
+  },
+  "Ghost Walk.mp3": {
+    "file": "Ghost_Walk.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/7/7a/Ghost_Walk.mp3/revision/latest?cb=20141213180647",
+    "downloaded": true,
+    "size": 86656
+  },
+  "Cold Feet cast.mp3": {
+    "file": "Cold_Feet_cast.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/4/49/Cold_Feet_cast.mp3/revision/latest?cb=20141212181741",
+    "downloaded": true,
+    "size": 64640
+  },
+  "Ice Wall target1.mp3": {
+    "file": "Ice_Wall_target1.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/f/ff/Ice_Wall_target1.mp3/revision/latest?cb=20141213180654",
+    "downloaded": true,
+    "size": 36480
+  },
+  "Ice Wall target2.mp3": {
+    "file": "Ice_Wall_target2.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/8/8c/Ice_Wall_target2.mp3/revision/latest?cb=20141213180700",
+    "downloaded": true,
+    "size": 38528
+  },
+  "Ice Wall target3.mp3": {
+    "file": "Ice_Wall_target3.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/d/d2/Ice_Wall_target3.mp3/revision/latest?cb=20141213180706",
+    "downloaded": true,
+    "size": 34944
+  },
+  "Ice Wall target4.mp3": {
+    "file": "Ice_Wall_target4.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/c/c1/Ice_Wall_target4.mp3/revision/latest?cb=20141213180712",
+    "downloaded": true,
+    "size": 38528
+  },
+  "Ice Wall target5.mp3": {
+    "file": "Ice_Wall_target5.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/5/58/Ice_Wall_target5.mp3/revision/latest?cb=20141213180717",
+    "downloaded": true,
+    "size": 34944
+  },
+  "Ice Wall target6.mp3": {
+    "file": "Ice_Wall_target6.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/f/f1/Ice_Wall_target6.mp3/revision/latest?cb=20141213180723",
+    "downloaded": true,
+    "size": 36480
+  },
+  "Ice Wall.mp3": {
+    "file": "Ice_Wall.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/e/e2/Ice_Wall.mp3/revision/latest?cb=20141213180729",
+    "downloaded": true,
+    "size": 90752
+  },
+  "E.M.P. cast.mp3": {
+    "file": "E.M.P._cast.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/c/c4/E.M.P._cast.mp3/revision/latest?cb=20141213180612",
+    "downloaded": true,
+    "size": 78976
+  },
+  "E.M.P. target.mp3": {
+    "file": "E.M.P._target.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/c/c8/E.M.P._target.mp3/revision/latest?cb=20141213180625",
+    "downloaded": true,
+    "size": 162944
+  },
+  "E.M.P. effect.mp3": {
+    "file": "E.M.P._effect.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/0/09/E.M.P._effect.mp3/revision/latest?cb=20141213180619",
+    "downloaded": true,
+    "size": 54400
+  },
+  "E.M.P..mp3": {
+    "file": "E.M.P..mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/a/a2/E.M.P..mp3/revision/latest?cb=20141213180632",
+    "downloaded": true,
+    "size": 164992
+  },
+  "Tornado cast.mp3": {
+    "file": "Tornado_cast.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/5/58/Tornado_cast.mp3/revision/latest?cb=20141213180804",
+    "downloaded": true,
+    "size": 63616
+  },
+  "Tornado travel.mp3": {
+    "file": "Tornado_travel.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/c/ca/Tornado_travel.mp3/revision/latest?cb=20141213180843",
+    "downloaded": true,
+    "size": 180864
+  },
+  "Tornado target1.mp3": {
+    "file": "Tornado_target1.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/d/d3/Tornado_target1.mp3/revision/latest?cb=20141213180810",
+    "downloaded": true,
+    "size": 51328
+  },
+  "Tornado target2.mp3": {
+    "file": "Tornado_target2.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/4/47/Tornado_target2.mp3/revision/latest?cb=20141213180816",
+    "downloaded": true,
+    "size": 49280
+  },
+  "Tornado target3.mp3": {
+    "file": "Tornado_target3.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/f/fb/Tornado_target3.mp3/revision/latest?cb=20141213180822",
+    "downloaded": true,
+    "size": 49792
+  },
+  "Tornado target4.mp3": {
+    "file": "Tornado_target4.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/1/1f/Tornado_target4.mp3/revision/latest?cb=20141213180829",
+    "downloaded": true,
+    "size": 49280
+  },
+  "Tornado target5.mp3": {
+    "file": "Tornado_target5.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/b/b8/Tornado_target5.mp3/revision/latest?cb=20141213180835",
+    "downloaded": true,
+    "size": 50304
+  },
+  "Death body impact light1.mp3": {
+    "file": "Death_body_impact_light1.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/2/23/Death_body_impact_light1.mp3/revision/latest?cb=20141128131044",
+    "downloaded": true,
+    "size": 5760
+  },
+  "Death body impact light2.mp3": {
+    "file": "Death_body_impact_light2.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/7/78/Death_body_impact_light2.mp3/revision/latest?cb=20141128131049",
+    "downloaded": true,
+    "size": 6272
+  },
+  "Death body impact light3.mp3": {
+    "file": "Death_body_impact_light3.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/0/03/Death_body_impact_light3.mp3/revision/latest?cb=20141128131055",
+    "downloaded": true,
+    "size": 6784
+  },
+  "Death body impact light4.mp3": {
+    "file": "Death_body_impact_light4.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/7/72/Death_body_impact_light4.mp3/revision/latest?cb=20141128131100",
+    "downloaded": true,
+    "size": 5760
+  },
+  "Tornado.mp3": {
+    "file": "Tornado.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/b/ba/Tornado.mp3/revision/latest?cb=20141213180852",
+    "downloaded": true,
+    "size": 180352
+  },
+  "Dark Artistry Cape Tornado cast.mp3": {
+    "file": "Dark_Artistry_Cape_Tornado_cast.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/9/9b/Dark_Artistry_Cape_Tornado_cast.mp3/revision/latest?cb=20180227010021",
+    "downloaded": true,
+    "size": 40959
+  },
+  "Dark Artistry Cape Tornado.mp3": {
+    "file": "Dark_Artistry_Cape_Tornado.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/b/b8/Dark_Artistry_Cape_Tornado.mp3/revision/latest?cb=20191216014204",
+    "downloaded": true,
+    "size": 87770
+  },
+  "Alacrity.mp3": {
+    "file": "Alacrity.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/c/c8/Alacrity.mp3/revision/latest?cb=20141213180901",
+    "downloaded": true,
+    "size": 73856
+  },
+  "Sun Strike cast.mp3": {
+    "file": "Sun_Strike_cast.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/2/2c/Sun_Strike_cast.mp3/revision/latest?cb=20141213180744",
+    "downloaded": true,
+    "size": 37504
+  },
+  "Sun Strike effect.mp3": {
+    "file": "Sun_Strike_effect.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/0/0b/Sun_Strike_effect.mp3/revision/latest?cb=20141213180751",
+    "downloaded": true,
+    "size": 70272
+  },
+  "Sun Strike.mp3": {
+    "file": "Sun_Strike.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/b/b5/Sun_Strike.mp3/revision/latest?cb=20141213180757",
+    "downloaded": true,
+    "size": 115840
+  },
+  "Magus Apex Sun Strike cast.mp3": {
+    "file": "Magus_Apex_Sun_Strike_cast.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/4/41/Magus_Apex_Sun_Strike_cast.mp3/revision/latest?cb=20180227010027",
+    "downloaded": true,
+    "size": 49318
+  },
+  "Magus Apex Sun Strike effect.mp3": {
+    "file": "Magus_Apex_Sun_Strike_effect.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/c/ca/Magus_Apex_Sun_Strike_effect.mp3/revision/latest?cb=20180227010030",
+    "downloaded": true,
+    "size": 68126
+  },
+  "Magus Apex Sun Strike.mp3": {
+    "file": "Magus_Apex_Sun_Strike.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/f/f1/Magus_Apex_Sun_Strike.mp3/revision/latest?cb=20180227010032",
+    "downloaded": true,
+    "size": 96965
+  },
+  "Shadow Word cast damage.mp3": {
+    "file": "Shadow_Word_cast_damage.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/b/bc/Shadow_Word_cast_damage.mp3/revision/latest?cb=20141211180741",
+    "downloaded": true,
+    "size": 50304
+  },
+  "Forge Spirit.mp3": {
+    "file": "Forge_Spirit.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/5/50/Forge_Spirit.mp3/revision/latest?cb=20141213180639",
+    "downloaded": true,
+    "size": 64640
+  },
+  "Chaos Meteor cast.mp3": {
+    "file": "Chaos_Meteor_cast.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/0/03/Chaos_Meteor_cast.mp3/revision/latest?cb=20141213180914",
+    "downloaded": true,
+    "size": 40576
+  },
+  "Chaos Meteor loop.mp3": {
+    "file": "Chaos_Meteor_loop.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/5/5d/Chaos_Meteor_loop.mp3/revision/latest?cb=20141213180920",
+    "downloaded": true,
+    "size": 151680
+  },
+  "Chaos Meteor target.mp3": {
+    "file": "Chaos_Meteor_target.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/8/83/Chaos_Meteor_target.mp3/revision/latest?cb=20141213180537",
+    "downloaded": true,
+    "size": 106624
+  },
+  "Lina projectile impact.mp3": {
+    "file": "Lina_projectile_impact.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/5/5b/Lina_projectile_impact.mp3/revision/latest?cb=20141124123723",
+    "downloaded": true,
+    "size": 8832
+  },
+  "Chaos Meteor.mp3": {
+    "file": "Chaos_Meteor.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/b/b6/Chaos_Meteor.mp3/revision/latest?cb=20141213180544",
+    "downloaded": true,
+    "size": 217216
+  },
+  "Chaos Meteor alt.mp3": {
+    "file": "Chaos_Meteor_alt.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/8/8f/Chaos_Meteor_alt.mp3/revision/latest?cb=20141213180908",
+    "downloaded": true,
+    "size": 249984
+  },
+  "Deafening Blast.mp3": {
+    "file": "Deafening_Blast.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/8/8a/Deafening_Blast.mp3/revision/latest?cb=20141213180605",
+    "downloaded": true,
+    "size": 90752
+  },
+  "Dark Artistry Cape Deafening Blast.mp3": {
+    "file": "Dark_Artistry_Cape_Deafening_Blast.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/1/19/Dark_Artistry_Cape_Deafening_Blast.mp3/revision/latest?cb=20191216014203",
+    "downloaded": true,
+    "size": 57677
+  },
+  "Refresher Orb.mp3": {
+    "file": "refresher.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/4/46/Refresher_Orb.mp3/revision/latest?cb=20141214200918"
+  },
+  "Scythe of Vyse.mp3": {
+    "file": "sheepstick.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/1/12/Scythe_of_Vyse.mp3/revision/latest?cb=20141214001025"
+  },
+  "Meteor Hammer.mp3": {
+    "file": "meteor_hammer.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/5/55/Meteor_Hammer.mp3/revision/latest?cb=20171111000231"
+  },
+  "Teleport.mp3": {
+    "file": "travel_boots.mp3",
+    "url": "https://static.wikia.nocookie.net/dota2_gamepedia/images/8/87/Teleport.mp3/revision/latest?cb=20141213224822"
+  }
+}

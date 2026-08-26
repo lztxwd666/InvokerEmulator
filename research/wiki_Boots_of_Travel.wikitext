@@ -1,0 +1,108 @@
+{{Tabs Item}}
+
+'''Boots of Travel''' is an [[item]] purchasable at the Base Shop, under [[Items#Accessories|Accessories]]. It can be upgraded by purchasing the recipe again.
+
+{{Item infobox
+| game = Dota 2 Hidden
+| image1 = File:Boots of Travel 1 icon.png
+| image2 = File:Boots of Travel 2 icon.png
+| lore = Winged boots that grant omnipresence.
+| modifier = modifier_item_boots_of_travel/modifier_item_boots_of_travel_2
+| intern = item_travel_boots/item_travel_boots_2
+
+| type = Accessories
+| base = True
+| secret = False
+| neutral = False
+
+| passive = Upgrade: Town Portal Scroll
+
+| bonus movement speed flat = 90/110
+
+| used in 1 = Boots of Travel 2
+| recipe 1 = Boots of Speed
+| recipe cost = 2000
+}}
+
+== Additional Information ==
+* Upgrading the item improves the passive [[#Upgrade: Town Portal Scroll|Teleport Upgrade]]. Can be upgraded only once.
+* The total gold cost for each level is {{Gold|{{Show|I|Boots of Travel|item cost}}|color}}/{{Gold|{{Show|I|Boots of Travel 2|item cost}}}}.
+* Movement speed bonuses from multiple pairs of {{I|Boots of Speed}}-based items do not stack, the one with a higher value takes priority.
+* [[Movement speed#Stacking Restrictions|Stacks]] with all other movement speed bonuses.
+* {{Key press|Alt}} shows your allied heroes' teleport status and cooldowns under their portraits below the top bar of the [[HUD]].
+** The icon shows their current cooldown on their teleport. If the ally has no teleport item, no icon appears. If it is in the [[backpack]], it appears grey.
+** The teleport status display has the following priorities: {{I|Boots of Travel 2}} ➤ {{I|Boots of Travel}} ➤ Town Portal Scroll.
+** The teleport status does not show other teleport abilities (e.g. {{A|Teleportation|Nature's Prophet}}).
+{{clr}}
+
+== Ability ==
+[[File:Teleport top bar indicator.png|thumb|300px|{{Key press|Alt}} shows the team's teleport statuses. From left to right:<br>- No Teleport<br>- Teleport Ready<br>- On Cooldown<br>- Not enough mana<br>- Upgraded]]
+{{Ability
+| name = Upgrade: Town Portal Scroll
+| type = item
+| description = <b>Boots of Travel:</b><br>Upgrades your Town Portal Scroll, allowing it to target units, reduces cooldown and does not consume a charge on usage.<br><br><b>Boots of Travel 2:</b><br>Upgrades your Town Portal Scroll, allowing it to target units and heroes, reduces cooldown, channel time and does not consume a charge on usage.
+| target = Passive
+
+| trait1 = Town Portal Scroll Cooldown
+| value1 = 40/40
+| trait2 = Channel Time Reduction
+| value2 = 0/1
+
+| notes = * By default, Town Portal Scroll can only target [[buildings]]. 
+** Level 1 Boots of Travel, allows targeting allied non-hero units, Level 2 additionally allows targeting allied heroes.
+** Treats the {{U|Spirit Bear}} as a hero. Treats other [[creep-heroes]] as creeps.
+** {{I|Town Portal Scroll}} notes fully apply.
+
+* Upon initially equipping this instance of the item, it automatically sells all {{I|Town Portal Scroll|text=Town Portal Scrolls}} in the dedicated slot.
+** After that, it grants a free Town Portal Scroll to the hero, and further prevents gaining Town Portal Scrolls when dying. Also works for hero [[clones]].
+*** This free Town Portal Scroll has no value, meaning that it does not grant gold when sold, and it doesn't affect Net Worth. Despite that, the tooltip shows its regular sell value, and it can even be sold at "full price" within the time limit.
+** Re-equipping the item (e.g. moving it from the [[backpack]], or taking it after dropping it) does not repeat these effects.
+*** Equipping the {{I|Boots of Travel}} created by [[Disassemble|disassembling]] {{I|Boots of Travel 2}} also does not repeat the effects.
+*** However, creating a new instance of the item (e.g. reassembling it after disassembling it, or upgrading from {{I|Boots of Travel}} to {{I|Boots of Travel 2}}) does repeat the effects.
+** If the entire stack of scrolls can be [[Items/Selling|sold]] at full price, all scrolls that have value will be sold at full price.
+** Only bought scrolls and the scroll granted during game start have value. 
+** Scrolls granted by dying and the free scroll granted upon initially equipping the item will not grant gold.
+*** Despite that, the game still registers whether they can still be sold at full price.
+*** When a scroll is used normally, these valueless scrolls are always consumed first.
+** Selling Town Portal Scrolls owned by someone else will grant the owner the gold instead.
+}}
+
+== Recommended Heroes ==
+{{hero label|Arc Warden|border=gold}}
+* Along with the {{H|Tempest Double}}, Boots of Travel gives Arc Warden presence in two lanes, and helps him farm more quickly.
+
+=== Others ===
+Heroes with high split pushing potential should always consider Boots of Travel.
+* {{H|Alchemist}}
+* {{H|Ember Spirit}}
+* {{H|Invoker}}
+* {{H|Leshrac}}
+* {{H|Meepo}}
+* {{H|Morphling}}
+* {{H|Naga Siren}}
+* {{H|Phantom Lancer}}
+* {{H|Timbersaw}}
+
+== Tips ==
+* Boots of Travels is useful on all heroes during the late game, where it is needed to make desperate pushes or defenses, especially if one or both teams are dead or away from their bases.
+* Consider using {{A|Glyph of Fortification|Buildings}} to prevent creeps from dying so Boots of Travel can complete channeling of Teleport.
+
+== Gallery ==
+<gallery>
+File:Town Portal Scroll Teleport.png|Teleporting
+File:Boots of Travel teleport destination.png|Teleport destination
+File:Mecha Boots of Travel Mk III icon.png|Level 1 icon when [[Mecha Boots of Travel Mk III]] is equipped
+</gallery>
+
+== Recent Changes ==
+{{Main|Boots of Travel/Changelogs}}
+{{Recent changes wrapper}}
+
+{{ItemNav}}
+
+[[Category:Pseudo items]]
+[[Category:Shop items]]
+
+[[pt:Botas de Teletransporte]]
+[[ru:Boots of Travel]]
+[[zh:远行鞋]]

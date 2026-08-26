@@ -1,0 +1,1245 @@
+{{Tabs Hero|custom1=Ability Draft|custom2=Dragon's Blood}}
+{{Hero infobox_new
+| title = Invoker
+| intern = npc_dota_hero_invoker
+| icon = File:Invoker minimap icon.png
+| image = File:Invoker icon.png
+| primary attribute = Intelligence
+| strength = 19
+| strength growth = 2.6
+| agility = 14
+| agility growth = 1.8
+| intelligence = 19
+| intelligence growth = 4
+| charisma = 22
+| charisma growth = 2.2
+| attack damage min = 1
+| attack damage max = 9
+| health regen = 0.5
+| mana regen = 0
+| armor = -1
+| movement speed = 285
+| attack speed = 100
+| attack range = 600
+| attack point = 0.4
+| attack backswing = 0.7
+| range type = Ranged
+| base attack time = 1.7
+| projectile speed = 900
+| sight range day = 1800
+| sight range night = 800
+| turn rate = 0.6
+| collision size = 27
+| bound radius = 24
+| gib type = Default
+| hid = 67
+| releasedate = 2012-01-19;Beta
+| allstars = 2005-06-06
+}}
+
+{{Hero gameplay
+| intro = Weaves magic with an array of spell combos.
+| description = A competent wizard knows perhaps two spells; an exceptional one, three or four. Wielding the elements of {{Quas}}, {{Wex}} and {{Exort}}, the [[Invoker#Invoke|<span style="font-weight:bold;">Invoker</span>]] surpasses them all. [[Invoker#Forge Spirits|<span style="font-weight:bold; color:#227722;>Forging Spirits</span>]] of ice and fire to melt away the armor of enemies with great [[Invoker#Alacrity|<span style="font-weight:bold; color:#227722;>Alacrity</span>]] while [[Invoker#Cold Snap|<span style="font-weight:bold; color:#227722;>Snapping</span>]] their heat-deprived cold bodies. Conjuring an [[Invoker#Ice Wall|<span style="font-weight:bold; color:#227722;>Ice Wall</span>]] to stop foes in their paths before vanishing into thin air, chilling nearby enemies like a [[Invoker#Ghost Walk|<span style="font-weight:bold; color:#227722;>Ghost Wandering</span>]] through their ranks. Lifting enemies off the ground with a [[Invoker#Tornado|<span style="font-weight:bold; color:#227722;>Tornado</span>]] that reaches through half the battlefield, while charging up an [[Invoker#E.M.P.|<span style="font-weight:bold; color:#227722;>Extractive Mana Pulse</span>]] for the whirling foes to land into. Pulling down a gigantic [[Invoker#Chaos Meteor|<span style="font-weight:bold; color:#227722;>Meteor</span>]] from space to crush enemies along a path while at the same time unleashing a [[Invoker#Deafening Blast|<span style="font-weight:bold; color:#227722;>Deafening Blast</span>]] to push them along meteor's path. And last but not least, predicting enemy movement and using the [[Invoker#Sun Strike|<span style="font-weight:bold; color:#227722;>Sun to Strike</span>]] enemies from anywhere on the map.<br>Whatever magic he chooses, one thing is certain: All shall come to bow before the Arsenal Magus.
+| complexity = 3
+| roles = Carry, Nuker, Disabler, Escape, Pusher
+| ability1 = Quas
+| ability2 = Wex
+| ability3 = Exort
+| ability4 = Generic;aghs
+| ability5 = Generic;aghs
+| ability6 = Invoke;aghs
+
+| adjectives = Cape, Fiery, Icy, Parent, Nose
+| legs = 2
+}}
+
+Invoker is available in {{Symbol|AD}} [[Ability Draft]], but due to his very unique nature, he has been heavily modified to work in that mode. See [[Invoker/Ability Draft|Invoker in Ability Draft]] for details.
+
+== Bio ==
+{{Hero bio
+| name = Carl
+| alias = Kid
+| title = Invoker
+| quote = I am a beacon of knowledge blazing out across a black sea of ignorance.
+| soundclip = vo_invoker_invo_level_05.mp3
+| voice = Dennis Bateman
+| lore = In its earliest, and some would say most potent form, magic was primarily the art of memory. It required no technology, no wands or appurtenances other than the mind of the magician. All the trappings of ritual were merely mnemonic devices, meant to allow the practitioner to recall in rich detail the specific mental formulae that unlocked a spell's power.<br><br>The greatest mages in those days were the ones blessed with the greatest memories, and yet so complex were the invocations that all wizards were forced to specialize. The most devoted might hope in a lifetime to have adequate recollection of three spells—four at most. Ordinary wizards were content to know two, and it was not uncommon for a village mage to know only one—with even that requiring him to consult grimoires as an aid against forgetfulness on the rare occasions when he might be called to use it.<br><br>But among these early practitioners there was one exception, a genius of vast intellect and prodigious memory who came to be known as the Invoker. In his youth, the precocious wizard mastered not four, not five, not even seven incantations: He could command no fewer than ten spells, and cast them instantly. Many more he learned but found useless, and would practice once then purge from his mind forever, to make room for more practical invocations. One such spell was the Sempiternal Cantrap—a longevity spell of such power that those who cast it in the world's first days are among us still (unless they have been crushed to atoms).<br><br>Most of these quasi-immortals live quietly, afraid to admit their secret: But Invoker is not one to keep his gifts hidden. He is ancient, learned beyond all others, and his mind somehow still has space to contain an immense sense of his own worth...as well as the Invocations with which he amuses himself through the long slow twilight of the world's dying days.
+}}
+
+== Innate Abilities ==
+{{Ability
+| ID = 5370
+| intern = invoker_quas
+| name = Quas
+| image = File:Quas icon.png
+| type = Innate
+| description = Allows manipulation of ice elements. Passively grants +{{#explode:{{#var:Quas value4}}|/}} Strength per level. Each {{Quas}} instance imbues Invoker's spells with Spell Lifesteal.
+| lore = 
+| target = No Target
+| target2 = Passive
+| affects = Self
+| key = Q
+| legacy key = Q
+
+| breakable = No
+| illusionuse = Yes
+| illusiontext1 = Illusions copy the current reagents and benefit from the health regeneration bonus.
+| oncastproc = No
+
+| buff1 = modifier_invoker_quas_instance
+| buff1text = Quas: Health regeneration increased by x per second.
+| buff1dispel = None
+
+| component = passive
+
+| cast point = 0
+| cast backswing = 0
+| cast immediate = true
+| trait1 = Instances per Cast
+| value1 = 1
+| trait2 = Spell Lifesteal Bonus per Instance
+| value2 = 2%/3%/4%/5%/6%/7%/8%
+| trait3 = Creep Spell Lifesteal Multiplier
+| value3 = {{G|spell lifesteal creep factor}}
+| trait4 passive = true
+| trait4 = Strength Bonus
+| value4 = 1/2/3/4/5/6/7
+| trait5 = Self Bonus Factor per Instance
+| value5 tal = {{Show|T|Invoker|talent4left value}}
+
+| mana = 0
+| cooldown = 0
+
+| adtext = This ability is not available in Ability Draft.
+
+| notes = * Interrupts Invoker's [[channeling]] abilities upon cast.
+
+* Quas can be leveled up 7 times and follow the [[Abilities#Upgrading Abilities|upgrading restrictions]] of regular ability level per hero level for ability.
+** This restriction is removed when the hero is at {{cf|Level|14}}.
+
+* Invoker can only have up to 3 active instances at any time. The orbs floating above Invoker are visible to everyone.
+** If he already has 3 instances, the oldest instance is replaced.
+** The order of instances can be seen in the HUD as status buff icons, the oldest one being on the left.
+
+* The [[spell lifesteal]] bonus value is stored at the moment of the {{A|Invoke|Invoker|text=Invoked}} ability cast and is not changed by swapping the regents after. 
+** Stacks additively with other spell lifesteal sources.
+** Does not affect item abilities.
+
+* Grants the following bonuses:
+** {{#var:Quas value2}} ({{Symbol|Talent}} {{ValueColor|7|{{calc|v1*{{#var:Quas value5 tal}}|v1={{#var:Quas value2}}|%}}|25tal}}) [[spell lifesteal]] bonus bonus per instance.
+** {{calc|v1*{{G|bonus universal damage}}|v1={{#var:Quas value4}}}} [[main attack damage]] bonus passively.
+** {{calc|v1*{{G|bonus health}}|v1={{#var:Quas value4}}}} [[health]] bonus passively.
+** {{calc|v1*{{G|bonus health regeneration flat}}|v1={{#var:Quas value4}}}} health regeneration bonus passively.
+}}
+
+{{Ability
+| ID = 5371
+| intern = invoker_wex
+| name = Wex
+| image = File:Wex icon.png
+| type = Innate
+| description = Allows manipulation of storm elements. Passively grants +{{#explode:{{#var:Wex value4}}|/}} Agility per level. Each {{Wex}} instance provides increased cooldown reduction and movement speed.
+| lore = 
+| target = No Target
+| target2 = Passive
+| affects = Self
+| key = W
+| legacy key = W
+
+| breakable = No
+| illusionuse = Yes
+| illusiontext1 = Illusions copy the current reagents and benefit from the movement and attack speed bonus.
+| oncastproc = No
+
+| buff1 = modifier_invoker_wex_instance
+| buff1text = Wex: Movement speed increased by x% and attack speed increased by x.
+| buff1dispel = None
+
+| component = passive
+
+| cast point = 0
+| cast backswing = 0
+| cast immediate = true
+| trait1 = Instances per Cast
+| value1 = 1
+| trait2 = Cooldown Reduction Bonus per Instance
+| value2 = 1%/2%/3%/4%/5%/6%/7%
+| trait3 = Move Speed Bonus per Instance
+| value3 = 0.6%/1.2%/1.8%/2.4%/3%/3.6%/4.2%
+| trait4 passive = true
+| trait4 = Agility Bonus
+| value4 = 1/2/3/4/5/6/7
+| trait5 = Self Bonus Factor per Instance
+| value5 tal = {{Show|T|Invoker|talent4left value}}
+
+| mana = 0
+| cooldown = 0
+
+| adtext = This ability is not available in Ability Draft.
+
+| notes = * Interrupts Invoker's [[channeling]] abilities upon cast.
+
+* Wex can be leveled up 7 times and follow the [[Abilities#Upgrading Abilities|upgrading restrictions]] of regular ability level per hero level for ability.
+** This restriction is removed when the hero is at {{cf|Level|14}}.
+
+* Invoker can only have up to 3 active instances at any time. The orbs floating above Invoker are visible to everyone.
+** If he already has 3 instances, the oldest instance is replaced.
+** The order of instances can be seen in the HUD as status buff icons, the oldest one being on the left.
+
+* The [[cooldown]] reduction bonus value is stored at the moment of the {{A|Invoke|Invoker|text=Invoked}} ability cast and is not changed by swapping the regents after. 
+** Stacks multiplicatively with other cooldown reduction sources.
+** Does not affect item abilities.
+
+* Grants the following bonuses:
+** {{#var:Wex value2}} ({{Symbol|Talent}} {{ValueColor|7|{{calc|v1*{{#var:Wex value5 tal}}|v1={{#var:Wex value2}}|%}}|25tal}}) [[cooldown]] reduction bonus per instance.
+** {{#var:Wex value3}} ({{Symbol|Talent}} {{ValueColor|7|{{calc|v1*{{#var:Wex value5 tal}}|v1={{#var:Wex value3}}|%}}|25tal}}) [[movement speed]] bonus per instance.
+** {{calc|v1*{{G|bonus universal damage}}|v1={{#var:Wex value4}}}} [[main attack damage]] bonus passively.
+** {{calc|v1*{{G|bonus armor}} round2|v1={{#var:Wex value4}}}} [[main armor]] bonus passively.
+** {{#var:Wex value4}} [[attack speed]] bonus passively.
+}}
+
+{{Ability
+| ID = 5372
+| intern = invoker_exort
+| name = Exort
+| image = File:Exort icon.png
+| type = Innate
+| description = Allows manipulation of fire elements. Passively grants +{{#explode:{{#var:Exort value3}}|/}} Intelligence per level. Each {{Exort}} instance provides increased attack damage.
+| lore = 
+| target = No Target
+| target2 = Passive
+| affects = Self
+| key = E
+| legacy key = E
+
+| breakable = No
+| illusionuse = Yes
+| illusiontext1 = Illusions copy the current reagents, but do not benefit from the flat attack damage bonus.
+| oncastproc = No
+
+| buff1 = modifier_invoker_exort_instance
+| buff1text = Exort: Damage increased by x.
+| buff1dispel = None
+
+| component = passive
+
+| cast point = 0
+| cast backswing = 0
+| cast immediate = true
+| trait1 = Instances per Cast
+| value1 = 1
+| trait2 = Spell Amp Bonus per Instance
+| trait2amp = outgoing
+| value2 = 1%/2%/3%/4%/5%/6%/7%
+| trait3 passive = true
+| trait3 = Intelligence Bonus
+| value3 = 1/2/3/4/5/6/7
+| trait4 = Self Bonus Factor per Instance
+| value4 tal = {{Show|T|Invoker|talent4left value}}
+
+| mana = 0
+| cooldown = 0
+
+| adtext = This ability is not available in Ability Draft.
+
+| notes = * Interrupts Invoker's [[channeling]] abilities upon cast.
+
+* Exort can be leveled up 7 times and follow the [[Abilities#Upgrading Abilities|upgrading restrictions]] of regular ability level per hero level for ability.
+** This restriction is removed when the hero is at {{cf|Level|14}}.
+
+* Invoker can only have up to 3 active instances at any time. The orbs floating above Invoker are visible to everyone.
+** If he already has 3 instances, the oldest instance is replaced.
+** The order of instances can be seen in the HUD as status buff icons, the oldest one being on the left.
+
+* The outgoing [[spell damage amplification]] bonus value is stored at the moment of the {{A|Invoke|Invoker|text=Invoked}} ability cast and is not changed by swapping the regents after. 
+** Does not affect item abilities.
+
+* Grants the following bonuses:
+** {{#var:Exort value2}} ({{Symbol|Talent}} {{ValueColor|7|{{calc|v1*{{#var:Exort value4 tal}}|v1={{#var:Exort value2}}|%}}|25tal}}) {{Symbol|Outgoing Damage Manipulation}} [[spell damage amplification]] bonus per instance.
+** {{calc|v1*{{G|bonus universal damage}}|v1={{#var:Exort value3}}}} [[main attack damage]] bonus passively.
+** {{calc|v1*{{G|bonus mana}}|v1={{#var:Exort value3}}}} [[mana]] bonus passively.
+** {{calc|v1*{{G|bonus mana regeneration flat}} round2|v1={{#var:Exort value3}}}} [[mana regeneration]] bonus passively.
+** {{calc|v1*{{G|bonus magic resistance}}*100 round2|v1={{#var:Exort value3}}}}% base [[magic resistance]] bonus passively.
+}}
+
+{{Ability
+| ID = 5375, 5373 (Empty1), 5374 (Empty2)
+| intern = invoker_invoke, invoker_empty1, invoker_empty2
+| name = Invoke
+| image = File:Invoke icon.png
+| sound = Invoker Invoke
+| type = innate
+| description = Combines the properties of the elements currently being manipulated to create a new spell for Invoker to use. Invoke cooldown is reduced by {{#var:Invoke value2}} seconds for each orb level.<br><br>Click the help button to see the list of possible spells.
+| lore = So begins a new age of knowledge.
+| target = No Target
+| affects = Self
+| key = R
+| legacy key = R
+
+| oncastproc = No
+
+| cast point = 0
+| cast backswing = 0
+| cast immediate = true
+| trait1 = Max Invoked Abilities
+| value1 = 2
+| trait2 = Invoke Cooldown Reduction per Regeant Level
+| value2 = 0.3
+
+| mana = 0
+| cooldown = 7
+| aghanimsupgrade = Additionally Increases the level of Quas, Wex and Exort by 1.
+
+| attachments = [[File:Invoke list.png|thumb|250px|The invoke list which appears when clicking on the {{Key press|SPELLS}} button.<br>It appears right above the [[HUD]].]]
+
+| adtext = This ability is not available in Ability Draft.<br>Invoker is available in Ability Draft. For details, see [[Invoker/Ability Draft|here]].
+
+| notes = * This is an innate ability and does not need to be learned.
+
+* A {{Key press|SPELLS}} button is located right above the ability icon. It opens a list that shows the required combination for every invoked ability.
+
+* Interrupts Invoker's [[channeling]] abilities upon cast.
+
+* The arrangement of element instances does not matter.
+
+* When already invoked two abilities, invoking a new ability replaces the older one.
+
+* New invoked abilities are always placed in the fourth ability slot.
+** The previously invoked ability is moved to the fifth slot in the process, while the previous ability in the fifth slot is lost.
+
+* When invoking an ability that is already invoked, Invoke does not go on cooldown.
+** If the re-invoked ability was in the fifth ability slot, it moves into the fourth, swapping position with the other invoked ability.
+** The cooldown of previously invoked abilities is saved and is affected by all [[cooldown reduction]] sources.
+
+* When not using custom or {{Key press|Legacy}}, the hotkey for the ability in the fourth slot and fifth slot is always {{Key press|D}} and {{Key press|F}} respectively.
+
+* Each level of {{Quas}}, {{Wex}}, {{Exort}} reduces the cooldown for Invoke by {{#var:Invoke value2}} seconds.
+
+* {{cf|Aghsnotes}} The level of all invoked abilities now increases by {{ValueColor|1|1|aghs}}.
+** All invoked abilities have 8 levels by default, but the 8th level can only be unlocked with {{I|Aghanim's Scepter}}.
+** Does not improve the passive bonuses granted by Quas, Wex, and Exort.
+
+| stealnotes = This ability is not acquirable. However, the acquired Invoked abilities' values are based on {{H|Invoker}}'s current level of {{Quas}} / {{Wex}} / {{Exort}}, not upon ability cast.
+| morphnotes = {{#var:Invoke stealnotes}}
+}}
+
+{| class="mw-datatable wikitable" style="text-align:center; width:100%;"
+! colspan="22" | {{A|Invoke|Invoker}} Cooldown per total of Orbs ({{Quas}} / {{Wex}} / {{Exort}}) Level
+|-
+! class="header" style="width:10%" | Orbs Level
+| {{#loop:n|1|44|{{#ifexpr:{{#var:n}}>21||style="width:3%" {{!}}}} {{#switch:{{#var:n}}|23=Cooldown
+  | #default = {{#ifexpr:{{#var:n}}>23|{{#expr:{{#var:Invoke cooldown}}-({{#var:n}}-23)*{{#var:Invoke value2}}}}|{{#var:n}}}}}}
+  {{#switch:{{#var:n}}
+  | 21 = {{!}}-
+  | #default = {{!}}
+}}}}-
+|}
+
+== Invoked Abilities ==
+<div style="display:flex; flex-direction:column; align-items:center; text-align:center;">
+<div style="display:flex;">
+<div class="invoked-abilities">{{Wex}}/{{Wex}}/{{Wex}}<br>[[File:E.M.P. icon.png|64px|link=#E.M.P.]]<br>[[#E.M.P.|E.M.P.]]<br>({{Symbol|Aghshard}})</div>
+</div>
+<div style="display:flex;">
+<div class="invoked-abilities">{{Quas}}/{{Wex}}/{{Wex}}<br>[[File:Tornado icon.png|64px|link=#Tornado]]<br>[[#Tornado|Tornado]]</div>
+<div class="invoked-abilities">{{Wex}}/{{Wex}}/{{Exort}}<br>[[File:Alacrity icon.png|64px|link=#Alacrity]]<br>[[#Alacrity|Alacrity]]</div>
+</div>
+<div style="display:flex;">
+<div class="invoked-abilities">{{Quas}}/{{Quas}}/{{Wex}}<br>[[File:Ghost Walk icon.png|64px|link=#Ghost Walk]]<br>[[#Ghost Walk|Ghost Walk]]</div>
+<div class="invoked-abilities">{{Quas}}/{{Wex}}/{{Exort}}<br>[[File:Deafening Blast icon.png|64px|link=#Deafening Blast]]<br>[[#Deafening Blast|Deafening Blast]]</div>
+<div class="invoked-abilities">{{Wex}}/{{Exort}}/{{Exort}}<br>[[File:Chaos Meteor icon.png|64px|link=#Chaos Meteor]]<br>[[#Chaos Meteor|Chaos Meteor]]</div>
+</div>
+<div style="display:flex;">
+<div class="invoked-abilities">{{Quas}}/{{Quas}}/{{Quas}}<br>[[File:Cold Snap icon.png|64px|link=#Cold Snap]]<br>[[#Cold Snap|Cold Snap]]</div>
+<div class="invoked-abilities">{{Quas}}/{{Quas}}/{{Exort}}<br>[[File:Ice Wall icon.png|64px|link=#Ice Wall]]<br>[[#Ice Wall|Ice Wall]]</div>
+<div class="invoked-abilities">{{Quas}}/{{Exort}}/{{Exort}}<br>[[File:Forge Spirit icon.png|64px|link=#Forge Spirit]]<br>[[#Forge Spirit|Forge Spirit]]</div>
+<div class="invoked-abilities">{{Exort}}/{{Exort}}/{{Exort}}<br>[[File:Sun Strike icon.png|64px|link=#Sun Strike]]<br>[[#Sun Strike|Sun Strike]]<br>({{Symbol|Aghanim}} Cataclysm)</div>
+</div>
+</div>
+<br>
+
+{{Ability
+| ID = 5376
+| intern = invoker_cold_snap
+| name = Cold Snap
+| image = File:Cold Snap icon.png
+| sound = Invoker Cold Snap 1
+| sound2 = Invoker Cold Snap 2
+| description = Invoker draws the heat from an enemy, chilling them to their very core for a duration based on the level of {{Quas}}. The enemy will take damage and be briefly frozen. Further damage taken in this state will freeze the enemy again, dealing bonus damage and healing Invoker. The enemy can only be frozen so often, but the freeze cooldown decreases based on the level of {{Quas}}.
+| lore = Sadron's Protracted Frisson.
+| target = Target Unit
+| affects = Enemies
+| affects2 = Self
+| damagetype = Physical
+| key = D/F
+| legacy key = Y
+
+| piercesdbi = No
+| dbitext1 = Does not deal damage per proc.
+| linkenblock = Yes
+
+| debuff1 = modifier_invoker_cold_snap
+| debuff1text = Cold Snap: When damaged, will take additional damage and will be frozen briefly.
+| debuff1dispel = Any
+| debuff2 = modifier_invoker_cold_snap_freeze
+| debuff2text = Hidden modifier
+| debuff2dispel = Strong
+
+| cast point = 0.05
+| cast backswing = 0
+| trait1 = Cast Range
+| trait1amp = castrange
+| value1 = 1000
+| trait2 = Damage per Proc ({{Quas}})
+| value2 = 8/16/24/32/40/48/56/64
+| trait3 = Self Heal per Proc ({{Quas}})
+| value3 = 13/26/39/52/65/78/91/104
+| trait4 = Stun Duration per Proc
+| value4 = 0.4
+| trait5 = Min Trigger Damage Threshold
+| value5 = 10
+| trait6 = Trigger Cooldown ({{Quas}})
+| value6 = 0.8/0.77/0.74/0.71/0.68/0.65/0.62/0.59
+| trait7 = Debuff Duration ({{Quas}})
+| value7 = 3/3.4/3.8/4.2/4.6/5/5.4/5.8
+
+| mana = 90
+| cooldown = 20
+| cooldown tal = {{#expr:{{#var:Cold Snap cooldown}}-{{Show|T|Invoker|talent2left value}}}}
+| aghanimsupgrade = Increases the level of all Invoked abilities by 1 and unlocks the 8th ability level.
+
+| notes = * Ability invokes with 3 {{Quas}} instances. 
+
+* Cold Snap immediately triggers on the target upon cast, so the next proc can only happen after the trigger cooldown.
+
+* Every time the effect triggers, the target is [[stun]]ned and damaged.
+** Only triggers on damage equal to or greater than {{#var:Cold Snap value5}} ([[Damage manipulation|after reductions]]).
+** Cold Snap does not trigger on self-inflicted damage, and on damage flagged as [[HP Removal]].
+
+* On each trigger, Cold Snap first applies the damage, then the stun debuff.
+
+* With its current trigger cooldown and debuff duration, it can trigger up to {{calc|ceil(v1/v2)|v1={{#var:Cold Snap value7}}|v2={{#var:Cold Snap value6}}}} times, including the initial trigger upon cast.
+
+* Can deal up to {{calc|v1*ceil(v2/v3)|v1={{#var:Cold Snap value2}}|v2={{#var:Cold Snap value7}}|v3={{#var:Cold Snap value6}}}} damage ([[before reductions]]) when triggering as often as possible.
+
+* Always heals for the full amount per instance, regardless of how much damage the target actually takes.
+** Does not continue to heal Invoker at full health.
+** The heal value can be affected by [[lifesteal manipulation]] source but not heal manipulation.
+** Can heal up to {{calc|v1*ceil(v2/v3)|v1={{#var:Cold Snap value3}}|v2={{#var:Cold Snap value7}}|v3={{#var:Cold Snap value6}}}} [[health]] when triggering as often as possible.
+
+* {{cf|expr}}
+** Damage per proc: <code>0 + (8 × {{Quas}})</code>
+** Self-heal per proc: <code>0 + (13 × {{Quas}})</code>
+** Trigger cooldown: <code>0.83 - (0.03 × {{Quas}})</code>
+** Debuff duration: <code>2.6 + (0.4 × {{Quas}})</code>
+}}
+
+{{Ability
+| ID = 5381
+| intern = invoker_ghost_walk
+| name = Ghost Walk
+| image = File:Ghost Walk icon.png
+| sound = Invoker Ghost Walk
+| description = Invoker manipulates the ice and electrical energies around him, rendering his body invisible gaining health and mana regen. The elemental imbalance created as a consequence slows nearby enemies based on the level of {{Quas}}, and slows Invoker as well based on the level of {{Wex}}.
+| lore = Myrault's Hinder-Gast.
+| target = No Target
+| affects = Self
+| affects2 = Enemies
+| key = D/F
+| legacy key = V
+
+| piercesdbi = No
+
+| buff1 = modifier_invoker_ghost_walk_self
+| buff1text = Ghost Walk: Invisible, movement speed changed by x%, and slowing nearby enemies.
+| buff1dispel = Death
+| debuff1 = modifier_invoker_ghost_walk_enemy
+| debuff1text = Ghost Walk: Near a ghost! Slowed by x%.
+| debuff1dispel = Death
+
+| cast point = 0
+| cast backswing = 0
+| cast immediate = True
+| trait1 = Fade Time
+| value1 = 0
+| trait2 = Slow Radius
+| value2 = 450
+| trait2amp = aoeradius
+| trait3 = Enemy Move Speed Slow ({{Quas}})
+| value3 = 20%/25%/30%/35%/40%/45%/50%/55%
+| trait4 = Self Move Speed Change ({{Wex}})
+| value4 = -15%/-10%/-5%/0%/5%/10%/15%/20%
+| trait5 = Self Health Regen Bonus ({{Quas}})
+| value5 = 10/15/20/25/30/35/40/45
+| trait6 = Self Mana Regen Bonus ({{Wex}})
+| value6 = 2.5/5/7.5/10/12.5/15/17.5/20
+| trait7 = Regen Disable Duration
+| value7 = 3
+| trait8 = Aura Linger Duration
+| value8 = 2
+| trait9 = Duration
+| value9 = 60
+
+| mana = 175
+| cooldown = 35
+| aghanimsupgrade = Increases the level of all Invoked abilities by 1 and unlocks the 8th ability level.
+
+| notes = * Ability invokes with 2 {{Quas}} and 1 {{Wex}} instances.
+
+* Does not interrupt Invoker's [[channeling]] abilities upon cast.
+
+* The [[movement speed]] slow on the enemies is provided by an [[aura]]. Its debuff lingers for {{#var:Ghost Walk value5}} seconds.
+** The debuff places some particles on the affected units, indicating Invoker is nearby.
+
+* [[Invisibility]] is lost upon reaching the cast point of abilities or [[items]], or reaching Invoker's [[attack point]].
+
+* Grants [[phase]]d movement while fully invisible, and allows Invoker to path through other units, including [[wards]], but not through [[buildings]].
+
+* Can pick up or drop items without breaking invisibility.
+
+* Can regenerate up to {{calc|v1*({{#var:Ghost Walk value8}}+{{#var:Ghost Walk value9}})|v1={{#var:Ghost Walk value5}}}} and {{calc|v1*({{#var:Ghost Walk value8}}+{{#var:Ghost Walk value8}})|v1={{#var:Ghost Walk value6}}}} [[Health regeneration|health]] and [[Mana regeneration|mana]] respectively for the entire duration.
+
+* Player-based damage, regardless of [[faction]]s, [[fountain]]-based and {{U|Roshan}}-based damage greater than 0 ([[Damage manipulation|before reductions]]) disables the health and mana regeneration for {{#var:Ghost Walk value7}} seconds.
+** Does react on  [[Damage types#On-Damage Effects|fully negated damage]] (e.g. {{A|Kinetic Field|Disruptor}})
+** Does not react on self-damage and damage flagged as [[HP Removal]].
+
+* {{cf|expr}}
+** Enemy movement speed slow: <code>15% + (5 × {{Quas}})%</code>
+** Self movement speed change: <code>-20% + (5 × {{Wex}})%</code>
+** Self health regeneration: <code>5 + (5 × {{Quas}})</code>
+** Self mana regeneration: <code>2.5 × {{Wex}}</code>
+}}
+
+{{Ability
+| ID = 5389
+| intern = invoker_ice_wall
+| name = Ice Wall
+| image = File:Ice Wall icon.png
+| sound = Invoker Ice Wall 1
+| sound2 = Invoker Ice Wall 2
+| description = Generates a wall of solid ice directly in front of Invoker for a duration based on the level of {{Quas}}. The bitter cold emanating from it greatly slows nearby enemies based on the level of {{Quas}} and deals damage each second based on the level of {{Exort}}.
+| lore = Killing Wall of Koryx.
+| target = No Target
+| affects = Enemies
+| damagetype = Physical
+| key = D/F
+| legacy key = G
+
+| piercesdbi = No
+
+| buff1 = modifier_invoker_ice_wall_thinker
+| buff1text = On hidden entity
+| buff1dispel = None
+| buff2 = modifier_invoker_ice_wall_slow_aura
+| buff2text = On hidden entity
+| buff2dispel = None
+| debuff1 = modifier_invoker_ice_wall_slow_debuff
+| debuff1text = Ice Wall: Slowed by the wall of ice.
+| debuff1dispel = Death
+
+| cast point = 0.05
+| cast backswing = 0
+| trait1 = Wall Spawn Distance
+| value1 = 200
+| trait2 = Wall Length
+| value2 = 1120
+| trait3 = Wall Width
+| value3 = 105
+| trait3amp = aoeradius
+| trait4 = Damage per Second ({{Exort}})
+| value4 = 6/12/18/24/30/36/42/48
+| value4 tal = {{calc|v1+{{Show|T|Invoker|talent1right value}}|v1={{#var:Ice Wall value4}}}}
+| trait5 = Move Speed Slow ({{Quas}})
+| value5 = 20%/40%/60%/80%/100%/120%/140%/160%
+| trait6 = Aura Linger Duration
+| value6 = 2
+| trait7 = Wall Duration ({{Quas}})
+| value7 = 3/4.5/6/7.5/9/10.5/12/13.5
+
+| mana = 125
+| cooldown = 25
+| aghanimsupgrade = Increases the level of all Invoked abilities by 1 and unlocks the 8th ability level.
+
+| notes = * Ability invokes with 2 {{Quas}} and 1 {{Exort}} instances.
+
+* The Ice Wall is always created in front of Invoker, perpendicular to the line between Invoker and a point {{#var:Ice Wall value1}} range right in front of him.
+
+* Creates 15 wall segments, with a spacing of 80 between each, resulting in a total length of {{#var:Ice Wall value2}}.
+** Each segment affects a {{#var:Ice Wall value3}} radius around itself.
+** With the radius from both sides and the wall length, Ice Wall has an effective length of {{#expr:{{#var:Ice Wall value2}}+2*{{#var:Ice Wall value3}}}}.
+
+* Each segment has its own movement speed slowing [[aura]]. Its debuff lingers for {{#var:Ice Wall value6}} seconds.
+
+* The damage is independent of the [[movement speed]] slow, so getting further than {{#var:Ice Wall value3}} radius away from a segment immediately stops the damage, while the slow still lingers.
+
+* Deals damage in 1-second intervals, starting 1 second after cast, resulting in up to {{calc|trunc(v1)|v1={{#var:Ice Wall value7}}}} possible instances.
+** Can deal up to {{calc|v1*trunc(v2)|v1={{#var:Ice Wall value4}}|v2={{#var:Ice Wall value7}}}} ({{Symbol|Talent}} {{ValueColor|8|{{calc|v1*trunc(v2)|v1={{#var:Ice Wall value4 tal}}|v2={{#var:Ice Wall value7}}}}|10tal}}) damage to a single unit ([[before reductions]]) within the area for the entire duration.
+
+* Ice Wall is not a [[Trap#Pathing Blocker|pathing blocker]]. Any unit can pass through it.
+
+* {{cf|expr}}
+** Damage per second: <code>0 + (6 × {{Exort}}) + {{Symbol|Talent}} {{ValueColor|1|{{Show|T|Invoker|talent1right value}}|10tal}}</code>
+** Movement speed slow: <code>0 + (20 × {{Quas}})%</code>
+** Wall duration: <code>1.5 + (1.5 × {{Quas}})</code>
+}}
+{| class="mw-datatable wikitable" style="text-align:center; width:100%;"
+|-
+! class="header" colspan="9"| {{A|Ice Wall|Invoker}} Damage Calculations per Level of {{Quas}} and {{Exort}}
+|-
+| {{#loop:h|0|9| style="width:11%; {{#ifeq:{{#var:h}}|0||font-weight:bold; color:#0066FF;}}" {{!}} {{#switch:{{#var:h}}
+              | 0 = {{Exort}} / {{Quas}}
+              | 8 = {{Symbol|Aghanim}} 8
+              | #default = {{#var:h}}}}
+{{!}}}}-
+| {{#loop:iw e|0|8|style="font-weight:bold; color:#E68A00;" {{!}} {{#ifexpr:{{#expr:{{#var:iw e}}+1}}=8|{{Symbol|Aghanim}} 8|{{#expr:{{#var:iw e}}+1}}}}
+{{!}} {{#loop:iw q|0|8|{{#ifeq:{{#var:iw e}}|{{#var:iw q}}|style="background:#70B04A; font-weight:bold; color:#FFF;" {{!}}}} {{#expr:{{#explode:{{#var:Ice Wall value4}}|/|{{#var:iw e}}}}*trunc({{#explode:{{#var:Ice Wall value7}}|/|{{#var:iw q}}}})}}
+{{!}}}}-
+{{#ifexpr:{{#var:iw e}}<7|{{!}}}}}}
+|-
+|}
+
+{{Ability
+| ID = 5383
+| intern = invoker_emp
+| name = E.M.P.
+| image = File:E.M.P. icon.png
+| sound = Invoker E.M.P.
+| description = Invoker builds up a charge of electromagnetic energy at a targeted location which automatically detonates after {{#var:E.M.P. value3}} seconds. The detonation covers an area, draining mana based on the level of {{Wex}}. Deals damage for each point of mana drained. If E.M.P. drains mana from an enemy hero, Invoker gains {{#var:E.M.P. value7}} of the mana drained.
+| lore = Endoleon's Malevolent Perturbation.
+| target = Target Area
+| affects = Enemies
+| damagetype = Physical
+| key = D/F
+| legacy key = C
+
+| piercesdbi = No
+| dbitext1 = Does not affect debuff immune enemies at all.
+
+| buff1 = modifier_invoker_emp
+| buff1text = On hidden entity
+| buff1dispel = None
+| debuff1 = modifier_invoker_emp_pull
+| debuff1text = Being pulled to the center of the E.M.P.
+| debuff1dispel = Any
+
+| cast point = 0.05
+| cast backswing = 0
+| trait1 = Cast Range
+| trait1amp = castrange
+| value1 = 950
+| trait2 = Effect Radius
+| value2 = 675
+| trait2amp = aoeradius
+| trait3 = Effect Delay
+| value3 = 2.9
+| trait4 = Base Mana Burned
+| value4 = 25
+| trait5 = Mana Burned per {{Wex}} Level
+| value5 = 75
+| trait6 = Burned Mana as Damage
+| value6 = 60%
+| value6 shard = {{#expr:{{#explode:{{#var:E.M.P. value6}}|%}}*{{#vardefineecho:E.M.P. shard mult|1.5}}}}%
+| trait7 = Burned Mana as Mana Restored
+| value7 = 25%
+| trait8 = Pull Speed
+| value8 shard = 175
+
+| mana = 125
+| cooldown = 30
+| aghanimsupgrade = Increases the level of all Invoked abilities by 1 and unlocks the 8th ability level.
+| aghshard = Increases damage for each point of mana drained by E.M.P. and pulls enemy units into the E.M.P.'s center at {{#var:E.M.P. value8 shard}} units per second.
+
+| notes = * Ability invokes with 3 {{Wex}} instances.
+
+* E.M.P. first applies the [[mana]] burn, and then the damage.
+
+* The damage dealt and mana restored values are dependent on the amount of mana burned from enemy heroes. E.M.P. neither deals damage nor restore Invoker's mana if the enemy hero had no mana left to burn.
+** Treats [[illusions]] and [[creep-heroes]] as creeps.
+** Fully affects [[invisible]] units and units in the [[Fog of War]], but not [[invulnerable]] or [[hidden]] units.
+
+* Per affected enemy hero:
+** Can burn up to {{calc|{{#var:E.M.P. value4}}+v1*{{#var:E.M.P. value5}}|v1=1/2/3/4/5/6/7/8}} mana.
+** Can restore up to {{calc|({{#var:E.M.P. value4}}+v1*{{#var:E.M.P. value5}})*{{#var:E.M.P. value7}}|v1=1/2/3/4/5/6/7/8}} mana.
+** Can deal up to {{calc|({{#var:E.M.P. value4}}+v1*{{#var:E.M.P. value5}})*{{#var:E.M.P. value6}}|v1=1/2/3/4/5/6/7/8}} ({{Symbol|Aghshard}} {{ValueColor|8|{{calc|({{#var:E.M.P. value4}}+v1*{{#var:E.M.P. value5}})*{{#var:E.M.P. value6 shard}}|v1=1/2/3/4/5/6/7/8}}|shard}}) damage ([[before reductions]]).
+
+* The visual effects and the sound during the {{#var:E.M.P. value3}} seconds effect delay are visible and audible to everyone.
+
+* {{cf|Shardnotes}} E.M.P. now [[Forced Movement#Pulling|pulls]] enemies within the radius at a speed of {{ValueColor|1|{{#var:E.M.P. value8 shard}}|shard}} towards middle of the radius.
+** The effect is provided by an [[aura]] and its debuff does not linger.
+** With the whole duration, E.M.P can push enemies for a total distance of {{ValueColor|1|{{#expr:{{#var:E.M.P. value8 shard}}*{{#var:E.M.P. value3}}}}|shard}}.
+** Affects the {{A|Tree Dance|Monkey King}} unit, but does not unperch it.
+
+* Pull affected enemies over impassable terrain, but does not grant unobstructed movement.
+** However, it does not pull affected enemies when they are affected by other disabling [[forced movement]] sources.
+** Does not impede affected enemies at all and they can still turn, attack, and cast abilities.
+
+* Successive casts while a previous cast is still active do not affect already pulled enemies.
+
+* {{cf|expr}}
+** Mana burned: <code>25 + (75 × {{Wex}})</code>
+** Damage: <code>ΣManaBurned × {{#expr:{{#explode:{{#var:E.M.P. value6}}|%}}/100}} ({{Symbol|Aghshard}} {{ValueColor|1|{{#expr:{{#explode:{{#var:E.M.P. value6 shard}}|%}}/100}}|shard}})</code>
+** Self mana restored: <code>ΣManaBurned × {{#expr:{{#explode:{{#var:E.M.P. value7}}|%}}/100}}</code>
+}}
+
+{{Ability
+| ID = 5382
+| intern = invoker_tornado
+| name = Tornado
+| image = File:Tornado icon.png
+| sound = Invoker Tornado 1
+| sound2 = Invoker Tornado 2
+| description = Unleashes a fast moving tornado that picks up enemy units in its path, suspending them helplessly in the air shortly before allowing them to plummet to their doom. Travels further based on the level of {{Wex}}. Holds enemies in the air for a duration based on the level of {{Quas}}. Deals base damage plus added damage based on levels in {{Wex}}.
+| lore = Claws of Tornarus.
+| target = Target Point
+| affects = Enemies
+| damagetype = Physical
+| key = D/F
+| legacy key = X
+
+| piercesdbi = No
+
+| buff1 = modifier_projectile_vision
+| buff1text = On hidden entity
+| buff1dispel = None
+| debuff1 = modifier_invoker_tornado
+| debuff1text = Tornado: Swept up in a tornado. Invulnerable but cannot act. Will take damage upon landing.
+| debuff1dispel = Any
+
+| cast point = 0.05
+| cast backswing = 0
+| trait1 = Cast Range
+| trait1amp = castrange
+| value1 = 2000
+| trait2 = Effect Radius
+| value2 = 200
+| trait2amp = aoeradius
+| trait3 = Travel Distance ({{Wex}})
+| trait3amp = castrange
+| value3 = 1500/1800/2100/2400/2700/3000/3300/3600
+| trait4 = Base Damage
+| value4 = 50
+| trait5 = Bonus Damage ({{Wex}})
+| value5 = 45/90/135/180/225/270/315/360
+| trait6 = Cyclone Duration ({{Quas}})
+| value6 = 1.2/1.4/1.6/1.8/2/2.2/2.4/2.6
+| trait7 = Flying Vision Radius
+| value7 = 200
+| trait7amp = aoeradius
+
+| mana = 140
+| cooldown = 30
+| cooldown tal = {{#expr:{{#var:Tornado cooldown}}-{{Show|T|Invoker|talent1left value}}}}
+| aghanimsupgrade = Increases the level of all Invoked abilities by 1 and unlocks the 8th ability level.
+
+| notes = * Ability invokes with 2 {{Wex}} and 1 {{Quas}} instances.
+
+* The Tornado travels at a speed of {{#vardefineecho:Tornado speed|1000}} and always travels the full distance, so it takes {{calc|v1/{{#var:Tornado speed}}|v1={{#var:Tornado value3}}}} seconds to reach the max distance.
+
+* With the travel distance and effect radius, Tornado can hit units up to {{calc|v1+{{#var:Tornado value2}}|v1={{#var:Tornado value3}}}} range away.
+
+* Tornado first applies the basic [[dispel]], the [[cyclone]], then the damage on the affected units.
+** Affected units are fully [[disable]]d and [[invulnerable]] for its duration.
+
+* While cycloned, the affected unit is [[Upward Movement|moved upward]] with a height of ≈450 and has [[Collision size|no collision]], other units may pass below the cycloned unit.
+
+* The damage is applied upon losing the Tornado debuff.
+** Can deal up to {{calc|v1+{{#var:Tornado value4}}|v1={{#var:Tornado value5}}}} damage to each affected unit ([[before reductions]]).
+
+* The Tornado provides {{#var:Tornado value7}} radius [[flying vision]] as it travels. This vision does not last.
+** The same vision is also provided for 1.75 seconds after reaching its final destination.
+
+* Does not lift {{U|Roshan}}, but damages and interrupts his attack orders.
+
+* {{cf|expr}}
+** Travel distance: <code>1200 + (300 × {{Wex}})</code>
+** Total damage: <code>{{#var:Tornado value4}} + (45 × {{Wex}})</code>
+** Cyclone duration: <code>1 + (0.2 × {{Quas}})</code>
+}}
+
+{{Ability
+| ID = 5384
+| intern = invoker_alacrity
+| name = Alacrity
+| image = File:Alacrity icon.png
+| sound = Invoker Alacrity
+| description = Invoker infuses an ally with an immense surge of energy, increasing their attack speed based on the level of {{Wex}} and their damage based on the level of {{Exort}}.
+| lore = Gaster's Mandate of Impetuous Strife.
+| target = Target Unit
+| affects = Allies
+| key = D/F
+| legacy key = Z
+
+| buff1 = modifier_invoker_alacrity
+| buff1text = Alacrity: Attack speed increased by x and damage increased by x.
+| buff1dispel = Any
+
+| cast point = 0.05
+| cast backswing = 0
+| trait1 = Cast Range
+| trait1amp = castrange
+| value1 = 650
+| trait2 = Attack Speed Bonus ({{Wex}})
+| value2 = 10/22/34/46/58/70/82/94
+| value2 tal = {{calc|v1+{{Show|T|Invoker|talent3left value}}|v1={{#var:Alacrity value2}}}}
+| trait3 = Attack Damage Bonus ({{Exort}})
+| value3 = 10/22/34/46/58/70/82/94
+| value3 tal = {{calc|v1+{{Show|T|Invoker|talent3left value}}|v1={{#var:Alacrity value3}}}}
+| trait4 = Duration
+| value4 = 9
+
+| mana = 90
+| cooldown = 17
+| aghanimsupgrade = Increases the level of all Invoked abilities by 1 and unlocks the 8th ability level.
+
+| notes = * Ability invokes with 2 {{Wex}} and 1 {{Exort}} instances.
+
+* {{Key press|double}} automatically targets self.
+
+* Grants regular flat [[bonus attack damage]].
+
+* Leveling up {{Wex}} or {{Exort}} immediately updates the current Alacrity instance.
+
+* Cannot be cast on {{U|Courier|text=Couriers}}.
+
+* {{cf|expr}}
+** Attack speed bonus: <code>-2 + (12 × {{Wex}}) + {{Symbol|Talent}} {{ValueColor|1|{{Show|T|Invoker|talent3left value}}|20tal}}</code>
+** Attack damage bonus: <code>-2 + (12 × {{Exort}}) + {{Symbol|Talent}} {{ValueColor|1|{{Show|T|Invoker|talent3left value}}|20tal}}</code>
+}}
+
+{{Ability
+| ID = 5386
+| intern = invoker_sun_strike
+| name = Sun Strike
+| image = File:Sun Strike icon.png
+| sound = Invoker Sun Strike 1
+| sound2 = Invoker Sun Strike 2
+| description = Sends a catastrophic ray of fierce energy from the sun at any targeted location, incinerating all enemies standing beneath it once it reaches the earth. Deals damage based on the level of {{Exort}}, however this damage is spread evenly over all enemies hit.
+| lore = Harlek's Incantation of Incineration.
+| target = Target Area
+| target2 = Target Unit aghs
+| affects = Enemies
+| damagetype = Physical
+| key = D/F
+| legacy key = T
+
+| piercesdbi = Yes
+
+| buff1 = modifier_invoker_sun_strike
+| buff1text = On hidden entity
+| buff1dispel = None
+| buff2 = modifier_invoker_sun_strike_cataclysm_thinker
+| buff2text = On hidden entity
+| buff2dispel = None
+| buff3 = modifier_invoker_sun_strike_cataclysm
+| buff3text = On hidden entity
+| buff3dispel = None
+
+| alttext = {{Symbol|Aghanim}} [[File:Sun Strike icon.png|20px|link=Invoker#Sun Strike]] '''Cataclysm'''
+
+| cast point = 0.05
+| cast backswing = 0
+| trait1 = Cast Range
+| value1 = Global
+| trait2 = Effect Radius
+| value2 = 175
+| trait2amp = aoeradius
+| trait3 = Effect Delay
+| value3 = 1.7
+| trait4 = Damage ({{Exort}})
+| value4 = 200/250/300/350/400/450/500/550
+| trait5 = Min Distance
+| value5 alt aghs = 160
+| trait5amp = aoeradius
+| trait6 = Max Distance
+| value6 alt aghs = 200
+| trait6amp = aoeradius
+| trait7 = Instances per Target
+| value7 alt aghs = 2
+| trait8 = Flying Vision Radius
+| value8 = 400
+| trait8amp = aoeradius
+
+| mana = 175
+| cooldown = 25
+| cooldown aghs = 100
+| aghanimsupgrade = Creates a Cataclysm when Sun Strike is double tapped. Puts it on a {{#var:Sun Strike cooldown aghs}} second cooldown. Creates {{#var:Sun Strike value7 aghs}} visible Sun Strikes within {{#var:Sun Strike value5 aghs}}-{{#var:Sun Strike value6 aghs}} range of each enemy hero.<br>Also increases the level of all Invoked abilities by 1 and unlocks the 8th ability level.
+
+| notes = * Ability invokes with 3 {{Exort}} instances.
+
+* The damage is spread evenly among all affected units within the targeted area, including creeps. Unaffected units do not soak up any damage.
+** Does not affect [[wards]], [[buildings]], [[invulnerable]] or [[hidden]] units.
+
+* This is how much damage Sun Strike deals when hitting a certain amount of units ([[before reductions]]).
+** {{#loop:ss|2|4|'''{{#var:ss}} Units''': {{calc|v1/{{#var:ss}} round2|v1={{#var:Sun Strike value4}}}} damage.
+**}}
+
+* Provides a 5.5-second {{#var:Sun Strike value8}} radius [[flying vision]] at the targeted point upon cast.
+
+* The visual effects and the sound during the {{#var:Sun Strike value3}} seconds effect delay are visible and audible to allies only.
+
+* {{cf|Aghsnotes}} {{Key press|double}} now sends {{ValueColor|1|{{#var:Sun Strike value7 aghs}}|aghs}} Sun Strikes to every hero and the {{H|Tempest Double}} on the map.
+** Treat other [[clones]], [[illusions]] and [[creep-heroes]] as creeps.
+** Uses the {{ValueColor|1|{{#var:Sun Strike cooldown aghs}}|aghs}}-second cooldown when self-targeted, and the regular cooldown when area-targeted.
+*** When Invoker is [[invulnerable]], he is unable to cast abilities on himself, hence being unable to {{Key press|double}} to activate Cataclysm.
+** These Sun Strikes are fully visible and audible to the enemy during its effect delays.
+** For invulnerable targets, although not affecting them, these Sun Strike are now placed next to them, but not for hidden targets.
+
+* {{cf|expr}}
+** Damage: <code>150 + (50 × {{Exort}})</code>
+}}
+
+{{Ability
+| ID = 5387
+| intern = invoker_forge_spirit
+| name = Forge Spirit
+| image = File:Forge Spirit icon.png
+| sound = Invoker Forge Spirit
+| description = Invoker forges a spirit embodying the strength of fire and fortitude of ice. Damage and armor are based on the level of {{Exort}} while attack range, health, and duration are based on the level of {{Quas}}. The elemental's scorching attack is capable of melting the armor of enemy heroes. Spawns two spirits when Quas and Exort are at least level 4.
+| lore = Culween's Most Cunning Fabrications.
+| target = No Target
+| key = D/F
+| legacy key = F
+
+| buff1 = modifier_forged_spirit_stats
+| buff1text = Hidden modifier
+| buff1dispel = Death
+| buff2 = modifier_kill
+| buff2text = Hidden modifier
+| buff2dispel = Death
+
+| cast point = 0.05
+| cast backswing = 0
+| trait1 = Number of Forged Spirits ({{Quas}} and {{Exort}})
+| value1 = 1/1/1/2/2/2/2/2
+| trait2 = Spirit Attack Damage ({{Exort}})
+| value2 = 22/32/42/52/62/72/82/92
+| trait3 = Spirit Attack Range ({{Quas}})
+| value3 = 300/365/430/495/560/625/690/755
+| trait4 = Spirit Max Health ({{Quas}})
+| value4 = 300/400/500/600/700/800/900/1000
+| trait5 = Spirit Max Mana ({{Exort}})
+| value5 = 100/150/200/250/300/350/400/450
+| trait6 = Spirit Armor ({{Exort}})
+| value6 = 0/1/2/3/4/5/6/7
+| trait7 = Spirit Duration ({{Quas}})
+| value7 = 20/30/40/50/60/70/80/90
+
+| mana = 75
+| cooldown = 30
+| aghanimsupgrade = Increases the level of all Invoked abilities by 1 and unlocks the 8th ability level.
+
+| unit wrapper = Forged Spirit
+
+| notes = * Ability invokes with 2 {{Exort}} and 1 {{Quas}} instances.
+
+* Does not update any values of already summoned {{U|Forged Spirit|text=Forged Spirit(s)}} upon leveling Exort and/or Quas.
+** Casting Forge Spirit replaces all existing spirit(s) from a previous cast, no matter who they are owned by (e.g. from {{A|Holy Persuasion|Chen}} etc.), creating new ones based on the current level.
+** Forge Spirit has the {{A|Melting Strike|Forged Spirit}} ability
+
+* The spirit(s) are always summoned next to Invoker at a random position with an 84 distance around him facing to the east.
+
+* {{cf|expr}}
+** Spirits attack damage: <code>12 + (10 × {{Exort}})</code>
+** Spirits attack range: <code>235 + (65 × {{Quas}})</code>
+** Spirits max health: <code>200 + (100 × {{Quas}})</code>
+** Spirits max mana: <code>50 + (50 × {{Exort}})</code>
+** Spirits armor: <code>-1 + (1 × {{Exort}})</code>
+** Spirits duration: <code>10 + (10 × {{Quas}})</code>
+}}
+
+{{Ability
+| ID = 5385
+| intern = invoker_chaos_meteor
+| name = Chaos Meteor
+| image = File:Chaos Meteor icon.png
+| sound = Invoker Chaos Meteor 1
+| sound2 = Invoker Chaos Meteor 2
+| description = Invoker pulls a flaming meteor from space onto the targeted location. Upon landing, the meteor rolls forward, constantly dealing damage based on the level of {{Exort}}, and rolling further based on the level of {{Wex}}. Units hit by the meteor will also be set on fire for a short time, receiving additional damage based on the level of {{Exort}}.
+| lore = Tarak's Descent of Fire.
+| target = Target Point
+| affects = Enemies
+| damagetype = Physical
+| key = D/F
+| legacy key = D
+
+| piercesdbi = No
+
+| buff1 = modifier_invoker_chaos_meteor_land
+| buff1text = On hidden entity
+| buff1dispel = None
+| buff2 = modifier_projectile_vision
+| buff2text = On hidden entity
+| buff2dispel = None
+| debuff1 = modifier_invoker_chaos_meteor_burn
+| debuff1text = Chaos Meteor Burn: Taking damage every second.
+| debuff1dispel = Any
+
+| cast point = 0.05
+| cast backswing = 0
+| trait1 = Cast Range
+| trait1amp = castrange
+| value1 = 700
+| trait2 = Effect Radius
+| value2 = 275
+| trait2amp = aoeradius
+| trait3 = Travel Distance ({{Wex}})
+| trait3amp = castrange
+| value3 = 465/615/780/930/1095/1245/1410/1575
+| trait4 = Number of Meteors
+| value4 = 1
+| value4 tal = {{#expr:{{#var:Chaos Meteor value4}}+{{#explode:{{Show|T|Invoker|talent3right value}}|/}}}}
+| trait5 = Effect Delay
+| value5 = 1.3
+| trait6 = Effect Interval
+| value6 = 0.5
+| trait7 = Main Damage per Interval ({{Exort}})
+| value7 = 55/80/105/130/155/180/205/220
+| trait8 = Burn Damage per Second ({{Exort}})
+| value8 = 10/15/20/25/30/35/40/45
+| trait9 = Burn Duration
+| value9 = 3
+| trait10 = Chaos Meteor Spread Distance
+| value10 tal = {{#explode:{{Show|T|Invoker|talent3right value}}|/|1}}
+| trait11 = Chaos Meteor Angle
+| value11 tal = {{#explode:{{Show|T|Invoker|talent3right value}}|/|2}}
+| trait12 = Flying Vision Radius
+| value12 = 500
+| trait12amp = aoeradius
+
+| mana = 200
+| cooldown = 55
+| aghanimsupgrade = Increases the level of all Invoked abilities by 1 and unlocks the 8th ability level.
+
+| notes = {{#vardefine:meteor max instances|{{calc|trunc(v1/300/{{#var:Chaos Meteor value6}}+1)|v1={{#var:Chaos Meteor value3}}}}}}<!--
+
+-->* Ability invokes with 2 {{Exort}} and 1 {{Wex}} instances.
+
+* Chaos Meteor needs {{#var:Chaos Meteor value5}} seconds to land. It lands at the targeted point within the cast range, not at Invoker's position.
+** The falling meteor visual effects and the sound during the {{#var:Chaos Meteor value5}} seconds effect delay are visible and audible to everyone.
+
+* Chaos Meteor provides {{#var:Chaos Meteor value12}} radius [[flying vision]] while it is rolling. This vision does not last.
+** Also provides the same vision for 3 seconds after reaching its final destination.
+
+* With the cast range, travel distance, and effect radius, it can hit units up to {{calc|v1+{{#var:Chaos Meteor value1}}+{{#var:Chaos Meteor value2}}|v1={{#var:Chaos Meteor value3}}}} range away. The area between Invoker and the targeted point is unaffected.
+
+* Chaos Meteor rolls at a speed of {{#vardefineecho:Chaos Meteor speed|300}} and always rolls the full distance, so it takes {{calc|v1/{{#var:Chaos Meteor speed}} round2|v1={{#var:Chaos Meteor value3}}}} seconds to reach the max distance.
+
+* After landing, the meteor deals its main damage and places the burn debuff to units within its effect radius in 0.5-second intervals, starting immediately upon landing. 
+** On each interval, the meteor first applies the damage, then the debuff.
+** The main damage and burn debuff is applied separately, but they each can hit a unit up to {{#var:meteor max instances}}/{{ValueColor|1|{{#var:meteor max instances aghs}}|aghs}} times.
+
+* The following Chaos Meteor damage calculations are all [[before reductions]]:
+** The main damage can deal up to {{calc|v1*v2|v1={{#var:Chaos Meteor value7}}|v2={{#var:meteor max instances}}}} damage.
+
+* The burn debuff deals damage in 1-second intervals, starting 1 second after the debuff is placed, resulting in {{#var:Chaos Meteor value9}} instances for each debuff.
+** The burn debuffs from each interval fully stack and do not refresh each other.
+** One instance of the burn debuff can deal up to {{calc|v1*{{#var:Chaos Meteor value9}}|v1={{#var:Chaos Meteor value8}}}} damage.
+** All possible instances of burn damage per unit together can deal up to {{calc|v1*{{#var:Chaos Meteor value9}}*v2|v1={{#var:Chaos Meteor value8}}|v2={{#var:meteor max instances}}}} damage.
+
+* Therefore, the whole Chaos Meteor, main and burn damage, can deal up to {{calc|(v1+v2*{{#var:Chaos Meteor value9}})*v3|v1={{#var:Chaos Meteor value7}}|v2={{#var:Chaos Meteor value8}}|v3={{#var:meteor max instances}}}} damage when a unit is hit by all possible instances.
+
+* {{cf|Talnotes}} {{ValueColor|1|{{#expr:{{#var:Chaos Meteor value4 tal}}-{{#var:Chaos Meteor value4}}}}|20tal}} extra meteors are now launched with a {{ValueColor|1|{{#var:Chaos Meteor value11 tal}}|20tal}} angle to the left and right of Invoker.
+** The angle is based on Invoker's position. No matter the cast distance, the meteors always land and travel along offset by {{ValueColor|1|{{#var:Chaos Meteor value11 tal}}|20tal}} from the centered meteor.
+** The extra meteors land so that they are at least {{ValueColor|1|{{#var:Chaos Meteor value10 tal}}|20tal}} range away from the centered meteor.
+** This means when the targeted point is within {{ValueColor|1|{{#expr:{{#var:Chaos Meteor value10 tal}}/tan({{#explode:{{#var:Chaos Meteor value11 tal}}|°}}*pi/180) round0}}|20tal}} range of Invoker, they land further ahead of the centered meteor to keep a minimum distance of {{ValueColor|1|{{#var:Chaos Meteor value10 tal}}|20tal}}.
+** This means, unlike the centered meteor, the extra meteors cannot land within {{ValueColor|1|{{#expr:{{#var:Chaos Meteor value10 tal}}/sin({{#explode:{{#var:Chaos Meteor value11 tal}}|°}}*pi/180) round0}}|20tal}} range of Invoker.
+
+* {{cf|expr}}
+** Travel distance: <code>300 + 150 × {{Wex}} + (15 × [[w:Floor and ceiling functions|⌊]]0.5 × ({{Wex}} + 1)⌋)</code>
+** Travel distance bonus: {{cf|Level|8}} <code>ΣTravelDistance + 15</code>
+** Main damage per interval: <code>30 + (25 × {{Exort}})</code>
+** Main damage per interval bonus: {{cf|Level|8}} <code>ΣMainDamagePerInterval + 15</code>
+** Burn damage per second: <code>5 + (5 × {{Exort}})</code>
+}}
+
+{{Ability
+| ID = 5390
+| intern = invoker_deafening_blast
+| name = Deafening Blast
+| image = File:Deafening Blast icon.png
+| sound = Invoker Deafening Blast
+| description = Invoker unleashes a mighty sonic wave in front of him, dealing damage to any enemy unit it collides with based on the level of {{Exort}}. The sheer impact from the blast is enough to knock those enemy units back for a duration based on the level of {{Quas}}, then disarm their attacks for a duration based on the level of {{Wex}}.
+| lore = Buluphont's Aureal Incapacitator.
+| target = Target Point
+| affects = Enemies
+| damagetype = Physical
+| key = D/F
+| legacy key = B
+
+| piercesdbi = No
+| dbitext1 = The forced movement is instantly canceled.
+
+| debuff1 = modifier_invoker_deafening_blast_knockback
+| debuff1text = Deafening Blast Knockback: Reeling back from the deafening blast.
+| debuff1dispel = Death
+| debuff2 = modifier_invoker_deafening_blast_disarm
+| debuff2text = Deafening Blast Disarm: Cannot attack.
+| debuff2dispel = Death
+
+| cast point = 0.05
+| cast backswing = 0
+| trait1 = Cast Range
+| trait1amp = castrange
+| value1 = 1000
+| trait2 = Starting Radius
+| value2 = 175
+| trait2amp = aoeradius
+| trait3 = Travel Distance
+| trait3amp = castrange
+| value3 = 1000
+| trait4 = End Radius
+| value4 = 225
+| trait4amp = aoeradius
+| trait5 = Number of Blasts
+| value5 = 1
+| value5 tal = {{Show|T|Invoker|talent4right value}}
+| trait6 = Damage ({{Exort}})
+| value6 = 60/100/140/180/220/260/300/340
+| trait7 = Knockback Distance ({{Quas}})
+| value7 = 34.82/72.88/108.43/137.63/171.5/201.61/226.84/253.94
+| trait8 = Knockback Duration ({{Quas}})
+| value8 = 0.2/0.4/0.6/0.8/1/1.2/1.4/1.6
+| trait9 = Disarm Duration ({{Wex}})
+| value9 = 1.25/2/2.75/3.5/4.25/5/5.75/6.5
+| trait10 = Deafening Blast Angle
+| value10 tal = {{#expr:360/{{#var:Deafening Blast value5 tal}}}}°
+
+| mana = 250
+| cooldown = 40
+| aghanimsupgrade = Increases the level of all Invoked abilities by 1 and unlocks the 8th ability level.
+
+| notes = * Ability invokes with 1 {{Quas}}, 1 {{Wex}} and 1 {{Exort}} instances.
+
+* Deafening Blast travels at a speed of {{#vardefineecho:Deafening Blast speed|1100}} and always travels the full distance, which takes {{#expr:{{#var:Deafening Blast value3}}/{{#var:Deafening Blast speed}} round2}} seconds.
+
+* With the travel distance and end radius, Deafening Blast can hit units up to {{#expr:{{#var:Deafening Blast value3}}+{{#var:Deafening Blast value4}}}} range away.
+
+* The complete area is shaped like a cone.
+
+* Applies a non-disabling [[forced movement]], so affected enemies can still use abilities and items during it, and their [[channeling]] abilities are not interrupted.
+
+* Deafening Blast first applies the knockback and [[disarm]] at the same time, then the damage.
+** Can knock units over impassable terrain.
+** During the knockback, all [[trees]] the units collided with are destroyed.
+** Does not knock {{U|Roshan}} back, but damages and disarms him.
+
+* Affected units are moved in {{#expr:{{G|tick rate}} round2}}-second intervals, for {{#vardefineecho:blast move instance|{{calc|trunc(v1/0.03)|v1={{#var:Deafening Blast value8}}}}}} times.
+** {{cf|expr}} <code>[[w:Floor and ceiling functions|⌊]]({{Quas}} × {{#expr:{{#explode:{{#var:Deafening Blast value8}}|/|0}}*100}}/{{#expr:trunc({{G|tick rate}}*100)}})[[w:Floor and ceiling functions|⌋]]</code>
+
+* The knockback distance calculation is split up into two sections — the first one-third and the remaining two-thirds intervals.
+** In the first one-third intervals, the affected units are moved linearly by a distance of {{#vardefineecho:Distance per int|6}} per interval, up to {{calc|trunc(1/3*v1)|v1={{#var:blast move instance}}}} times, for a total of {{#vardefineecho:1stpart|{{calc|{{#var:Distance per int}}*trunc(1/3*v1)|v1={{#var:blast move instance}}}}}} distance.
+*** {{cf|expr}} <code>({{#var:Distance per int}})( ⌊({{Quas}} × 20/9 )⌋ )</code>
+** For the remaining two-thirds of the intervals — {{#vardefineecho:blast move instance 2ndpart|{{calc|ceil(2/3*v1)|v1={{#var:blast move instance}}}}}} (<code>i</code>) times, the units are moved exponentially with {{#vardefineecho:blast r|0.98}} times the speed of each previous interval. {{#vardefine:blast a|0.98}}
+** The remaining intervals together (on each level) moves the affected units by a distance of {{#vardefineecho:2ndpart|{{calc|{{#var:Distance per int}}*{{#var:blast a}}*(1-{{#var:blast r}}^v1)/(1-{{#var:blast r}}) round2|v1={{#var:blast move instance 2ndpart}}}}}}, and can be defined as:
+*** {{cf|expr}} {{#tag:math|6\times \sum_{n=1}^{i}(0.98^n) }}, where <code>i</code> is the remaining intervals.
+*** This can be calculated by taking the total intervals and subtracting the number of intervals in the first third.
+
+* Summed up, the total distance on each level is {{calc|v1+v2|v1={{#var:1stpart}}|v2={{#var:2ndpart}}}}.
+** As a conclusion, the knockback starts at a speed of {{#expr:{{#var:Distance per int}}/({{G|tick rate}} round2)}} and decreases exponentially.
+
+* {{cf|Talnotes}} The {{ValueColor|1|Radial Deafening Blast|25tal}} {{Symbol|Talent}} [[talent]] releases blasts towards every direction around Invoker, no matter where it is targeted.
+** A total of {{ValueColor|1|{{#var:Deafening Blast value5 tal}}|25tal}} blasts are released. One blast is released towards the targeted point, while the other eleven are adapted to it, with {{ValueColor|1|{{#var:Deafening Blast value10 tal}}|25tal}} angles between them.
+** A unit can only be hit by one blast per cast. If an enemy unit stands within the areas of multiple blasts, it is only affected by one.
+
+* {{cf|expr}}
+** Knockback duration: <code>0 + (0.2 × {{Quas}})</code>
+** Knockback distance: <math>(6 \times \lfloor \textbf{Quas} \times \tfrac{20}{9} \rfloor)+\big( 6 \sum_{n=1}^{i}(0.98^n) \big)</math> [{{tooltip|?|This equation is simplified, for further explanation, see knockback notes above.}}]
+*** <code>i</code> represents the number of intervals in the last two-thirds of the knockback.
+*** <code>i = [[w:Floor and ceiling functions|⌊]]{{Quas}} × 20/3 - (⌊{{Quas}} × 20/9⌋) [[w:Floor and ceiling functions|⌋]]</code>
+** Disarm duration: <code>0.5 + (0.75 × {{Wex}})</code>
+** Damage: <code>20 + (40 × {{Exort}})</code>
+}}
+
+=== Forged Spirit ===
+{{Ability wrapper|Forged Spirit|Melting Strike
+| ID = 5388
+| intern = forged_spirit_melting_strike
+| linkedability = Forge Spirit
+}}
+
+== Talents ==
+<!-- To edit this, go to the hero's Talents page -->
+{{Talents wrapper|hero=Invoker}}
+
+== Recent Changes ==
+{{Main|Invoker/Changelogs|Invoker/Old Abilities|Invoker/Lore|l1=Changelogs|l2=Old Abilities|l3=Hero Lore}}
+{{Recent changes wrapper}}
+
+== Recommended Items ==
+<!-- To edit this list, go to the hero's Guide page -->
+{{#lst:Invoker/Guide|Items}}
+
+== Dota Plus Progress ==
+{{Main|Invoker/Relics#Challenges|l1=Hero Challenges}}
+<!-- To edit this table, go to the hero's Relic page -->
+{{#lst:Invoker/Relics|Table}}
+
+== Equipment ==
+{{Equipment Invoker}}
+
+== Trivia ==
+* In the earliest version of Invoker, the order of instances mattered when Invoke was cast. Invoker, therefore, had access to 27 spells, including most of the 10 still in the game (though with some differences).<ref>[http://www.playdota.com/forums/348720/list-old-dota-heroes/ List: Old DotA Heroes - Playdota]</ref> For more information, see [[Invoker/Old Abilities#Pre 6.18|here]].
+** If Invoker has <code>m</code> different types of Orbs, and he is able to have <code>n</code> number of instances, the total amount of ability he will be able to {{A|Invoke|Invoker}} can be defined as:
+** {{cf|expr}} <code>[[w:Combination|C]](m+n-1, n)</code>
+
+* There was an easter egg boss fight versus Invoker was added to the [[6.49]] DotA map to hint at his upcoming release in [[6.50]].
+
+* Invoker is (or used to be) a Magus like {{H|Rubick}}, who calls him the <sm2>vo_rubick_rubick_rival_01.mp3</sm2> <sm2>vo_rubick_rubick_rival_02.mp3</sm2> <sm2>vo_rubick_rubick_ally_01.mp3</sm2> Arsenal Magus. This title may be a reference to the Old Invoker.
+
+* Invoker's [[#Deafening Blast|Deafening Blast]] cast response <sm2>vo_invoker_invo_ability_deafeningblast_06.mp3</sm2> "Sonic boom!" is a reference to the signature move of Guile from the "Street Fighter" fighting game series.
+
+* Invoker (Along with some players and casters) sometimes jokingly refers to his Chaos Meteor as a meatball (<sm2>vo_invoker_invo_ability_chaosmeteor_07.mp3</sm2> "Behold the meatball!"), due to their highly similar appearance.
+
+* When {{A|Chaos Meteor|Invoker}} is cast, <sm2>vo_invoker_invo_ability_chaosmeteor_06.mp3</sm2> "Gallaron's Abyssal Carnesphere!" Carne is Portuguese, Spanish, Romanian, and Italian for meat, and a sphere is the geometric shape of a ball. So, "carnesphere" is another way of saying "meatball".
+
+* Invoker's preferred style of spellcasting, involving the invocation of mnemonics, is inspired by the magic in Jack Vance's "Dying Earth" series. Further references to Vancian magic are in the alternate names for his spells, which involve verbose invocations such as "Sadron's Protracted Frisson" and "Killing Wall of Koryx.".
+
+* When purchasing {{I|Blink Dagger}}, <sm2>vo_invoker_invo_blink_02.mp3</sm2> "Dagger of the mind." references the "Dagger" monologue from Shakespeare's play, "Macbeth".
+
+* Invoker's respawn line <sm2>vo_invoker_invo_respawn_10.mp3</sm2> "Knowing me... knowing you." references the song by the band Abba, of the same name.<ref>[https://www.youtube.com/watch?v=iUrzicaiRLU Abba - Knowing me, knowing you]</ref>
+
+* Invoker's voice actor, [[Dennis Bateman]], also voices the [https://wiki.teamfortress.com/wiki/Spy Spy from Team Fortress 2]. Invoker's killing response <sm2>vo_invoker_invo_kill_10.mp3</sm2> "You die as you lived: insipid and ignorant." is a reference to this, as the Spy also has 2 similar killing responses: "[https://wiki.teamfortress.com/w/images/a/ab/Spy_DominationScout02.wav?t=20100626000431 You died as you lived: running away!]" and "[https://wiki.teamfortress.com/w/images/6/62/Spy_DominationHeavy05.wav?t=20100625234613 You died as you lived: morbidly obese!]".
+
+* As referenced in the details of his [[#Name|name]], Invoker was known as Kael, or Kael'thas Sunstrider, in DotA. Kael'thas is best known as the Lord of the Blood Elves in the "Warcraft" universe.<ref>[http://wowpedia.org/Kael%27thas_Sunstrider Kael'thas, a notable character from the Warcraft universe]</ref> The Invoker of DotA also makes use of his Warcraft 3 model, although Invoker used generic Blood Mage's voice lines instead of Kael's.
+** {{H|Skywrath Mage}}'s responses when meeting Invoker may also be related to this, as Dragonus was also a high elf in DotA.
+
+* The first letter of Quas, Wex and Exort refers to the key of a QWERTY keyboard they are by default bound to ({{Key press|Q}}, {{Key press|W}}, and {{Key press|E}}). In lore, they are most likely mnemonics used to {{A|Invoke|Invoker}} abilities.
+
+=== Name ===
+* In DotA, Invoker's name is Kael,<ref>[http://www.playdota.com/heroes/invoker Invoker at PlayDota]</ref> based on the WarCraft Blood Elf Mage character, Kael'thas Sunstrider. His fun name is Kal-El, a pun conflating the name Kael with the birth name of Superman.
+
+* In April 2011, a fake DotA 6.72 Chinese changelog<ref>[http://dota.uuu9.com/201104/72591_3.shtml Fake Chinese 6.72 changelog]</ref> referred to Invoker as "卡尔" ("Kael", transliterated as "Kǎ'ěr"). A PlayDota forum member translated the changelog<ref>[http://www.playdota.com/forums/showpost.php?p=2348598&postcount=9 Translation of the 6.72 changelog on PlayDota forums]</ref> with Google Translate, in an attempt to get a quick, rough translation. Google Translate mistakenly translated "卡尔" as "Carl". <!--Google Translate botched a number of other hero names, including "Just back beast", "Giant Sea Man Tooth", and "Crypt compilers".--> PlayDota forum members were at first confused, then entertained by the mistake. [[IceFrog]], the lead developer of DotA and Dota 2, <!--and who speaks Chinese, -->joked "Carl had it coming".<ref>[http://www.playdota.com/forums/showpost.php?p=2348785&postcount=57 IceFrog's comment about Invoker's name]</ref>
+
+* In December 2011, drafts of Invoker's Dota 2 lore referred to him as "Garral" twice, presumably a nod to "Carl". This name was excised upon Invoker's release in January 2012; the lore currently refers to him only as "the Invoker".
+
+* Invoker's voice lines include the name Carl three times. Invoker has a small chance to speak one of these lines when his model is selected:
+** <sm2>vo_invoker_invo_spawn_01.mp3</sm2> "Carl!"
+** <sm2>vo_invoker_invo_rare_04.mp3</sm2> "Throughout the eons I have been known by many names…but my true name of power…is Carl."
+** <sm2>vo_invoker_invo_rare_05.mp3</sm2> "Behold before you, the illustrious, the imperious, ingenious arch-mage… CARL."
+
+* {{H|Undying}} uses the name Carl once, when meeting an allied Invoker on the battlefield, and even then only 5% of the time:
+** <sm2>vo_undying_undying_ally_10.mp3</sm2> "Carl, is that you?"
+
+* {{H|Mirana}} uses the name Carl once, when killing an enemy Invoker, and even then only 5% of the time:
+** <sm2>vo_mirana_mir_rival_16.mp3</sm2> "Carl, meet Sagan." A pun on [[w:Carl Sagan|Carl Sagan]]. (Mirana's feline mount is named Sagan.)
+
+* In summary, Invoker's real name was meant to be possibly Carl, hence the audio files that Mirana, Undying, and Invoker himself mentioned beforehand. The release of Young Invoker persona has confirmed this, in the item's description, that the real name of Invoker is indeed Carl.
+
+== Gallery ==
+<gallery>
+File:Invoker Model.jpg|Model
+File:27 Spells Old Invoker.jpg|An [[Invoker/Old|early version]] of Invoker from Legacy DotA, where he had access to 27 spells.
+File:Invoker update splash.jpeg|Splash artwork
+File:Invoker Concept Art1.jpg|Concept art
+File:Cosmetic icon Envisioning Invoker Loading Screen.png|[[Envisioning Invoker Loading Screen]] concept art
+File:Invoker hero icon progress.png|Hero icon progress
+File:Invoker 1.png
+File:Invoker 2.png
+</gallery>
+
+== References ==
+<references />
+
+[[pt:Invoker]]
+[[ru:Invoker]]
+[[zh:祈求者]]

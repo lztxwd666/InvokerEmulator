@@ -1,0 +1,261 @@
+{{Tabs Hero|custom1=Ability Draft|custom2=Dragon's Blood}}
+[[File:Invoker Guide Header.png|right|550px|link=Mnemonus Arcanus Set]]
+== Gameplay ==
+{{hero intro
+| intro = {{H|Invoker}} is one of the most difficult to learn heroes in the game, but also one of the most flexible and powerful casters. As such, his skill floor is not impossibly high, however, his skill ceiling is almost unparalleled, and thus he takes significant amounts of practice in order to learn. Because of his need for quick levels and gold, he is usually played as a mid hero. Due to Invoker's heavy level requirement in order to be effective, it is generally advised to focus on leveling two orbs and getting a value point in the third, rather than trying to level all three equally. While Invoker can be more flexible if he can cast strong spells in all categories, the lack of specialization also limits his potency in areas where his team might need him to be strong. Invoker can only truly reach his full strength at level 25, and as such he needs to be able to effectively contribute to teamfights before reaching that point.
+| pros = * Extremely versatile.
+* Numerous disables.
+* Deadly magic combos.
+* Can push quite well.
+* Good solo killing ability with Quas-Exort.
+| cons = * Dependent on player's skills.
+* Requires learning and memorizing 10 of his abilities.
+* Level dependent.
+* Low base armor and agility gains make him easily killed against physical attacks.
+* Slow movement speed without Wex.
+* Requires significant early farm to be effective.
+* Vulnerable to [[silence]].
+* One of the hardest heroes to play in the game.
+}}
+
+=== {{Quas}} + {{Exort}} ===
+This build improves {{H|Invoker}}'s nuking and disable potential, but leaves him lacking in reach. The main objective is to get to level 8 having 4 points in both {{A|Quas|Invoker}} and {{A|Exort|Invoker}} to gain access to two {{A|Forge Spirit|Invoker}}s, and to have several points in {{A|Quas|Invoker}} early in the game to increase {{A|Cold Snap|Invoker}} damage, {{A|Ice Wall|Invoker}} slow, and overall HP regen from active instances to sustain yourself during the laning stage. Two {{A|Forge Spirit|Invoker}}s, in combination with {{A|Cold Snap|Invoker}}, can inflict tremendous amounts of damage on a single target, which can get you kills against lone enemies without escape abilities. Invoker can also use {{A|Sun Strike|Invoker}}, {{A|Chaos Meteor|Invoker}} and {{A|Deafening Blast|Invoker}} to great effect, inflicting large amounts of Magical and Pure damage on enemies. This build is normally suited best against melee-heavy lineups, or lineups that have many heroes that need to be closer to their opponents. It can also be played as a more farming oriented build, with use of {{A|Forge Spirit|Invoker}}s and perhaps {{A|Alacrity|Invoker}} (if you have one value point in {{A|Wex|Invoker}}) to push waves and gain farm, and relocating to different areas on the map with {{I|Boots of Travel}}. This works quite well because {{A|Forge Spirit|Invoker}}s can kill one camp (or give extra damage), while {{H|Invoker}} pushes creep waves with {{A|Alacrity|Invoker}}. However, {{H|Invoker}} can also kill solo heroes and assist in teamfights. To further escalate, if he gets {{I|Aghanim's Scepter}} within 15-26 minutes of the game, his {{A|Sun Strike|Invoker}} turns into a catastrophic ability that adds more to his presence at all times. However the main focus of Quas-Exort in a game usually is to get enough farm for quite a number of items (by farming, getting solo kills and participating in teamfights), and also pushing around the map, relieving pressure from other teammates perhaps in teamfights. You don't often see many pro players going for an early win with Quas-Exort {{H|Invoker}} (if they wanted an early win, they usually would go for Quas-Wex for the added teamfight ability). A disadvantage of this build is that it requires Invoker to be very good at farming, overall map awareness, team fighting ability, and generally requires higher skill than Quas-Wex. It isn't a very good build either if the other team has a very early oriented lineup, however it doesn't mean it's a bad build early game as {{H|Invoker}} has {{A|Sun Strike|Invoker}} to assist lanes and {{A|Forge Spirit|Invoker}}s and {{A|Cold Snap|Invoker}} (situationally {{A|Chaos Meteor|Invoker}} and {{A|Deafening Blast|Invoker}}) to use in fights.
+
+Historically the most used in the competitive scene.
+
+=== {{Quas}} + {{Wex}} ===
+This build primarily focuses on bringing disables and crowd control to the table at the cost of striking power. {{H|Invoker}}s using this build focus on casting {{A|E.M.P.|Invoker}} and {{A|Tornado|Invoker}} in teamfights in order to disrupt the enemy and destroy their ability to cast spells, while using {{A|Cold Snap|Invoker}} for single-target disable. It also specializes in ganking, allowing players to use {{A|Ghost Walk|Invoker}} to roam around the map and initiate fights with {{A|Cold Snap|Invoker}} as his initiation or {{A|Ice Wall|Invoker}} for an area-of-effect slow. With a value point in {{A|Exort|Invoker}}, Invoker can also utilize {{A|Alacrity|Invoker}} to boost the attack speed of himself or an ally, and use {{A|Deafening Blast|Invoker}} to act as an additional disable, mainly used to push enemies back. This build is usually best combined with teammates who already have damage, but are lacking crowd control such as {{H|Zeus}}, {{H|Ursa}}, {{H|Leshrac}}, and many others. A disadvantage to this build is usually the lack of farm {{H|Invoker}} usually gets compared to Quas-Exort builds. Not only that, but {{H|Invoker}} would mostly somewhat struggle in taking last hits, so it is ideal for players to use {{A|Tornado|Invoker}} just to catch last hits.
+
+The most used recently in competitive play.
+
+=== {{Wex}} + {{Exort}} ===
+This build gives {{H|Invoker}} a combination of striking power and reach, but leaves him unable to disable opponents effectively and results in a comparatively frail caster due to lack of {{A|Quas|Invoker}}. {{H|Invoker}} should generally focus on nuking targets or providing utility via {{A|Alacrity|Invoker}}, which can greatly increase the right-clicking power of an ally or {{H|Invoker}} himself. This build gives {{H|Invoker}} the ability to deal large amounts of damage with {{A|Sun Strike|Invoker}}, {{A|Chaos Meteor|Invoker}} and {{A|Deafening Blast|Invoker}}, as well as a measure of crowd control via {{A|E.M.P.|Invoker}} and a long-reaching {{A|Tornado|Invoker}}. This ability build is most effective against heroes that are excellent at kiting their enemies, such as {{H|Drow Ranger}} and {{H|Sniper}}. However, it is also extremely potent if your allies have strong initiators such as {{H|Clockwerk}}, {{H|Jakiro}}, and {{H|Faceless Void}}. Disadvantages are that it provides next to no control at all, needing other allies to keep enemy heroes in place. Also {{H|Invoker}} isn't really designed to be a right click hero, he is more of a hero that uses powerful spells to change the tide of a fight.
+
+Relatively rarely seen in the competitive scene.
+
+== Ability Builds ==
+{{build order
+| title = Quas + Exort Invoker
+| lvl1 = Exort
+| lvl2 = Quas
+| lvl3 = Exort
+| lvl4 = Quas
+| lvl5 = Exort
+| lvl6 = Wex
+| lvl7 = Exort
+| lvl8 = Quas
+| lvl9 = Exort
+| lvl10 = Quas
+| lvl11 = Exort
+| lvl12 = Wex
+| lvl13 = Exort
+| lvl14 = Talent
+| lvl15 = Talent
+| lvl16 = Wex
+| lvl17 = Wex
+| lvl18 = Wex
+| lvl19 = Wex
+| lvl20 = Talent
+| lvl21 = Wex
+| lvl22 = Quas
+| lvl23 = Quas
+| lvl24 = Quas
+| lvl25 = Talent
+}}
+
+{{build order
+| title = Quas + Wex Invoker
+| lvl1 = Quas
+| lvl2 = Wex
+| lvl3 = Wex
+| lvl4 = Quas
+| lvl5 = Wex
+| lvl6 = Quas
+| lvl7 = Wex
+| lvl8 = Quas
+| lvl9 = Wex
+| lvl10 = Exort
+| lvl11 = Wex
+| lvl12 = Exort
+| lvl13 = Wex
+| lvl14 = Talent
+| lvl15 = Talent
+| lvl16 = Exort
+| lvl17 = Exort
+| lvl18 = Exort
+| lvl19 = Exort
+| lvl20 = Talent
+| lvl21 = Exort
+| lvl22 = Quas
+| lvl23 = Quas
+| lvl24 = Quas
+| lvl25 = Talent
+}}
+
+== Talents ==
+{{Talents wrapper
+| hero = Invoker
+}}
+
+== Tips & Tactics ==
+=== General ===
+* Quas Exort {{H|Invoker}} needs lots of farm. Getting an early {{I|Boots of Travel}} to get faster around the map and kill creeps is always a good thing.
+* {{H|Invoker}} is highly dependent on levels to make his spells effective.
+* Many of {{H|Invoker}}'s spells are linear AoE effects, which can be devastating in chokepoints.
+* Many of {{H|Invoker}}'s spells have strong synergy with each other. Understanding how to combo them is key to playing {{H|Invoker}} well.
+* All of {{H|Invoker}}'s spells have fairly long cooldowns. If your spells are on cooldown and there is a fight, try to push towers to make enemies teleport back to their base and then teleport back yourself.
+* Preparing the right orbs before an engagement makes it easier to chain spell combos.
+* It is fairly easy to say, but using each spell and to its best ability rather than just spamming them (unless you're doing combos) can often separate good and amazing {{H|Invoker}} players.
+* A build that some pro players use is {{I|Boots of Speed}}, (optionally {{I|Hand of Midas}}), {{I|Boots of Travel}}/{{I|Drum of Endurance}} (can be both or swapped around), {{I|Blink Dagger}} and {{I|Aghanim's Scepter}} at around the 22nd-27th minute mark.
+
+=== Abilities ===
+==== {{A|Quas|Invoker|40px}} ====
+* Active Quas orbs gives health regeneration to {{H|Invoker}}, which is especially useful for staying in lane.
+* Often the last orb to be maxed as it doesn't provide much for {{H|Invoker}} other than health regen.
+
+==== {{A|Wex|Invoker|40px}} ====
+* Active Wex orbs increase {{H|Invoker}}'s [[attack speed]], and more importantly [[movement speed]] which can be useful for chasing down enemies.
+
+==== {{A|Exort|Invoker|40px}} ====
+* Active Exort orbs gives [[damage]] to {{H|Invoker}}, therefore players often level up Exort first to make last-hitting easier in lane.
+
+==== {{A|Invoke|Invoker|40px}} ====
+* Invoke allows {{H|Invoker}} to forge spells with a short cooldown of 6 seconds.
+* Whenever a new spell is invoked, the oldest of his two currently Invoked spells is removed from selection. Beware of which spell combinations you wish to execute, and queue them through Invoke accordingly.
+* The above can be facilitated more easily by switching the spell orders as needed. If the oldest currently Invoked spell is Invoked, it will swap positions with the newest one without putting Invoke on cooldown, allowing {{H|Invoker}} to immediately queue another spell for Invoke. This can be crucial for quickly ordering spell combinations if a required spell for that combo is already the oldest Invoked spell.
+* Careful not invoke a spell that's still on cooldown, as this will waste Invoke's cooldown. Since the ability icon disappears after being replaced, players will have to rely on instinct and experience to know whether or not a spell is on cooldown.
+* If you want to cast three spells in quick succession, it can help to have the orbs for the third spell prepared before casting the other two. This allows you to cast your first two spells and then Invoke the third immediately once the oldest Invoked spell is on cooldown. This can let you cast nuke-heavy combos such as {{A|Sun Strike|Invoker}} + {{A|Chaos Meteor|Invoker}} + {{A|Deafening Blast|Invoker}}, as the first two spells have delays that allow you to queue up the third so that you can land all three on a target simultaneously.
+
+==== {{A|Cold Snap|Invoker|40px}} ====
+* Cold Snap has strong utility in the early and mid-game, however it decreases in effectiveness later in the game.
+* Using Cold Snap on an low armor enemy under attack by [[creeps]] will cause that enemy to be stunlocked from creep attacks.
+* Cold Snap stuns upon cast, and has a long 1000 range (Invoker's attack range is 600). This is useful for interrupted channeled spells and items.
+* Cold Snap is very strong when combined with any spell that deals damage over time, as each small damage instance procs the mini-stun and damage.
+* {{A|Forge Spirit|Invoker}}s have strong synergy with Cold Snap, as each spirit's individual attacks (as well as your own) can proc the mini-stun, and both spells are based on {{A|Quas|Invoker}}. When attacking a target afflicted with Cold Snap, try to stagger the {{A|Forge Spirit|Invoker}}s so that they attack at different intervals, in order to increase the chances of proccing the mini-stun.
+* Cold Snap also has a strong synergy with {{A|Alacrity|Invoker}} as the increased damage and attack speed will continuously stun the enemy.
+*Items such as {{I|Urn of Shadows}}, {{I|Drum of Endurance}} and {{I|Orchid Malevolence}} increase the spell's efficiency and trigger the mini-stun.
+* Cold Snap can greatly impede the attack and cast animations of enemy players, preventing them from retaliating for the duration of the debuff.
+** A unit under the effect of Cold Snap cannot cast spells with a [[cast time]] higher than/cannot perform attacks with an [[Attack speed|attack time]] higher than 0.37/0.34/0.31/0.29/0.26/0.23/0.20(/0.17) seconds, assuming Cold Snap always triggers exactly when off cooldown.
+* Cold Snap is hard countered by abilities like {{A|Aphotic Shield|Abaddon}}, {{A|Refraction|Templar Assassin}}, and {{A|Living Armor|Treant Protector}}.
+
+==== {{A|Ghost Walk|Invoker|40px}} ====
+* Enemies can notice {{H|Invoker}}'s presence since Ghost Walk's debuff leaves its icon and particle effects on themselves.
+* Use Ghost Walk's invisibility and mobility to escape or to sneak up for a gank.
+* Without a few levels in {{A|Wex|Invoker}}, Ghost Walk will slow {{H|Invoker}} down.
+** Consider shifting to three {{A|Wex|Invoker}} orbs before using Ghost Walk to offset the movement penalty at early levels.
+* With higher levels of {{A|Wex|Invoker}}, {{H|Invoker}} is faster than normal with Ghost Walk, allowing him to chase down or ambush enemies.
+* Using items or queuing any orbs will break invisibility.
+* Ghost Walk can also be used as a roaming and ganking spell, as its extremely long duration relative to the spell's short cooldown allows {{H|Invoker}} to remain invisible indefinitely with enough mana.
+** With enough levels in {{A|Wex|Invoker}}, {{H|Invoker}} can maintain up to a 61% movement speed bonus with Ghost Walk (up to 40% from the spell, and a maximum of 21% from three active {{A|Wex|Invoker}} orbs), making him extremely fast and able to move around the map quickly.
+
+==== {{A|Ice Wall|Invoker|40px}} ====
+* Ice Wall is a strong slow and damage-over-time spell that works best if the enemy is forced to stand in a particular area. The slow and wall duration is based on {{A|Quas|Invoker}}, while the damage over time is based on {{A|Exort|Invoker}}.
+* The wall is placed perpendicularly in front of him upon casting.
+* Placing Ice Wall in the middle of a teamfight can greatly inhibit the positioning and mobility of enemy heroes should they decide to commit to battle. The tremendous slow can easily trap any hero who does not have spell immunity or a Haste buff, giving {{H|Invoker}}'s team a powerful edge.
+* Ice Wall is best used as a disengagement spell, as it drastically slows chasing enemies and give teammates time to escape and its wide area prevents enemy players from easily getting around it to avoid the slow. It can also be used against solo enemies attempting to escape, as it can lock them down in position for casting your other spells.
+* {{A|Cold Snap|Invoker}} has strong synergy with this spell, as both spells are based primarily on {{A|Quas|Invoker}}. Using {{A|Cold Snap|Invoker}} on an opponent who is already in the wall causes them to take the mini-stun every second and prevent them from moving outside of the damage and slow zone, effectively pinning them in place.
+
+==== {{A|E.M.P.|Invoker|40px}} ====
+* Due to its delay, E.M.P. can be hard to land on enemies. However, its long cast range and wide effect radius also make it difficult to avoid. When attempting to cast E.M.P. on enemy heroes, it is best to hit them with a set-up spell first.
+* {{A|Tornado|Invoker}} has the strongest synergy with E.M.P. since it can disable multiple enemy heroes for up to 2.9 seconds, and both spells are based on {{A|Wex|Invoker}}. Hitting the enemy team with a {{A|Tornado|Invoker}} while simultaneously deploying E.M.P. can virtually guarantee connecting the spell.
+* While it loses much of its potency in the late game due to mana pools getting larger, E.M.P. can still greatly disrupt enemies at all stages of the game. Destroying the mana on low-intelligence heroes, particularly strength and agility casters, can render them impotent in the early and mid-game, while doing so in the late-game can hinder an enemy carry's ability to cast spells (such as {{A|Phantom Strike|Phantom Assassin}} or {{A|God's Strength|Sven}}) or use item abilities that require mana (such as {{I|Abyssal Blade}} or {{I|Ethereal Blade}}).
+* Experienced players will reserve their {{I|Arcane Boots}} to recharge their mana right after being hit, so don't assume an E.M.P. will disable them for good.
+
+==== {{A|Tornado|Invoker|40px}} ====
+* Tornado is {{H|Invoker}}'s most powerful crowd-control and set-up ability, as its long range allows him to disable the entire enemy team from long range, and remove buffs from them, setting them up for subsequent spells. Its range and damage is based on {{A|Wex|Invoker}}, while the cyclone duration is based on {{A|Quas|Invoker}}.
+* Remember that enemies are completely invulnerable while cycloned, so you still need to time your spells to hit after they land. The cyclone duration is based on {{A|Quas|Invoker}}, so be mindful of how many levels of {{A|Quas|Invoker}} you have as well.
+* Tornado [[dispel]]s enemy buffs. Heroes relying on combat buffs such as {{A|Bloodlust|Ogre Magi}}, {{A|Guardian Angel|Omniknight}} can be easily countered with a single well-placed Tornado that hits multiple heroes. In single-encounter situations it can also remove powerful buffs such as {{A|Surge|Dark Seer}}, {{A|Flame Guard|Ember Spirit}} and {{A|Overpower|Ursa}}.
+* Tornado's extremely long range allows good {{H|Invoker}} players to snipe fleeing enemies with good prediction. You can use it to interrupt {{I|Town Portal Scroll}}s, or simply outright kill enemy players who are at low enough health.
+* Tornado gives a small 200 AoE flying [[vision]] along its path, so it can be used as a scouting tool.
+* If {{H|Invoker}} gets caught by surprise, he can instantly react with Tornado as a last ditch escape mechanism, throwing enemies into the air to buy him enough time to escape.
+* With good timing, Tornado can be used to stack [[creeps]] by lifting them into the air just before their respawn time.
+* At level 25, the Tornado cooldown reduction talent can come handy for having consecutive Tornadoes, yielding multiple disables in a given time duration.
+
+==== {{A|Alacrity|Invoker|40px}} ====
+* Alacrity is a very strong single-target buff on a low cooldown that greatly amplifies the physical damage output of a friendly carry, one of Invoker's summons, or {{H|Invoker}} himself. The attack speed buff is based on {{A|Wex|Invoker}}, while the damage bonus buff is based on {{A|Exort|Invoker}}.
+* Alacrity is useful at all phases of the game. Keep in mind, however, that early use may be taxing on an already tight mana pool.
+* Keep in mind that this spell can be cast on all allied units, not just heroes. As such, you can use it on allied summons, such as {{H|Lone Druid}}'s {{U|Spirit Bear}} and {{U|Warlock Golem}}s, as well as [[siege creeps]], depending on the situation.
+* Spamming this ability along with {{A|Forge Spirit|Invoker}}s can bring down {{H|Invoker}}'s mana to low levels.
+
+==== {{A|Sun Strike|Invoker|40px}} ====
+* Sun Strike is a deadly nuke with global range, which is perfect to kill fleeing Heroes. Its damage is based purely on {{A|Exort|Invoker}}.
+* Sun Strike is one of {{H|Invoker}}'s most useful spells, as it has utility at all points in the game. During the laning stage, {{H|Invoker}} can use it to add his striking power to a gank, especially if combined with a friendly stun that holds an enemy in place for more than 1.7 seconds. Once past the laning stage, it can be used to snipe fleeing enemies or check Roshan's pit.
+* Sun Strike's delay makes it hard to land on enemies, so some set-up or prediction is required in order to use it well. If you can predict an enemy player's movements, you can finish them off from across the map if they're already at low health.
+* One very useful way to use Sun Strike is to target it on the enemy's fountain if you or your teammates cannot finish off a teleporting enemy hero in time. As they are most likely going to arrive in their fountain, you can kill them inside their own base while they are still at low health.
+* Beware that Sun Strike splits its damage evenly among all struck enemy units, so if more than one enemy is within its effect radius the spell loses at least half of its potency. As such, smart enemy players clump up alongside their own low-health teammates in order to prevent Sun Strike from killing them.
+* Sun Strike can pierce spell immunity. This means that if an enemy hero attempts to activate spell immunity and then teleport out (such as {{A|Blade Fury|Juggernaut}} or {{A|Rage|Lifestealer}}), you can still damage them and potentially kill them before they can escape.
+
+==== {{A|Forge Spirit|Invoker|40px}} ====
+* Forge Spirit is one of {{H|Invoker}}'s signature spells, allowing him to summon one or two Forge Spirits to do his bidding. Its attributes are affected by {{A|Quas|Invoker}} and {{A|Exort|Invoker}}.
+* In general, players who wish to specialize in using Forge Spirits level up at level 15 and choose the +1 Forge Spirit Summoned talent for two Forge Spirits in command. Forge Spirits can bring a great amount of offensive potential to the table, allowing {{H|Invoker}} to use them to harass, push, or scout.
+* One of the strongest aspects of Forge Spirits is that they reduce enemy heroes' armor with each attack, increasing their vulnerability to physical damage at the same time as they are dealing that damage. This makes them very strong at killing enemy heroes with enough lockdown, such as from {{A|Cold Snap|Invoker}}.
+* Beware that each Melting Strike attack requires expending mana from the Forge Spirits' mana pool, so the amount of armor that they can reduce is dictated by how many {{A|Quas|Invoker}} levels {{H|Invoker}} has.
+* Forge Spirits make good targets for {{A|Alacrity|Invoker}}, as they can deal tremendous amounts of damage when focusing a single target, whether in a teamfight or while pushing.
+* Forge Spirits usually last longer than the cooldown on summoning them, based on how many levels of {{A|Quas|Invoker}} Invoker has learned. As such, leveling {{A|Quas|Invoker}} can allow {{H|Invoker}} to have the Forge Spirits active while having different spells on {{A|Invoke|Invoker}}, which can allow {{H|Invoker}} to have two spells for immediate use and a third queued to {{A|Invoke|Invoker}}, while the Forge Spirits are active.
+* Summoning Forge Spirits while there are active instances immediately destroys them, with no gold or experience bounty for enemy heroes. Be sure to re-summon your Forge Spirits if they are about to be killed by the enemy, in order to deny them any gold or experience they may earn from killing them.
+
+==== {{A|Chaos Meteor|Invoker|40px}} ====
+* Chaos Meteor summons a meteor that, after a delay, rolls forward and deals damage and inflicts a burn debuff to all enemies it passes through. Its roll distance is based on {{A|Wex|Invoker}}, while its damage and burn are based on {{A|Exort|Invoker}}.
+* Due to the delay, Chaos Meteor is best combined with a set-up spell, such as {{A|Tornado|Invoker}} or the active from {{I|Eul's Scepter of Divinity}}. Unlike {{A|Sun Strike|Invoker}}, Chaos Meteor does not have a global range that allows room for prediction.
+* In order to get the most from a single meteor, it is best to try to keep enemies inside of the meteor itself for as long as possible. Spells that can forcibly displace the enemy such as {{A|Deafening Blast|Invoker}} synergize well with Chaos Meteor as the target also gets disabled for the duration of the displacement.
+* Chaos Meteor has the longest cooldown out of all of {{H|Invoker}}'s spells. Be careful about when you cast it, as you have to wait almost a minute to cast it again.
+
+==== {{A|Deafening Blast|Invoker|40px}} ====
+* Deafening Blast is {{H|Invoker}}'s most general-purpose nuke and disable. It knocks back based on {{A|Quas|Invoker}}, disarms based on {{A|Wex|Invoker}}, and deals its nuke damage based on {{A|Exort|Invoker}}.
+* In general, Deafening Blast is best utilized with levels in {{A|Quas|Invoker}} and {{A|Exort|Invoker}} for the knock-back and nuking power. {{A|Wex|Invoker}} applies the disarm after the knock-back, which is situationally useful depending on the target, but for general purpose {{A|Quas|Invoker}} and {{A|Exort|Invoker}} are more important.
+* Never underestimate the disarm portion of Deafening Blast, however. If cast against an enemy carry in a teamfight, it can render them unable to attack at a critical juncture, all the more so if they have already used their spell immunity beforehand.
+* After reaching level 25 and choosing the talent, Deafening Blast sends out an omni-directional wave that hits all targets around {{H|Invoker}}. With good positioning, it is possible to nuke and disable the entire enemy team with this spell.
+* The displacement due to the push can be extremely powerful in the right situation. Cast in the right direction, Deafening Blast can push enemies over impassable terrain, or in the direction of teammates.
+
+== Items ==
+<section begin=Items />'''Starting items:'''
+* {{I|Tango|30px}} gives health regeneration to help Invoker stay longer in lane.
+
+* {{I|Faerie Fire|30px}} is often bought to increase his starting damage for lasthitting, and to consume in an early fight, potentially avoiding death for a low cost.
+
+'''Early game:'''
+* {{I|Boots of Speed|30px}} are important to get quickly, as Invoker has one of the lowest base movement speeds in the game. Getting a movement speed advantage over your opponent allows you to position yourself for casting your spells more easily.
+
+* {{I|Magic Stick|30px}} provides Invoker with additional mana and health with its charges, which is important on any frail caster. Using the charges can give Invoker enough health to survive an attempted gank, or allow him to cast one more spell to ensure a kill.
+
+'''Mid game:'''
+* {{I|Hand of Midas|30px}} should be picked up if Invoker had a good early game, especially with Quas-Exort build. It increases his experience gain which is incredibly important for Invoker.
+
+* {{I|Orchid Malevolence|30px}} is opted for a usual Quas-Exort user who wants to look for early kills and helps him take the edge on taking down enemies who are reliant on abilities that provide spell immunity, invulnerability or even the chance to move.
+
+* {{I|Boots of Travel|30px}} is a useful item, allowing Invoker to split push and farm with Forge Spirits, and teleport to team fights. It also gives him lots of movement speed.
+
+* {{I|Magic Wand|30px}} gives Invoker stats and larger charge storage when upgraded from {{I|Magic Stick}}. A full charge Wand can allow Invoker to cast any of his spells.
+
+* {{I|Aghanim's Scepter|30px}} improves Invoker's spells across the board and unlocks a deadly upgrade, giving him a welcome boost in power.
+
+* {{I|Black King Bar|30px}} is a good item to build on Invoker if you're constantly being focused or disabled by the enemy. The spell immunity allows you to stand on the front lines to cast your spells without being interrupted.
+
+'''Late game:'''
+* {{I|Blink Dagger|30px}} is a very strong item to build on Invoker, as he requires good positioning in order to make the most of his spells. Its mobility greatly increases his offensive potential as well as survivability. This item can later be upgraded to {{I|Arcane Blink}}, which highly decreases all of his spells' mana requirements.
+
+* {{I|Octarine Core|30px}} is extremely strong on cast-heavy nukers, and can make Invoker a force to be reckoned with. The item grants a tremendous amount of health and mana, reduces the cooldowns on all of his spells as well as {{A|Invoke|Invoker}}, making him much harder to bring down in fights.
+
+* {{I|Refresher Orb|30px}} turns Invoker into an unstoppable nuker. Two back-to-back spell combos will kill just about any hero.
+
+'''Situational items:'''
+* {{I|Phase Boots|30px}} are the best boots for Quas-Exort Invoker, as the speed boost offsets his low base movement speed. Additionally, the bonus attack damage helps him farm creeps faster.
+
+* {{I|Power Treads|30px}} are the best boots for Quas-Wex Invoker (along with Boots of Travel), as they give him attributes and attack damage, making last hitting easier.
+
+* {{I|Urn of Shadows|30px}} helps Invoker gank as it keeps dealing damage to the targets, proccing Cold Snap to increase damage output and disabling time. Take {{I|Spirit Vessel}} for increased damage and healing counters.
+
+* {{I|Scythe of Vyse|30px}} gives good attributes and plenty of mana and mana regeneration, increasing Invoker's survivability while also giving him the mana he needs to cast his spells. Hex is also one of the strongest hard-disables in the game that can completely turn teamfights around.
+
+* {{I|Drum of Endurance|30px}} further increases Invoker's attack and movement speed, and provides him with extra attributes and mana regeneration.
+
+* {{I|Force Staff|30px}} is a very useful item. Its active ability can be used to escape, to chase enemies or to save teammates from sure death, as well as re-position yourself for your spells. As well, it provides Invoker with more intelligence and health regen, allowing him to cast spells more easily.
+
+* {{I|Eul's Scepter of Divinity|30px}} is a great utility item, as it gives Invoker many powerful benefits for a cost-effective price. It increases his intelligence and gives him powerful scaling mana regen, allowing him to cast spells more frequently, and the increased base movement speed offsets his low mobility, making positioning for spells much easier. The Cyclone is also a very powerful disable and is often used to set up difficult-to-land spells such as {{A|Sun Strike|Invoker}}, {{A|Chaos Meteor|Invoker}}, {{A|E.M.P.|Invoker}}, and so on.
+
+* {{I|Spirit Vessel|30px}}, upgraded from {{I|Urn of Shadows}} and serving similar purpose, gives bonus health and movement speed. Furthermore, the active counters enemy healing so Invoker can gank better.<section end=Items />
+
+[[Category:Guides]]
+
+[[pt:Invoker/Guia]]
+[[ru:Invoker/Руководство]]

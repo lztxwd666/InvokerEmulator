@@ -1,0 +1,152 @@
+{
+  "hero_id": 74,
+  "hero_name": "Invoker",
+  "elements": {
+    "quas": {
+      "key": "Q",
+      "image": "invoker_quas.png",
+      "ability": "invoker_quas"
+    },
+    "wex": {
+      "key": "W",
+      "image": "invoker_wex.png",
+      "ability": "invoker_wex"
+    },
+    "exort": {
+      "key": "E",
+      "image": "invoker_exort.png",
+      "ability": "invoker_exort"
+    }
+  },
+  "invoke": {
+    "key": "R",
+    "ability": "invoker_invoke",
+    "max_invoked_spells": 2,
+    "base_cooldown": 7,
+    "cooldown_reduction_per_orb_level": 0.3
+  },
+  "spells": [
+    {
+      "id": "invoker_cold_snap",
+      "name": "Cold Snap",
+      "name_cn": "急速冷却",
+      "combination": [
+        "quas",
+        "quas",
+        "quas"
+      ],
+      "target": "unit"
+    },
+    {
+      "id": "invoker_ghost_walk",
+      "name": "Ghost Walk",
+      "name_cn": "幽灵漫步",
+      "combination": [
+        "quas",
+        "quas",
+        "wex"
+      ],
+      "target": "self"
+    },
+    {
+      "id": "invoker_ice_wall",
+      "name": "Ice Wall",
+      "name_cn": "寒冰之墙",
+      "combination": [
+        "quas",
+        "quas",
+        "exort"
+      ],
+      "target": "area"
+    },
+    {
+      "id": "invoker_emp",
+      "name": "E.M.P.",
+      "name_cn": "电磁脉冲",
+      "combination": [
+        "wex",
+        "wex",
+        "wex"
+      ],
+      "target": "area"
+    },
+    {
+      "id": "invoker_tornado",
+      "name": "Tornado",
+      "name_cn": "强袭飓风",
+      "combination": [
+        "quas",
+        "wex",
+        "wex"
+      ],
+      "target": "area"
+    },
+    {
+      "id": "invoker_alacrity",
+      "name": "Alacrity",
+      "name_cn": "灵动迅捷",
+      "combination": [
+        "wex",
+        "wex",
+        "exort"
+      ],
+      "target": "unit_ally"
+    },
+    {
+      "id": "invoker_chaos_meteor",
+      "name": "Chaos Meteor",
+      "name_cn": "混沌陨石",
+      "combination": [
+        "exort",
+        "exort",
+        "wex"
+      ],
+      "target": "area"
+    },
+    {
+      "id": "invoker_sun_strike",
+      "name": "Sun Strike",
+      "name_cn": "阳炎冲击",
+      "combination": [
+        "exort",
+        "exort",
+        "exort"
+      ],
+      "target": "global_area"
+    },
+    {
+      "id": "invoker_forge_spirit",
+      "name": "Forge Spirit",
+      "name_cn": "熔炉精灵",
+      "combination": [
+        "quas",
+        "exort",
+        "exort"
+      ],
+      "target": "self"
+    },
+    {
+      "id": "invoker_deafening_blast",
+      "name": "Deafening Blast",
+      "name_cn": "超震声波",
+      "combination": [
+        "quas",
+        "wex",
+        "exort"
+      ],
+      "target": "area"
+    }
+  ],
+  "combo_map": {
+    "quas quas quas": "invoker_cold_snap",
+    "quas quas wex": "invoker_ghost_walk",
+    "quas quas exort": "invoker_ice_wall",
+    "wex wex wex": "invoker_emp",
+    "quas wex wex": "invoker_tornado",
+    "wex wex exort": "invoker_alacrity",
+    "exort exort wex": "invoker_chaos_meteor",
+    "exort exort exort": "invoker_sun_strike",
+    "quas exort exort": "invoker_forge_spirit",
+    "quas wex exort": "invoker_deafening_blast"
+  }
+}
