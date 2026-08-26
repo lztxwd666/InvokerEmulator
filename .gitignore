@@ -26,3 +26,6 @@ __pycache__/
 
 # 本地开发文档（不跟踪，仅本地保留）
 docs/
+
+# 发布校验文件（GitHub Release 附件，不入库）
+*.sha256
