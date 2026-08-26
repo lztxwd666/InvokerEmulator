@@ -155,6 +155,18 @@ export function SettingsPanel({ config, onApply, onClose }: SettingsPanelProps) 
               <option value="instant">{t("settings.comboInstant")}</option>
             </select>
           </label>
+          <label>
+            {t("settings.quickcastModifier")}
+            <select
+              value={draft.quickcastModifier}
+              onChange={(e) => setDraft({ ...draft, quickcastModifier: e.target.value as "Alt" | "Ctrl" | "Shift" })}
+            >
+              <option value="Alt">Alt</option>
+              <option value="Ctrl">Ctrl</option>
+              <option value="Shift">Shift</option>
+            </select>
+            <span className="hint">{t("settings.quickcastHint")}</span>
+          </label>
           <label className="check-row">
             <span>{t("settings.infiniteMana")}</span>
             <input

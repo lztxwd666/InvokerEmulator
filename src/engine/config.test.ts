@@ -86,6 +86,12 @@ describe("normalizeConfig", () => {
     expect(config.aghanimsScepter).toBe(true);
   });
 
+  it("快速施法功能键默认为Alt并支持合法值", () => {
+    expect(normalizeConfig(null).quickcastModifier).toBe("Alt");
+    expect(normalizeConfig({ quickcastModifier: "Shift" }).quickcastModifier).toBe("Shift");
+    expect(normalizeConfig({ quickcastModifier: "Invalid" }).quickcastModifier).toBe("Alt");
+  });
+
   it("未开启神杖时元素等级上限为7，开启后允许8", () => {
     const without = normalizeConfig({ aghanimsScepter: false, orbLevels: { quas: 8, wex: 8, exort: 8 } });
     expect(without.orbLevels.quas).toBe(7);

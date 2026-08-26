@@ -106,25 +106,31 @@ export function ComboPanel({
         <h4>{t("combo.customTitle")}</h4>
         <p className="hint">{t("combo.customHint")}</p>
         <div className="spell-picker">
-          {SPELLS.map((meta) => (
-            <button
-              key={meta.id}
-              className="picker-spell"
-              onClick={() => setCustomActions((prev) => [...prev, { type: "spell", spell: meta.id as SpellId }])}
-              title={spellName(meta.id)}
-            >
-              <img src={`images/abilities/${meta.id}.png`} alt={spellName(meta.id)} />
-            </button>
-          ))}
-          {aghanimsScepter && (
-            <button
-              className="picker-spell"
-              onClick={() => setCustomActions((prev) => [...prev, { type: "cataclysm" }])}
-              title={lang === "zh" ? CATACLYSM_META.nameCn : CATACLYSM_META.name}
-            >
-              <img src={spellImage(CATACLYSM_ID)} alt={lang === "zh" ? CATACLYSM_META.nameCn : CATACLYSM_META.name} />
-            </button>
-          )}
+          {SPELLS.map((meta) => {
+            if (meta.id === "invoker_sun_strike" && aghanimsScepter) {
+              return (
+                <button
+                  key={meta.id}
+                  className="picker-spell picker-cataclysm"
+                  onClick={() => setCustomActions((prev) => [...prev, { type: "cataclysm" }])}
+                  title={lang === "zh" ? `${CATACLYSM_META.nameCn}（需双击触发）` : `${CATACLYSM_META.name} (double press)`}
+                >
+                  <img src={spellImage(CATACLYSM_ID)} alt={lang === "zh" ? CATACLYSM_META.nameCn : CATACLYSM_META.name} />
+                  <span className="picker-double">{lang === "zh" ? "双击" : "x2"}</span>
+                </button>
+              );
+            }
+            return (
+              <button
+                key={meta.id}
+                className="picker-spell"
+                onClick={() => setCustomActions((prev) => [...prev, { type: "spell", spell: meta.id as SpellId }])}
+                title={spellName(meta.id)}
+              >
+                <img src={`images/abilities/${meta.id}.png`} alt={spellName(meta.id)} />
+              </button>
+            );
+          })}
           {ITEMS.map((item) => (
             <button
               key={item.id}
@@ -148,6 +154,9 @@ export function ComboPanel({
               title={t("combo.remove")}
             >
               <img src={actionImage(action)} alt="" />
+              {action.type === "cataclysm" && (
+                <span className="selected-double">{lang === "zh" ? "双击" : "x2"}</span>
+              )}
             </button>
           ))}
         </div>
@@ -160,6 +169,9 @@ export function ComboPanel({
                 <div key={index} className="plan-step">
                   <img src={stepImage(step)} alt="" />
                   <span className="key-badge">{step.key}</span>
+                  {step.type === "cast" && step.spell === CATACLYSM_ID && (
+                    <span className="step-double">{lang === "zh" ? "双击" : "x2"}</span>
+                  )}
                 </div>
               ))}
             </div>

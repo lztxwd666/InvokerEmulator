@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { invoke as tauriInvoke } from "@tauri-apps/api/core";
-import type { CastableId, Combo, ComboAction, ElementKind, GameConfig, InvokerState, ItemId, PlanStep, SpellId } from "./engine/types";
+import type { CastableId, Combo, ElementKind, GameConfig, InvokerState, ItemId, PlanStep, SpellId } from "./engine/types";
 import {
   castCataclysm,
   castElement,
@@ -13,78 +13,16 @@ import {
   useItem,
   DEFAULT_CONFIG,
 } from "./engine/invoker";
-import { CATACLYSM_ID, CATACLYSM_META, DEFAULT_COMBOS, ITEM_BY_ID, LEGACY_CAST_KEYS, SPELL_BY_ID } from "./engine/spellData";
-import { normalizeConfig } from "./engine/config";
+import { CATACLYSM_ID, ITEM_BY_ID, LEGACY_CAST_KEYS, SPELL_BY_ID } from "./engine/spellData";
 import { planCombo } from "./engine/planner";
+import { CONFIG_KEY, loadCombos, loadPersistedConfig, STORAGE_KEY } from "./engine/persistence";
+import { useGlobalInput } from "./hooks/useGlobalInput";
 import { HUD } from "./components/HUD";
 import { ComboPanel } from "./components/ComboPanel";
 import { PracticeArea } from "./components/PracticeArea";
 import { SettingsPanel } from "./components/SettingsPanel";
 import { playOrbSwitch, playSound, setMuted } from "./audio";
 import { formatTemplate, useI18n } from "./i18n";
-
-const STORAGE_KEY = "invoker_custom_combos";
-const CONFIG_KEY = "invoker_config";
-
-
-async function loadPersistedConfig(): Promise<GameConfig> {
-  try {
-    if ("__TAURI_INTERNALS__" in window) {
-      const raw = await tauriInvoke<string | null>("load_config");
-      if (raw) return normalizeConfig(JSON.parse(raw));
-    }
-  } catch {
-    // 文件读取失败时回退到 localStorage
-  }
-  try {
-    const raw = localStorage.getItem(CONFIG_KEY);
-    if (raw) return normalizeConfig(JSON.parse(raw));
-  } catch {
-    // localStorage 不可用时使用默认配置
-  }
-  return DEFAULT_CONFIG;
-}
-
-function isComboAction(value: unknown): value is ComboAction {
-  if (!value || typeof value !== "object") return false;
-  const action = value as Partial<ComboAction>;
-  if (action.type === "spell") {
-    return typeof action.spell === "string" && Object.prototype.hasOwnProperty.call(SPELL_BY_ID, action.spell);
-  }
-  if (action.type === "item") {
-    return typeof action.item === "string" && Object.prototype.hasOwnProperty.call(ITEM_BY_ID, action.item);
-  }
-  if (action.type === "cataclysm") return true;
-  return false;
-}
-
-function isCombo(value: unknown): value is Combo {
-  if (!value || typeof value !== "object") return false;
-  const combo = value as Partial<Combo>;
-  return (
-    typeof combo.id === "string" &&
-    typeof combo.nameZh === "string" &&
-    typeof combo.nameEn === "string" &&
-    Array.isArray(combo.actions) &&
-    combo.actions.every(isComboAction)
-  );
-}
-
-function loadCombos(): Combo[] {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) {
-      const parsed: unknown = JSON.parse(raw);
-      if (Array.isArray(parsed)) {
-        const valid = parsed.filter(isCombo);
-        if (valid.length > 0) return valid;
-      }
-    }
-  } catch {
-    // 旧版本或存储不可用时回退到内置连招
-  }
-  return DEFAULT_COMBOS;
-}
 
 type ExpectedStep =
   | { type: "orb"; element: ElementKind; key: string }
@@ -100,13 +38,6 @@ function plannerOptions(config: GameConfig) {
   };
 }
 
-function mouseButtonHotkey(button: number): string | null {
-  if (button === 1) return "MOUSE3";
-  if (button === 3) return "MOUSE4";
-  if (button === 4) return "MOUSE5";
-  return null;
-}
-
 export default function App() {
   const { lang, setLang, t, spellName } = useI18n();
   const [config, setConfig] = useState<GameConfig>(DEFAULT_CONFIG);
@@ -118,12 +49,10 @@ export default function App() {
   const [plan, setPlan] = useState<PlanStep[]>([]);
   const [currentStep, setCurrentStep] = useState(0);
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const [pendingCast, setPendingCast] = useState<{ spell: CastableId; key: string } | null>(null);
+  const [pendingCast, setPendingCast] = useState<{ spell: SpellId; key: string } | null>(null);
   const [pendingItem, setPendingItem] = useState<{ item: ItemId; key: string } | null>(null);
   const lastTravelPressRef = useRef<{ item: ItemId; time: number } | null>(null);
   const lastCataclysmPressRef = useRef<{ spell: CastableId; time: number } | null>(null);
-  const settingsOpenRef = useRef(settingsOpen);
-  settingsOpenRef.current = settingsOpen;
 
   const stateRef = useRef(state);
   stateRef.current = state;
@@ -357,11 +286,6 @@ export default function App() {
     return slot === 0 ? "D" : "F";
   };
 
-  const castableName = (id: CastableId): string => {
-    if (id === CATACLYSM_ID) return lang === "zh" ? CATACLYSM_META.nameCn : CATACLYSM_META.name;
-    return spellName(id as SpellId);
-  };
-
   /** 处理施法按键：instant 直接释放，mouse 模式按技能类型进入待确认状态。 */
   const handleCastKey = (key: string) => {
     const spell = spellForKey(key);
@@ -370,8 +294,7 @@ export default function App() {
       return;
     }
 
-    const useCataclysm = stateRef.current.aghanimsScepter && spell === "invoker_sun_strike";
-    const castId: CastableId = useCataclysm ? CATACLYSM_ID : spell;
+    const canCataclysm = stateRef.current.aghanimsScepter && spell === "invoker_sun_strike" && config.castMode === "mouse";
 
     if (config.castMode === "mouse") {
       if (spell === "invoker_ghost_walk" || spell === "invoker_ice_wall") {
@@ -384,7 +307,7 @@ export default function App() {
         return;
       }
 
-      if (useCataclysm) {
+      if (canCataclysm) {
         const now = performance.now();
         const last = lastCataclysmPressRef.current;
         if (last && last.spell === CATACLYSM_ID && now - last.time <= 400) {
@@ -404,26 +327,16 @@ export default function App() {
       const needsRightClick = spell === "invoker_forge_spirit";
       setPendingItem(null);
       lastTravelPressRef.current = null;
-      setPendingCast({ spell: castId, key });
+      setPendingCast({ spell, key });
       setEvent(
-        formatTemplate(
-          useCataclysm
-            ? t("event.pendingCataclysm")
-            : t(needsRightClick ? "event.pendingForge" : "event.pendingCast"),
-          { spell: castableName(castId) },
-        ),
+        formatTemplate(t(needsRightClick ? "event.pendingForge" : "event.pendingCast"), {
+          spell: spellName(spell),
+        }),
       );
       return;
     }
 
-    if (useCataclysm) {
-      lastCataclysmPressRef.current = null;
-      if (performCataclysm()) {
-        if (!advancePlan({ type: "cast", key, spell: CATACLYSM_ID })) reportWrongStep({ type: "cast", key, spell: CATACLYSM_ID });
-      }
-      return;
-    }
-
+    lastCataclysmPressRef.current = null;
     if (castSpellAction(spell)) {
       if (!advancePlan({ type: "cast", key, spell })) reportWrongStep({ type: "cast", key, spell });
     }
@@ -432,17 +345,7 @@ export default function App() {
   const confirmCast = (button: "left" | "right") => {
     if (!pendingCast) return;
     const { spell, key } = pendingCast;
-    if (spell === CATACLYSM_ID) {
-      if (button !== "left") {
-        setPendingCast(null);
-        setPendingItem(null);
-        setEvent(t("event.castCancelled"));
-        return;
-      }
-      if (performCataclysm()) {
-        if (!advancePlan({ type: "cast", key, spell: CATACLYSM_ID })) reportWrongStep({ type: "cast", key, spell: CATACLYSM_ID });
-      }
-    } else if (spell === "invoker_forge_spirit") {
+    if (spell === "invoker_forge_spirit") {
       if (button !== "right") {
         setPendingCast(null);
         setPendingItem(null);
@@ -561,53 +464,71 @@ export default function App() {
   const handleKeyDownRef = useRef(handleKeyDown);
   handleKeyDownRef.current = handleKeyDown;
 
+  const isQuickcastModifier = (modifiers: { alt: boolean; ctrl: boolean; shift: boolean }): boolean => {
+    const modifier = config.quickcastModifier;
+    return (
+      (modifier === "Alt" && modifiers.alt) ||
+      (modifier === "Ctrl" && modifiers.ctrl) ||
+      (modifier === "Shift" && modifiers.shift)
+    );
+  };
+
+  const handleQuickcastKey = (key: string): boolean => {
+    const item = itemForKey(key);
+    if (item === "travel_boots") {
+      lastTravelPressRef.current = null;
+      setPendingCast(null);
+      setPendingItem(null);
+      if (performItemAction(item)) advancePlan({ type: "item", key, item });
+      return true;
+    }
+
+    const spell = spellForKey(key);
+    if (spell === "invoker_sun_strike" && stateRef.current.aghanimsScepter) {
+      lastCataclysmPressRef.current = null;
+      setPendingCast(null);
+      setPendingItem(null);
+      if (performCataclysm()) {
+        if (!advancePlan({ type: "cast", key, spell: CATACLYSM_ID })) reportWrongStep({ type: "cast", key, spell: CATACLYSM_ID });
+      }
+      return true;
+    }
+
+    return false;
+  };
+
   useEffect(() => {
     const onContextMenu = (e: MouseEvent) => e.preventDefault();
     window.addEventListener("contextmenu", onContextMenu);
     return () => window.removeEventListener("contextmenu", onContextMenu);
   }, []);
 
-  useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.repeat) return;
-      if (e.ctrlKey || e.metaKey || e.altKey) return;
-      if (e.key === "Escape") {
-        if (settingsOpenRef.current) {
-          setSettingsOpen(false);
-        } else {
-          setPendingCast(null);
-          setPendingItem(null);
-          lastTravelPressRef.current = null;
-        }
-        return;
+  useGlobalInput({
+    enabled: !settingsOpen,
+    onHotkey: (key, modifiers) => {
+      if (isQuickcastModifier(modifiers)) {
+        return handleQuickcastKey(key);
       }
-      if (settingsOpenRef.current) return;
-      const target = e.target as HTMLElement | null;
-      if (target && ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName)) return;
-      const key = e.key.length === 1 ? e.key.toUpperCase() : "";
-      if (key) {
-        e.preventDefault();
-        handleKeyDownRef.current(key);
+      if (modifiers.alt || modifiers.ctrl || modifiers.shift) return false;
+      handleKeyDownRef.current(key);
+      return true;
+    },
+    onMouseHotkey: (key) => {
+      if (!itemForKeyRef.current(key)) return false;
+      handleItemKeyRef.current(key);
+      return true;
+    },
+    onEscape: () => {
+      if (settingsOpen) {
+        setSettingsOpen(false);
+      } else {
+        setPendingCast(null);
+        setPendingItem(null);
+        lastTravelPressRef.current = null;
+        lastCataclysmPressRef.current = null;
       }
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, []);
-
-  useEffect(() => {
-    const onMouseDown = (e: MouseEvent) => {
-      if (settingsOpenRef.current) return;
-      const target = e.target as HTMLElement | null;
-      if (target && ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName)) return;
-      const hotkey = mouseButtonHotkey(e.button);
-      if (!hotkey) return;
-      if (!itemForKeyRef.current(hotkey)) return;
-      e.preventDefault();
-      handleItemKeyRef.current(hotkey);
-    };
-    window.addEventListener("mousedown", onMouseDown);
-    return () => window.removeEventListener("mousedown", onMouseDown);
-  }, []);
+    },
+  });
 
   const selectCombo = (combo: Combo) => {
     const needsAghs = combo.actions.some((action) => action.type === "cataclysm");

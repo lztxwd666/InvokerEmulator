@@ -47,6 +47,9 @@ export function PracticeArea({
               >
                 <img src={stepImage(step)} alt="" />
                 <span className="key-badge">{step.key}</span>
+                {step.type === "cast" && step.spell === "invoker_cataclysm" && (
+                  <span className="step-double">双击</span>
+                )}
               </div>
             ))}
           </div>

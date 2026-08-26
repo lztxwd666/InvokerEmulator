@@ -92,18 +92,6 @@ export function HUD({
             </button>
           ))}
 
-          <button
-            className={`ability-button invoke-button ${pendingCast?.key === "R" ? "pending" : ""}`}
-            onClick={onInvoke}
-            title={t("hud.invoke")}
-          >
-            <img className="invoke-icon" src="images/abilities/invoker_invoke.png" alt={t("hud.invoke")} />
-            <span className="key-badge">R</span>
-            {state.invokeCooldown > 0 && (
-              <span className="cooldown-overlay">{state.invokeCooldown.toFixed(1)}</span>
-            )}
-          </button>
-
           {[0, 1].map((slotIndex) => {
             const spellId = state.invokedSlots[slotIndex];
             const key = slotKey(slotIndex, spellId);
@@ -116,11 +104,17 @@ export function HUD({
               >
                 {spellId ? (
                   <>
-                    <img src={`images/abilities/${spellId}.png`} alt={spellName(spellId)} />
+                    <img
+                      src={aghanimsScepter && spellId === "invoker_sun_strike" ? "images/abilities/invoker_sun_strike_cataclysm.png" : `images/abilities/${spellId}.png`}
+                      alt={aghanimsScepter && spellId === "invoker_sun_strike" ? (lang === "zh" ? "毁天灭地" : "Cataclysm") : spellName(spellId)}
+                    />
                     <span className="key-badge">{key}</span>
-                    {state.spellCooldowns[spellId] > 0 && (
-                      <span className="cooldown-overlay">{state.spellCooldowns[spellId].toFixed(1)}</span>
-                    )}
+                    {(() => {
+                      const cooldown = aghanimsScepter && spellId === "invoker_sun_strike" && state.cataclysmCooldown > 0
+                        ? state.cataclysmCooldown
+                        : state.spellCooldowns[spellId];
+                      return cooldown > 0 ? <span className="cooldown-overlay">{cooldown.toFixed(1)}</span> : null;
+                    })()}
                   </>
                 ) : (
                   <span className="empty-key">{key}</span>
@@ -129,6 +123,17 @@ export function HUD({
             );
           })}
 
+          <button
+            className={`ability-button invoke-button ${pendingCast?.key === "R" ? "pending" : ""}`}
+            onClick={onInvoke}
+            title={t("hud.invoke")}
+          >
+            <img className="invoke-icon" src="images/abilities/invoker_invoke.png" alt={t("hud.invoke")} />
+            <span className="key-badge">R</span>
+            {state.invokeCooldown > 0 && (
+              <span className="cooldown-overlay">{state.invokeCooldown.toFixed(1)}</span>
+            )}
+          </button>
           <div className="item-row">
             {ITEMS.map((item) => (
               <button
@@ -151,9 +156,6 @@ export function HUD({
             >
               <img src="images/items/ultimate_scepter.png" alt={lang === "zh" ? "阿哈利姆神杖" : "Aghanim's Scepter"} />
               <span className="key-badge">Aghs</span>
-              {state.cataclysmCooldown > 0 && (
-                <span className="cooldown-overlay">{state.cataclysmCooldown.toFixed(1)}</span>
-              )}
             </button>
           </div>
         </div>

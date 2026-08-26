@@ -9,8 +9,8 @@ function mouseButtonHotkey(button: number): string | null {
 
 interface UseGlobalInputOptions {
   enabled: boolean;
-  onHotkey: (key: string) => void;
-  onMouseHotkey: (key: string) => void;
+  onHotkey: (key: string, modifiers: { alt: boolean; ctrl: boolean; shift: boolean }) => boolean;
+  onMouseHotkey: (key: string) => boolean;
   onEscape: () => void;
 }
 
@@ -33,7 +33,7 @@ export function useGlobalInput({
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.repeat) return;
-      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      if (e.metaKey) return;
       if (e.key === "Escape") {
         onEscapeRef.current();
         return;
@@ -43,8 +43,9 @@ export function useGlobalInput({
       if (target && ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName)) return;
       const key = e.key.length === 1 ? e.key.toUpperCase() : "";
       if (key) {
-        e.preventDefault();
-        onHotkeyRef.current(key);
+        if (onHotkeyRef.current(key, { alt: e.altKey, ctrl: e.ctrlKey, shift: e.shiftKey })) {
+          e.preventDefault();
+        }
       }
     };
 
@@ -57,7 +58,9 @@ export function useGlobalInput({
       if (!e.defaultPrevented) {
         // 仅在调用方实际处理时阻止默认侧键导航，由调用方决定。
       }
-      onMouseHotkeyRef.current(hotkey);
+      if (onMouseHotkeyRef.current(hotkey)) {
+        e.preventDefault();
+      }
     };
 
     window.addEventListener("keydown", onKeyDown);

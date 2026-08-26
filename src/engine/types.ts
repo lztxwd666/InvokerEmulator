@@ -58,6 +58,7 @@ export interface GameConfig {
   itemKeys: Record<ItemId, string>;
   castMode: CastMode;
   comboMode: ComboMode;
+  quickcastModifier: "Alt" | "Ctrl" | "Shift";
   infiniteMana: boolean;
   muted: boolean;
   aghanimsScepter: boolean;

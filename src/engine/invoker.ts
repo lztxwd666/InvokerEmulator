@@ -27,6 +27,7 @@ export const DEFAULT_CONFIG: GameConfig = {
   },
   castMode: "mouse",
   comboMode: "preload",
+  quickcastModifier: "Alt",
   infiniteMana: false,
   muted: false,
   aghanimsScepter: false,

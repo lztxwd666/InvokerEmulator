@@ -119,6 +119,7 @@ export function normalizeConfig(parsed: unknown): GameConfig {
     itemKeys: sanitizeItemKeys(p.itemKeys, keybindMode),
     castMode: p.castMode === "instant" || p.castMode === "mouse" ? p.castMode : DEFAULT_CONFIG.castMode,
     comboMode: p.comboMode === "instant" || p.comboMode === "preload" ? p.comboMode : DEFAULT_CONFIG.comboMode,
+    quickcastModifier: p.quickcastModifier === "Ctrl" || p.quickcastModifier === "Shift" ? p.quickcastModifier : "Alt",
     infiniteMana: typeof p.infiniteMana === "boolean" ? p.infiniteMana : DEFAULT_CONFIG.infiniteMana,
     muted: typeof p.muted === "boolean" ? p.muted : DEFAULT_CONFIG.muted,
     aghanimsScepter,

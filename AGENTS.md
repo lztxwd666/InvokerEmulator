@@ -53,6 +53,20 @@ Core features:
 - Name files by responsibility, not by feature or component.
 - For non-obvious new modules, document the design decision in the file.
 
+## Release Testing Rule
+
+- After each functional verification, copy `src-tauri/target/release/invoker-emulator.exe` to the repository root `release/` directory for convenient local testing.
+- This step is for local debugging only. It does not change Tauri's original build output directory or the normal build workflow.
+- After copying, verify that `release/invoker-emulator.exe` exists and can be launched.
+
+## Code Organization Rules
+
+- Split large files by responsibility. Do not keep all state, logic, and UI in a single file.
+- Keep dependency direction one-way. Low-level engine modules and hooks must not import higher-level App components.
+- Before adding hooks or utilities, check for circular dependencies.
+- If a circular dependency is found, refactor the boundaries instead of working around it.
+- After splitting, preserve existing behavior and verify through tests, builds, and runtime checks.
+
 ## Repository Boundaries
 
 - `docs/` is kept locally for development notes.
