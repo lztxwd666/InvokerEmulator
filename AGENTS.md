@@ -59,6 +59,18 @@ Core features:
 - This step is for local debugging only. It does not change Tauri's original build output directory or the normal build workflow.
 - After copying, verify that `release/invoker-emulator.exe` exists and can be launched.
 
+## Release Publishing Rule
+
+- Each public GitHub Release must include the following artifacts:
+  - `invoker-emulator.exe`
+  - `invoker-emulator.exe.sha256`
+  - `InvokerEmulator-v<version>-source.zip`
+  - `RELEASE_NOTES.md` or equivalent release notes
+- The source zip must use the naming pattern `InvokerEmulator-v<version>-source.zip`.
+- The source zip should include source code, assets, data, scripts, screenshots, and config files.
+- Build outputs such as `node_modules`, `dist`, `release`, `src-tauri/target`, and `src-tauri/gen` must not be included in the source zip.
+- All release artifacts should be attached to the GitHub Release entry for the corresponding tag.
+
 ## Code Organization Rules
 
 - Split large files by responsibility. Do not keep all state, logic, and UI in a single file.
