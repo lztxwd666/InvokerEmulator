@@ -61,15 +61,14 @@ Core features:
 
 ## Release Publishing Rule
 
-- Each public GitHub Release must include the following artifacts:
+- GitHub automatically generates `Source code (zip)` and `Source code (tar.gz)` from the release tag.
+- Do not upload a manual source zip to the GitHub Release; the automatic source archives are authoritative for the released source code.
+- The release tag must point to the exact commit that should be published as the source archive.
+- Before creating or updating a release, ensure all intended source changes are committed and pushed.
+- Manually attach only runtime artifacts:
   - `invoker-emulator.exe`
   - `invoker-emulator.exe.sha256`
-  - `InvokerEmulator-v<version>-source.zip`
-  - `RELEASE_NOTES.md` or equivalent release notes
-- The source zip must use the naming pattern `InvokerEmulator-v<version>-source.zip`.
-- The source zip should include source code, assets, data, scripts, screenshots, and config files.
-- Build outputs such as `node_modules`, `dist`, `release`, `src-tauri/target`, and `src-tauri/gen` must not be included in the source zip.
-- All release artifacts should be attached to the GitHub Release entry for the corresponding tag.
+- If the automatic source archives appear outdated, update the tag to the correct commit and recreate/update the release.
 
 ## Code Organization Rules
 
