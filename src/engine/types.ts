@@ -53,6 +53,8 @@ export interface GameConfig {
   orbLevels: Record<ElementKind, number>;
   /** Aghanim's Scepter 选择的元素 */
   aghsOrb: ElementKind;
+  /** 可选自定义加点方案：英雄等级 -> 冰/雷/火等级 */
+  levelingPlan?: Partial<Record<number, Record<ElementKind, number>>>;
   initialOrbs: ElementKind[];
   dummyMaxHp: number;
   dummyMaxMana: number;

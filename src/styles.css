@@ -495,20 +495,22 @@ button {
 
 .bar {
   position: relative;
-  height: 22px;
-  background: #0e1218;
-  border: 1px solid #2e3b4d;
-  border-radius: 4px;
+  height: 24px;
+  background: linear-gradient(180deg, #0a0f14, #141c25);
+  border: 1px solid rgba(78, 96, 118, 0.55);
+  border-radius: 8px;
   overflow: hidden;
   font-size: 12px;
-  line-height: 20px;
-  padding-left: 6px;
+  line-height: 22px;
+  padding-left: 8px;
   z-index: 1;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
 .bar span {
   position: relative;
   z-index: 2;
+  text-shadow: 0 1px 2px #000;
 }
 
 .bar-fill {
@@ -517,10 +519,16 @@ button {
   left: 0;
   bottom: 0;
   z-index: 1;
+  transition: width 0.25s ease;
 }
 
-.bar.mana .bar-fill { background: #2e5f9e; }
-.bar.hp .bar-fill { background: #a33; }
+.bar.mana .bar-fill {
+  background: linear-gradient(180deg, #4d9be0, #2b5f9e 60%, #1d4069);
+}
+
+.bar.hp .bar-fill {
+  background: linear-gradient(180deg, #e06a6a, #a33 60%, #5d2020);
+}
 
 .last-hit {
   margin-top: 2px;

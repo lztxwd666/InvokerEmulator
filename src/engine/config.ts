@@ -94,6 +94,26 @@ function defaultConfigCopy(): GameConfig {
   };
 }
 
+function sanitizeLevelingPlan(
+  value: unknown,
+): Partial<Record<number, Record<ElementKind, number>>> | undefined {
+  if (!value || typeof value !== "object") return undefined;
+  const input = value as Record<string, unknown>;
+  const result: Partial<Record<number, Record<ElementKind, number>>> = {};
+  for (const key of Object.keys(input)) {
+    const heroLevel = Number(key);
+    if (!Number.isFinite(heroLevel) || heroLevel < 1 || heroLevel > 30) continue;
+    const entry = input[key] as Partial<Record<ElementKind, number>> | undefined;
+    if (!entry || typeof entry !== "object") continue;
+    result[heroLevel] = {
+      quas: finiteNumber(entry.quas, 0, 0, 8),
+      wex: finiteNumber(entry.wex, 0, 0, 8),
+      exort: finiteNumber(entry.exort, 0, 0, 8),
+    };
+  }
+  return Object.keys(result).length > 0 ? result : undefined;
+}
+
 /** 从持久化数据安全地构造完整训练配置，避免损坏数据导致运行时错误。 */
 export function normalizeConfig(parsed: unknown): GameConfig {
   if (!parsed || typeof parsed !== "object") return defaultConfigCopy();
@@ -127,6 +147,7 @@ export function normalizeConfig(parsed: unknown): GameConfig {
     heroLevel,
     aghsOrb,
     orbLevels,
+    levelingPlan: sanitizeLevelingPlan(p.levelingPlan),
     initialOrbs: validElementArray(p.initialOrbs),
     dummyMaxHp: finiteNumber(p.dummyMaxHp, DEFAULT_CONFIG.dummyMaxHp, 1, Number.MAX_SAFE_INTEGER),
     dummyMaxMana: finiteNumber(p.dummyMaxMana, DEFAULT_CONFIG.dummyMaxMana, 0, Number.MAX_SAFE_INTEGER),

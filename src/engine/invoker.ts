@@ -1,5 +1,6 @@
 import type { ElementKind, GameConfig, InvokerState, ItemId, SpellId } from "./types";
 import { CATACLYSM_META, INVOKE, ITEM_BY_ID, ITEMS, SPELL_BY_ID, VALUES, valueAt, spellFromOrbs } from "./spellData";
+import { getDefaultOrbLevels } from "./levelingPlan";
 
 /** 卡尔官方基础属性与成长。 */
 const BASE_STATS = {
@@ -64,32 +65,18 @@ export function getOrbMaxLevel(
 }
 
 /** 默认“火卡”分配：优先点满 Exort，其次 Quas，最后 Wex，并受英雄等级和 Aghs 限制。 */
-/** 社区常见“火卡”加点顺序：前期 Exort/Quas 交替，中期引入 Wex，后期补齐三球。 */
-const EXORT_ORB_SEQUENCE: ElementKind[] = [
-  "exort", "quas", "exort", "quas", "exort", "wex", "exort", "quas",
-  "quas", "exort", "exort", "wex", "exort", "wex", "exort", "wex",
-  "quas", "wex", "exort", "quas", "wex", "quas",
-];
-
 export function autoOrbLevels(
-  config: Pick<GameConfig, "heroLevel" | "aghanimsScepter" | "aghsOrb">,
+  config: Pick<GameConfig, "heroLevel" | "aghanimsScepter" | "aghsOrb" | "levelingPlan">,
 ): Record<ElementKind, number> {
-  const levels: Record<ElementKind, number> = { quas: 0, wex: 0, exort: 0 };
-  let points = getTotalAbilityPoints(config.heroLevel);
-  const order: ElementKind[] = ["exort", "quas", "wex"];
-  let sequenceIndex = 0;
-  while (points > 0) {
-    const baseMax = config.heroLevel >= 14 ? 8 : Math.ceil(config.heroLevel / 2);
-    const preferred = EXORT_ORB_SEQUENCE[sequenceIndex % EXORT_ORB_SEQUENCE.length];
-    const target =
-      levels[preferred] < baseMax
-        ? preferred
-        : order.find((element) => levels[element] < baseMax);
-    if (!target) break;
-    levels[target] += 1;
-    points -= 1;
-    sequenceIndex += 1;
-  }
+  const custom = config.levelingPlan?.[config.heroLevel];
+  const levels = custom
+    ? {
+        quas: Math.max(0, custom.quas ?? 0),
+        wex: Math.max(0, custom.wex ?? 0),
+        exort: Math.max(0, custom.exort ?? 0),
+      }
+    : getDefaultOrbLevels(config.heroLevel);
+
   if (config.aghanimsScepter) {
     const max = getOrbMaxLevel(config, config.aghsOrb);
     if (levels[config.aghsOrb] + 1 <= max) {
