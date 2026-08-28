@@ -1,6 +1,13 @@
 import { useState } from "react";
 import type { ElementKind, GameConfig, ItemId, KeybindMode, CastMode, ComboMode } from "../engine/types";
-import { computeAttributes, invokeCooldown } from "../engine/invoker";
+import {
+  autoOrbLevels,
+  computeAttributes,
+  getOrbMaxLevel,
+  getTotalAbilityPoints,
+  invokeCooldown,
+  normalizeOrbLevels,
+} from "../engine/invoker";
 import { normalizeItemHotkey, sanitizeItemKeys } from "../engine/config";
 import { ITEMS, LEGACY_CAST_KEYS } from "../engine/spellData";
 import { useI18n } from "../i18n";
@@ -22,9 +29,46 @@ export function SettingsPanel({ config, onApply, onClose }: SettingsPanelProps) 
   const [draft, setDraft] = useState<GameConfig>(config);
 
   const setOrbLevel = (element: ElementKind, level: number) => {
+    setDraft((prev) => {
+      const max = getOrbMaxLevel(prev, element);
+      const isChosen = prev.aghanimsScepter && prev.aghsOrb === element;
+      let value = Math.max(0, Math.min(max, level));
+      const levels = { ...prev.orbLevels, [element]: value };
+
+      if (!isChosen) {
+        // 非神杖强化球必须受总技能点约束；神杖强化球的 +1 不占用技能点。
+        const regularCap = prev.heroLevel >= 14 ? 8 : Math.ceil(prev.heroLevel / 2);
+        const chosenBase = prev.aghanimsScepter
+          ? Math.min(regularCap, prev.orbLevels[prev.aghsOrb])
+          : prev.orbLevels[prev.aghsOrb];
+        const otherTotal =
+          prev.orbLevels.quas + prev.orbLevels.wex + prev.orbLevels.exort -
+          prev.orbLevels[element];
+        const budget = getTotalAbilityPoints(prev.heroLevel) - chosenBase;
+        value = Math.max(0, Math.min(max, level, Math.max(0, budget - (otherTotal - prev.orbLevels[element]))));
+        levels[element] = value;
+      }
+
+      if (prev.aghanimsScepter) {
+        if (value === 9 && prev.aghsOrb !== element) {
+          // 只能存在一个 9 级球，拖动到其他元素时，旧的 9 级球降为 8 级
+          levels[prev.aghsOrb] = Math.min(levels[prev.aghsOrb], 8);
+          return { ...prev, orbLevels: levels, aghsOrb: element };
+        }
+      }
+      return { ...prev, orbLevels: levels };
+    });
+  };
+
+  const applyHeroLevel = (heroLevel: number) => {
     setDraft((prev) => ({
       ...prev,
-      orbLevels: { ...prev.orbLevels, [element]: level },
+      heroLevel,
+      orbLevels: autoOrbLevels({
+        heroLevel,
+        aghanimsScepter: prev.aghanimsScepter,
+        aghsOrb: prev.aghsOrb,
+      }),
     }));
   };
 
@@ -75,7 +119,14 @@ export function SettingsPanel({ config, onApply, onClose }: SettingsPanelProps) 
               type="text"
               inputMode="numeric"
               value={heroLevelText}
-              onChange={(e) => setHeroLevelText(e.target.value.replace(/[^\d]/g, ""))}
+              onChange={(e) => {
+                const text = e.target.value.replace(/[^\d]/g, "");
+                setHeroLevelText(text);
+                if (text !== "") {
+                  const level = Math.max(1, Math.min(30, Number(text) || 1));
+                  applyHeroLevel(level);
+                }
+              }}
             />
           </label>
           <span className="sub-title">{t("settings.orbLevel")}</span>
@@ -85,7 +136,7 @@ export function SettingsPanel({ config, onApply, onClose }: SettingsPanelProps) 
               <input
                 type="range"
                 min={0}
-                max={draft.aghanimsScepter ? 8 : 7}
+                max={getOrbMaxLevel(draft, element)}
                 step={1}
                 value={draft.orbLevels[element]}
                 onChange={(e) => setOrbLevel(element, Number(e.target.value))}
@@ -93,6 +144,50 @@ export function SettingsPanel({ config, onApply, onClose }: SettingsPanelProps) 
               <b>{draft.orbLevels[element]}</b>
             </label>
           ))}
+          <label className="check-row">
+            <span>{t("settings.aghsScepter")}</span>
+            <input
+              type="checkbox"
+              checked={draft.aghanimsScepter}
+              onChange={(e) =>
+                setDraft((prev) => ({
+                  ...prev,
+                  aghanimsScepter: e.target.checked,
+                  orbLevels: autoOrbLevels({
+                    heroLevel: prev.heroLevel,
+                    aghanimsScepter: e.target.checked,
+                    aghsOrb: prev.aghsOrb,
+                  }),
+                }))
+              }
+            />
+          </label>
+          {draft.aghanimsScepter && (
+            <label>
+              <span>{t("settings.aghsOrb")}</span>
+              <select
+                value={draft.aghsOrb}
+                onChange={(e) =>
+                  setDraft((prev) => ({
+                    ...prev,
+                    aghsOrb: e.target.value as ElementKind,
+                    orbLevels: autoOrbLevels({
+                      heroLevel: prev.heroLevel,
+                      aghanimsScepter: true,
+                      aghsOrb: e.target.value as ElementKind,
+                    }),
+                  }))
+                }
+              >
+                {ELEMENTS.map((element) => (
+                  <option key={element} value={element}>{elementName(element)}</option>
+                ))}
+              </select>
+            </label>
+          )}
+          <span className="hint">
+            {t("settings.orbPoints")}: {normalizeOrbLevels(draft.orbLevels, draft).quas + normalizeOrbLevels(draft.orbLevels, draft).wex + normalizeOrbLevels(draft.orbLevels, draft).exort} / {getTotalAbilityPoints(draft.heroLevel)}
+          </span>
         </div>
 
         <div className="settings-info">

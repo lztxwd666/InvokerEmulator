@@ -1,6 +1,6 @@
 import type { ElementKind, GameConfig, ItemId, KeybindMode } from "./types";
 import { ITEMS, LEGACY_CAST_KEYS } from "./spellData";
-import { DEFAULT_CONFIG } from "./invoker";
+import { DEFAULT_CONFIG, normalizeOrbLevels } from "./invoker";
 
 const ELEMENTS: ElementKind[] = ["quas", "wex", "exort"];
 const ITEM_KEY_POOL = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "Z", "X", "C", "V", "B", "N", "M", "G", "H", "J", "K", "L"];
@@ -99,18 +99,33 @@ export function normalizeConfig(parsed: unknown): GameConfig {
   if (!parsed || typeof parsed !== "object") return defaultConfigCopy();
 
   const p = parsed as Partial<GameConfig>;
+  if (
+    p.heroLevel !== undefined &&
+    (typeof p.heroLevel !== "number" ||
+      !Number.isFinite(p.heroLevel) ||
+      p.heroLevel < 1 ||
+      p.heroLevel > 30)
+  ) {
+    return { ...defaultConfigCopy(), heroLevel: 30 };
+  }
   const keybindMode: KeybindMode = p.keybindMode === "legacy" ? "legacy" : "qwer";
+  const heroLevel = finiteNumber(p.heroLevel, DEFAULT_CONFIG.heroLevel, 1, 30);
   const aghanimsScepter = typeof p.aghanimsScepter === "boolean" ? p.aghanimsScepter : DEFAULT_CONFIG.aghanimsScepter;
-  const orbMax = aghanimsScepter ? 8 : 7;
-  const orbLevels = {
-    quas: finiteNumber(p.orbLevels?.quas, DEFAULT_CONFIG.orbLevels.quas, 0, orbMax),
-    wex: finiteNumber(p.orbLevels?.wex, DEFAULT_CONFIG.orbLevels.wex, 0, orbMax),
-    exort: finiteNumber(p.orbLevels?.exort, DEFAULT_CONFIG.orbLevels.exort, 0, orbMax),
-  };
+  const aghsOrb: ElementKind =
+    p.aghsOrb === "quas" || p.aghsOrb === "wex" || p.aghsOrb === "exort" ? p.aghsOrb : DEFAULT_CONFIG.aghsOrb;
+  const orbLevels = normalizeOrbLevels(
+    {
+      quas: finiteNumber(p.orbLevels?.quas, 0, 0, 9),
+      wex: finiteNumber(p.orbLevels?.wex, 0, 0, 9),
+      exort: finiteNumber(p.orbLevels?.exort, 0, 0, 9),
+    },
+    { heroLevel, aghanimsScepter, aghsOrb },
+  );
 
   return {
     configVersion: DEFAULT_CONFIG.configVersion,
-    heroLevel: finiteNumber(p.heroLevel, DEFAULT_CONFIG.heroLevel, 1, 30),
+    heroLevel,
+    aghsOrb,
     orbLevels,
     initialOrbs: validElementArray(p.initialOrbs),
     dummyMaxHp: finiteNumber(p.dummyMaxHp, DEFAULT_CONFIG.dummyMaxHp, 1, Number.MAX_SAFE_INTEGER),

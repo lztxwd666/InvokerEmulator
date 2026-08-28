@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { normalizeConfig, sanitizeItemKeys } from "./config";
-import { DEFAULT_CONFIG } from "./invoker";
+import { DEFAULT_CONFIG, getTotalAbilityPoints } from "./invoker";
 import { ITEMS } from "./spellData";
 
 describe("sanitizeItemKeys", () => {
@@ -100,11 +100,58 @@ describe("normalizeConfig", () => {
     expect(normalizeConfig({ quickcastModifier: "Invalid" }).quickcastModifier).toBe("Alt");
   });
 
-  it("未开启神杖时元素等级上限为7，开启后允许8", () => {
-    const without = normalizeConfig({ aghanimsScepter: false, orbLevels: { quas: 8, wex: 8, exort: 8 } });
-    expect(without.orbLevels.quas).toBe(7);
-    expect(without.orbLevels.wex).toBe(7);
-    const withAghs = normalizeConfig({ aghanimsScepter: true, orbLevels: { quas: 8, wex: 8, exort: 8 } });
+  it("未开启神杖时元素等级上限为8，开启神杖后仅一个元素可到9", () => {
+    const without = normalizeConfig({ heroLevel: 30, aghanimsScepter: false, orbLevels: { quas: 8, wex: 8, exort: 8 } });
+    expect(without.orbLevels.quas).toBe(8);
+    expect(without.orbLevels.wex).toBe(8);
+    expect(without.orbLevels.exort).toBe(8);
+    const withAghs = normalizeConfig({
+      heroLevel: 30,
+      aghanimsScepter: true,
+      aghsOrb: "exort",
+      orbLevels: { quas: 8, wex: 8, exort: 9 },
+    });
+    expect(withAghs.orbLevels.exort).toBe(9);
     expect(withAghs.orbLevels.quas).toBe(8);
+  });
+});
+
+describe("orb level mechanics", () => {
+  it("30 级无神杖时三个球均可到 8 级", () => {
+    expect(normalizeConfig({ heroLevel: 30, aghanimsScepter: false, orbLevels: { quas: 8, wex: 8, exort: 8 } }).orbLevels).toEqual({
+      quas: 8,
+      wex: 8,
+      exort: 8,
+    });
+  });
+
+  it("30 级开神杖且选择火时火可到 9 级，其他最多 8", () => {
+    const config = normalizeConfig({
+      heroLevel: 30,
+      aghanimsScepter: true,
+      aghsOrb: "exort",
+      orbLevels: { quas: 8, wex: 8, exort: 9 },
+    });
+    expect(config.orbLevels.exort).toBe(9);
+    expect(config.orbLevels.quas).toBe(8);
+    expect(config.orbLevels.wex).toBe(8);
+  });
+
+  it("6 级时 Invoke 额外技能点使总点数为 7", () => {
+    expect(getTotalAbilityPoints(6)).toBe(7);
+  });
+});
+
+describe("Aghanim's Scepter orb bonus", () => {
+  it("21 级无神杖 888，开神杖火球 988 且不降其他球", () => {
+    const without = normalizeConfig({ heroLevel: 21, aghanimsScepter: false, orbLevels: { quas: 8, wex: 8, exort: 8 } });
+    expect(without.orbLevels).toEqual({ quas: 8, wex: 8, exort: 8 });
+    const withAghs = normalizeConfig({
+      heroLevel: 21,
+      aghanimsScepter: true,
+      aghsOrb: "exort",
+      orbLevels: { quas: 8, wex: 8, exort: 8 },
+    });
+    expect(withAghs.orbLevels).toEqual({ quas: 8, wex: 8, exort: 9 });
   });
 });

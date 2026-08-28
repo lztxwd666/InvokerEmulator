@@ -12,9 +12,10 @@ const BASE_STATS = {
 };
 
 export const DEFAULT_CONFIG: GameConfig = {
-  configVersion: 3,
+  configVersion: 4,
   heroLevel: 12,
-  orbLevels: { quas: 7, wex: 7, exort: 7 },
+  orbLevels: { quas: 6, wex: 1, exort: 6 },
+  aghsOrb: "exort",
   initialOrbs: [],
   dummyMaxHp: 2000,
   dummyMaxMana: 1000,
@@ -35,6 +36,96 @@ export const DEFAULT_CONFIG: GameConfig = {
   muted: false,
   aghanimsScepter: false,
 };
+
+
+/** Invoke 在英雄 6/12/18 级额外给予一个技能点。 */
+export function getBonusAbilityPoints(heroLevel: number): number {
+  let bonus = 0;
+  if (heroLevel >= 6) bonus += 1;
+  if (heroLevel >= 12) bonus += 1;
+  if (heroLevel >= 18) bonus += 1;
+  return bonus;
+}
+
+export function getTotalAbilityPoints(heroLevel: number): number {
+  return Math.max(0, heroLevel) + getBonusAbilityPoints(heroLevel);
+}
+
+/** 当前英雄等级下单个元素球的最大等级。14 级前受普通技能逐级限制。 */
+export function getOrbMaxLevel(
+  config: Pick<GameConfig, "heroLevel" | "aghanimsScepter" | "aghsOrb">,
+  element: ElementKind,
+): number {
+  const regularCap = config.heroLevel >= 14 ? 8 : Math.ceil(config.heroLevel / 2);
+  if (config.aghanimsScepter && config.aghsOrb === element) {
+    return Math.min(9, regularCap + 1);
+  }
+  return regularCap;
+}
+
+/** 默认“火卡”分配：优先点满 Exort，其次 Quas，最后 Wex，并受英雄等级和 Aghs 限制。 */
+/** 社区常见“火卡”加点顺序：前期 Exort/Quas 交替，中期引入 Wex，后期补齐三球。 */
+const EXORT_ORB_SEQUENCE: ElementKind[] = [
+  "exort", "quas", "exort", "quas", "exort", "wex", "exort", "quas",
+  "quas", "exort", "exort", "wex", "exort", "wex", "exort", "wex",
+  "quas", "wex", "exort", "quas", "wex", "quas",
+];
+
+export function autoOrbLevels(
+  config: Pick<GameConfig, "heroLevel" | "aghanimsScepter" | "aghsOrb">,
+): Record<ElementKind, number> {
+  const levels: Record<ElementKind, number> = { quas: 0, wex: 0, exort: 0 };
+  let points = getTotalAbilityPoints(config.heroLevel);
+  const order: ElementKind[] = ["exort", "quas", "wex"];
+  let sequenceIndex = 0;
+  while (points > 0) {
+    const baseMax = config.heroLevel >= 14 ? 8 : Math.ceil(config.heroLevel / 2);
+    const preferred = EXORT_ORB_SEQUENCE[sequenceIndex % EXORT_ORB_SEQUENCE.length];
+    const target =
+      levels[preferred] < baseMax
+        ? preferred
+        : order.find((element) => levels[element] < baseMax);
+    if (!target) break;
+    levels[target] += 1;
+    points -= 1;
+    sequenceIndex += 1;
+  }
+  if (config.aghanimsScepter) {
+    const max = getOrbMaxLevel(config, config.aghsOrb);
+    if (levels[config.aghsOrb] + 1 <= max) {
+      levels[config.aghsOrb] += 1;
+    }
+  }
+  return levels;
+}
+
+/** 校验并修正用户手动调整的球等级。Aghanim +1 独立于技能点总数。 */
+export function normalizeOrbLevels(
+  levels: Record<ElementKind, number>,
+  config: Pick<GameConfig, "heroLevel" | "aghanimsScepter" | "aghsOrb">,
+): Record<ElementKind, number> {
+  const result: Record<ElementKind, number> = { quas: 0, wex: 0, exort: 0 };
+  const total = getTotalAbilityPoints(config.heroLevel);
+  const chosen = config.aghsOrb;
+  const regularCap = config.heroLevel >= 14 ? 8 : Math.ceil(config.heroLevel / 2);
+  const chosenMax = getOrbMaxLevel(config, chosen);
+
+  // 神杖强化球：基础部分占用技能点，额外 +1 独立于技能点总数。
+  const chosenBase = Math.max(0, Math.min(regularCap, levels[chosen] ?? 0));
+  result[chosen] = config.aghanimsScepter
+    ? Math.min(chosenMax, chosenBase + 1)
+    : chosenBase;
+
+  let remaining = Math.max(0, total - chosenBase);
+  const otherOrder: ElementKind[] = (["exort", "quas", "wex"] as ElementKind[]).filter((e) => e !== chosen);
+  for (const element of otherOrder) {
+    const max = getOrbMaxLevel(config, element);
+    const value = Math.max(0, Math.min(max, levels[element] ?? 0, remaining));
+    result[element] = value;
+    remaining -= value;
+  }
+  return result;
+}
 
 /** 计算英雄属性。Quas/Wex/Exort 分别提供力量/敏捷/智力加成。 */
 export function computeAttributes(config: GameConfig) {

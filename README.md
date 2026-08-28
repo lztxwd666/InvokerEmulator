@@ -127,6 +127,6 @@ ATTRIBUTION.md
 
 ## 许可证
 
-本项目的代码采用 MIT License
+MIT
 
 项目中包含的 Dota 2 游戏资源仍归 Valve 所有

@@ -113,4 +113,6 @@ Do not redistribute the bundled assets for commercial purposes without reviewing
 
 ## License
 
-The project code is licensed under the MIT License. The bundled Dota 2 assets remain the property of Valve.
+MIT
+
+The bundled Dota 2 assets remain the property of Valve.

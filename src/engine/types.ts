@@ -51,6 +51,8 @@ export interface GameConfig {
   configVersion: number;
   heroLevel: number;
   orbLevels: Record<ElementKind, number>;
+  /** Aghanim's Scepter 选择的元素 */
+  aghsOrb: ElementKind;
   initialOrbs: ElementKind[];
   dummyMaxHp: number;
   dummyMaxMana: number;
