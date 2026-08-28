@@ -84,7 +84,6 @@ export interface DummyState {
   maxHp: number;
   mana: number;
   maxMana: number;
-  lastHit?: string;
 }
 
 /** 练习器完整状态 */

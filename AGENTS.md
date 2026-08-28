@@ -91,3 +91,6 @@ Core features:
 
 - When the user requests a commit message, provide a ready-to-copy Markdown-formatted Chinese commit message.
 - The commit message should be concise but descriptive, and should reflect the actual source changes.
+- The commit message must cover only the current uncommitted changes in the working tree, not historical or previously committed changes.
+- Before writing the message, run `git status --short` and `git diff --stat` to enumerate what is actually uncommitted.
+- Do not include changes that are not part of the current uncommitted set.

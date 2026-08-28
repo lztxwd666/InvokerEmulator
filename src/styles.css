@@ -498,18 +498,23 @@ button {
   height: 24px;
   background: linear-gradient(180deg, #0a0f14, #141c25);
   border: 1px solid rgba(78, 96, 118, 0.55);
-  border-radius: 8px;
+  border-radius: 0;
   overflow: hidden;
   font-size: 12px;
+  font-weight: 700;
   line-height: 22px;
-  padding-left: 8px;
   z-index: 1;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .bar span {
   position: relative;
   z-index: 2;
+  color: #fff;
   text-shadow: 0 1px 2px #000;
 }
 
@@ -523,18 +528,30 @@ button {
 }
 
 .bar.mana .bar-fill {
-  background: linear-gradient(180deg, #4d9be0, #2b5f9e 60%, #1d4069);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 45%),
+    linear-gradient(180deg, #4d9be0, #2b5f9e 60%, #1d4069);
 }
 
 .bar.hp .bar-fill {
-  background: linear-gradient(180deg, #e06a6a, #a33 60%, #5d2020);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 45%),
+    linear-gradient(180deg, #5f9b4c, #2e6f3e 60%, #1b4d2a);
 }
 
-.last-hit {
-  margin-top: 2px;
-  font-size: 11px;
-  color: #ffb86c;
+.bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0 24%,
+    rgba(0, 0, 0, 0.1) 24% 25%
+  );
 }
+
 
 .center-hud {
   display: flex;

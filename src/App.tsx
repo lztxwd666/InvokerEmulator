@@ -57,7 +57,7 @@ export default function App() {
   const randomStartRef = useRef(0);
   const [pendingCast, setPendingCast] = useState<{ spell: SpellId; key: string } | null>(null);
   const [pendingItem, setPendingItem] = useState<{ item: ItemId; key: string } | null>(null);
-  const lastTravelPressRef = useRef<{ item: ItemId; time: number } | null>(null);
+  const lastDoublePressRef = useRef<{ kind: "cast" | "item"; key: string; time: number } | null>(null);
   const lastCataclysmPressRef = useRef<{ spell: CastableId; time: number } | null>(null);
 
   const stateRef = useRef(state);
@@ -127,14 +127,6 @@ export default function App() {
   useEffect(() => {
     // 切换语言后重置提示，避免旧语言文案残留
     setEvent(t("event.welcome"));
-    setState((prev) => {
-      const next = {
-        ...prev,
-        dummy: { ...prev.dummy, lastHit: undefined },
-      };
-      stateRef.current = next;
-      return next;
-    });
   }, [lang]);
 
   const performElement = (element: ElementKind) => {
@@ -142,7 +134,7 @@ export default function App() {
     commit(result.state);
     setPendingCast(null);
     setPendingItem(null);
-    lastTravelPressRef.current = null;
+    lastDoublePressRef.current = null;
     lastCataclysmPressRef.current = null;
     setEvent(result.event ?? "");
     playOrbSwitch(element);
@@ -153,7 +145,7 @@ export default function App() {
     commit(result.state);
     setPendingCast(null);
     setPendingItem(null);
-    lastTravelPressRef.current = null;
+    lastDoublePressRef.current = null;
     lastCataclysmPressRef.current = null;
     setEvent(result.event ?? "");
     const invokeSucceeded =
@@ -186,7 +178,7 @@ export default function App() {
     commit(result.state);
     setPendingCast(null);
     setPendingItem(null);
-    lastTravelPressRef.current = null;
+    lastDoublePressRef.current = null;
     lastCataclysmPressRef.current = null;
     setEvent(result.event ?? "");
     const prefix = lang === "zh" ? "释放" : "Cast";
@@ -219,7 +211,7 @@ export default function App() {
     commit(result.state);
     setPendingCast(null);
     setPendingItem(null);
-    lastTravelPressRef.current = null;
+    lastDoublePressRef.current = null;
     lastCataclysmPressRef.current = null;
     setEvent(result.event ?? "");
     const prefix = lang === "zh" ? "使用" : "Use";
@@ -245,26 +237,35 @@ export default function App() {
       return;
     }
 
-    if (item === "travel_boots") {
-      const now = performance.now();
-      const last = lastTravelPressRef.current;
-      if (last && last.item === item && now - last.time <= 400) {
-        lastTravelPressRef.current = null;
-        setPendingItem(null);
-        if (performItemAction(item)) advancePlan({ type: "item", key, item });
-        return;
-      }
-      lastTravelPressRef.current = { item, time: now };
+    // 只有远行鞋支持双击释放；其他单品保持左键点击假人确认。
+    if (meta.target !== "travel") {
+      lastDoublePressRef.current = null;
+      lastCataclysmPressRef.current = null;
+      setPendingCast(null);
+      setPendingItem({ item, key });
+      setEvent(
+        formatTemplate(t("event.pendingItem"), {
+          item: lang === "zh" ? meta.nameZh : meta.nameEn,
+          key,
+        }),
+      );
+      return;
     }
 
-    if (item !== "travel_boots") {
-      lastTravelPressRef.current = null;
+    const now = performance.now();
+    const last = lastDoublePressRef.current;
+    if (last && last.kind === "item" && last.key === key && now - last.time <= 400) {
+      lastDoublePressRef.current = null;
+      setPendingItem(null);
+      if (performItemAction(item)) advancePlan({ type: "item", key, item });
+      return;
     }
+    lastDoublePressRef.current = { kind: "item", key, time: now };
     lastCataclysmPressRef.current = null;
     setPendingCast(null);
     setPendingItem({ item, key });
     setEvent(
-      formatTemplate(t(item === "travel_boots" ? "event.travelDouble" : "event.pendingItem"), {
+      formatTemplate(t("event.travelDouble"), {
         item: lang === "zh" ? meta.nameZh : meta.nameEn,
         key,
       }),
@@ -322,7 +323,7 @@ export default function App() {
       if (!randomMode && (spell === "invoker_ghost_walk" || spell === "invoker_ice_wall")) {
         setPendingCast(null);
         setPendingItem(null);
-        lastTravelPressRef.current = null;
+        lastDoublePressRef.current = null;
         if (castSpellAction(spell)) {
           if (!advancePlan({ type: "cast", key, spell })) reportWrongStep({ type: "cast", key, spell });
         }
@@ -347,8 +348,25 @@ export default function App() {
       }
 
       const needsRightClick = spell === "invoker_forge_spirit";
+      // 普通施法模式双击快速释放仅限灵动迅捷，毁天灭地在上面单独处理。
+      const allowDoublePress = !needsRightClick && spell === "invoker_alacrity";
+      if (allowDoublePress) {
+        const now = performance.now();
+        const last = lastDoublePressRef.current;
+        if (last && last.kind === "cast" && last.key === key && now - last.time <= 400) {
+          lastDoublePressRef.current = null;
+          setPendingCast(null);
+          setPendingItem(null);
+          if (castSpellAction(spell)) {
+            if (!advancePlan({ type: "cast", key, spell })) reportWrongStep({ type: "cast", key, spell });
+          }
+          return;
+        }
+        lastDoublePressRef.current = { kind: "cast", key, time: now };
+      } else {
+        lastDoublePressRef.current = null;
+      }
       setPendingItem(null);
-      lastTravelPressRef.current = null;
       setPendingCast({ spell, key });
       setEvent(
         formatTemplate(t(needsRightClick ? "event.pendingForge" : "event.pendingCast"), {
@@ -397,7 +415,7 @@ export default function App() {
     const { item, key } = pendingItem;
     if (button !== "left") {
       setPendingItem(null);
-      lastTravelPressRef.current = null;
+      lastDoublePressRef.current = null;
       setEvent(t("event.castCancelled"));
       return;
     }
@@ -498,7 +516,7 @@ export default function App() {
   const handleQuickcastKey = (key: string): boolean => {
     const item = itemForKey(key);
     if (item === "travel_boots") {
-      lastTravelPressRef.current = null;
+      lastDoublePressRef.current = null;
       setPendingCast(null);
       setPendingItem(null);
       if (performItemAction(item)) advancePlan({ type: "item", key, item });
@@ -565,7 +583,7 @@ export default function App() {
       } else {
         setPendingCast(null);
         setPendingItem(null);
-        lastTravelPressRef.current = null;
+        lastDoublePressRef.current = null;
         lastCataclysmPressRef.current = null;
       }
     },
@@ -654,7 +672,7 @@ export default function App() {
     setRandomMode(!randomMode);
     setPendingCast(null);
     setPendingItem(null);
-    lastTravelPressRef.current = null;
+    lastDoublePressRef.current = null;
     lastCataclysmPressRef.current = null;
   };
 

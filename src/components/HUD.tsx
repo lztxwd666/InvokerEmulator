@@ -47,11 +47,11 @@ export function HUD({
         </div>
         <div className="bars">
           <div className="bar hp">
-            <span>{t("hud.hp")} {Math.round(state.hp)}/{Math.round(state.maxHp)}</span>
+            <span>{Math.round(state.hp)} / {Math.round(state.maxHp)}</span>
             <div className="bar-fill" style={{ width: `${(state.hp / state.maxHp) * 100}%` }} />
           </div>
           <div className="bar mana">
-            <span>{t("hud.mana")} {Math.round(state.mana)}/{Math.round(state.maxMana)}</span>
+            <span>{Math.round(state.mana)} / {Math.round(state.maxMana)}</span>
             <div className="bar-fill" style={{ width: `${(state.mana / state.maxMana) * 100}%` }} />
           </div>
         </div>
@@ -167,14 +167,13 @@ export function HUD({
         </div>
         <div className="bars">
           <div className="bar hp">
-            <span>{t("hud.dummyHp")} {Math.round(state.dummy.hp)}/{state.dummy.maxHp}</span>
+            <span>{Math.round(state.dummy.hp)} / {state.dummy.maxHp}</span>
             <div className="bar-fill" style={{ width: `${(state.dummy.hp / state.dummy.maxHp) * 100}%` }} />
           </div>
           <div className="bar mana">
-            <span>{t("hud.dummyMana")} {Math.round(state.dummy.mana)}/{state.dummy.maxMana}</span>
+            <span>{Math.round(state.dummy.mana)} / {state.dummy.maxMana}</span>
             <div className="bar-fill" style={{ width: `${(state.dummy.mana / state.dummy.maxMana) * 100}%` }} />
           </div>
-          {state.dummy.lastHit && <div className="last-hit">{state.dummy.lastHit}</div>}
         </div>
       </div>
     </div>

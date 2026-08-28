@@ -310,7 +310,6 @@ export function castSpell(state: InvokerState, spell: SpellId, lang: Lang = "zh"
 
   if (damage > 0) {
     next.dummy.hp = Math.max(0, next.dummy.hp - damage);
-    next.dummy.lastHit = `${spellName(spell, lang)}: -${damage}`;
     event += lang === "zh" ? `，造成 ${damage} 伤害` : `, dealt ${damage} damage`;
   }
 
@@ -346,10 +345,7 @@ export function useItem(state: InvokerState, item: ItemId, lang: Lang = "zh"): A
   } else if (item === "meteor_hammer") {
     const damage = 130 + 50 * 6;
     next.dummy.hp = Math.max(0, next.dummy.hp - damage);
-    next.dummy.lastHit = `${itemName}: -${damage}`;
     event += lang === "zh" ? `，造成 ${damage} 伤害` : `, dealt ${damage} damage`;
-  } else if (item === "sheepstick") {
-    next.dummy.lastHit = lang === "zh" ? "邪恶镰刀：妖术" : "Scythe of Vyse: Hex";
   } else if (item === "travel_boots") {
     event = lang === "zh" ? "远行鞋传送至假人" : "Boots of Travel teleported to dummy";
   }
@@ -396,7 +392,6 @@ export function castCataclysm(state: InvokerState, lang: Lang = "zh"): ActionRes
   const base = valueAt(VALUES.sunStrike.damage, next.orbLevels.exort);
   const damage = Math.round(base * 0.75 * 2);
   next.dummy.hp = Math.max(0, next.dummy.hp - damage);
-  next.dummy.lastHit = `${meta.nameCn}: -${damage}`;
 
   return {
     state: next,
